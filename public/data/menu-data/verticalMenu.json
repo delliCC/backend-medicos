@@ -2,7 +2,7 @@
   "menu": [
     {
       "url": "home",
-      "name": "Home",
+      "name": "Inicio",
       "icon": "home",
       "slug": "home"
     },
