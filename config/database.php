@@ -2,6 +2,11 @@
 
 use Illuminate\Support\Str;
 
+// var_dump(env('DB_HOST'));
+// var_dump(env('DB_DATABASE'));
+// var_dump(env('DB_USERNAME'));
+// var_dump(env('DB_PASSWORD'));
+
 return [
 
     /*
