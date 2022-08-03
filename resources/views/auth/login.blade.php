@@ -14,7 +14,8 @@
     <div class="card mb-0">
       <div class="card-body">
         <a href="javascript:void(0);" class="brand-logo">
-          <svg viewbox="0 0 139 95" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="28">
+          {{--  <svg viewbox="0 0 139 95" version="1.1" xmlns="https://laboratorios-chontalpa-file.s3.amazonaws.com/favicon.png" xmlns:xlink="http://www.w3.org/1999/xlink" height="28">
+            <svg viewbox="0 0 139 95" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="28">
             <defs>
               <lineargradient id="linearGradient-1" x1="100%" y1="10.5120544%" x2="50%" y2="89.4879456%">
                 <stop stop-color="#000000" offset="0%"></stop>
@@ -36,19 +37,20 @@
                 </g>
               </g>
             </g>
-          </svg>
-          <h2 class="brand-text text-primary ml-1">Vuexy</h2>
+          </svg>  --}}
+          {{--  <h2 class="brand-text text-primary ml-1">Vuexy</h2>  --}}
+          <img src="https://laboratorios-chontalpa-file.s3.amazonaws.com/laboratorios-chontalpa-logotipo1.png" alt="">
         </a>
 
-        <h4 class="card-title mb-1">Welcome to Vuexy! 👋</h4>
-        <p class="card-text mb-2">Please sign-in to your account and start the adventure</p>
+        <h4 class="card-title mb-1">PORTAL MÉDICO</h4>
+        <p class="card-text mb-2">Inicia sesión en tu cuenta y comienza la aventura</p>
 
         <form class="auth-login-form mt-2" method="POST" action="{{ route('login') }}">
           @csrf
           <div class="form-group">
-            <label for="login-email" class="form-label">Email</label>
-            <input type="text" class="form-control @error('email') is-invalid @enderror" id="login-email" name="email" placeholder="john@example.com" aria-describedby="login-email" tabindex="1" autofocus value="{{ old('email') }}" />
-            @error('email')
+            <label for="login-email" class="form-label">Usuario</label>
+            <input type="text" class="form-control @error('username') is-invalid @enderror" id="login-email" name="username" placeholder="example.com" aria-describedby="login-email" tabindex="1" autofocus value="{{ old('username') }}" />
+            @error('username')
               <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
               </span>
@@ -57,10 +59,10 @@
 
           <div class="form-group">
             <div class="d-flex justify-content-between">
-              <label for="login-password">Password</label>
+              <label for="login-password">Contraseña</label>
               @if (Route::has('password.request'))
               <a href="{{ route('password.request') }}">
-                <small>Forgot Password?</small>
+                <small>¿Olvidaste tu contraseña?</small>
               </a>
               @endif
             </div>
@@ -74,26 +76,26 @@
           <div class="form-group">
             <div class="custom-control custom-checkbox">
               <input class="custom-control-input" type="checkbox" id="remember-me" name="remember-me" tabindex="3" {{ old('remember-me') ? 'checked' : '' }} />
-              <label class="custom-control-label" for="remember-me"> Remember Me </label>
+              <label class="custom-control-label" for="remember-me"> Recuérdame </label>
             </div>
           </div>
-          <button type="submit" class="btn btn-primary btn-block" tabindex="4">Sign in</button>
+          <button type="submit" class="btn btn-success btn-block" tabindex="4">Iniciar sesión</button>
         </form>
 
-        <p class="text-center mt-2">
+        {{--  <p class="text-center mt-2">
           <span>New on our platform?</span>
           @if (Route::has('register'))
           <a href="{{ route('register') }}">
             <span>Create an account</span>
           </a>
           @endif
-        </p>
+        </p>  --}}
 
         <div class="divider my-2">
-          <div class="divider-text">or</div>
+          <div class="divider-text"></div>
         </div>
 
-        <div class="auth-footer-btn d-flex justify-content-center">
+        {{--  <div class="auth-footer-btn d-flex justify-content-center">
           <a href="javascript:void(0)" class="btn btn-facebook">
             <i data-feather="facebook"></i>
           </a>
@@ -106,7 +108,7 @@
           <a href="javascript:void(0)" class="btn btn-github">
             <i data-feather="github"></i>
           </a>
-        </div>
+        </div>  --}}
       </div>
     </div>
     <!-- /Login v1 -->

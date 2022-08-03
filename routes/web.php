@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\StaterkitController;
-use App\Http\Controllers\LanguageController;
-
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Auth\LoginController;
+use Illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -33,7 +33,10 @@ use App\Http\Controllers\LanguageController;
 
 Auth::routes(["register" => false]);
 
-Route::get('/', 'Auth\LoginController@showLoginForm');
+Route::get('/', [LoginController::class, 'showLoginForm']);
+Route::post('/login', [LoginController::class, 'login']);
 Route::group(['middlaware' => 'auth'], function() {
-    
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
+   
 });
+
