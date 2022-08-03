@@ -28,7 +28,8 @@ $configData = Helper::applClasses();
                 </g>
               </g>
             </svg></span>
-          <h2 class="brand-text">Vuexy</h2>
+          <h2 class="brand-text">Vxy</h2>
+          {{--  <img src="https://laboratorios-chontalpa-file.s3.amazonaws.com/favicon.png" alt="">  --}}
         </a></li>
       <li class="nav-item nav-toggle"><a class="nav-link modern-nav-toggle pr-0" data-toggle="collapse"><i class="d-block d-xl-none text-primary toggle-icon font-medium-4" data-feather="x"></i><i class="d-none d-xl-block collapse-toggle-icon font-medium-4  text-primary" data-feather="disc" data-ticon="disc"></i></a></li>
     </ul>
