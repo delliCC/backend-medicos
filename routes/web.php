@@ -1,10 +1,11 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MedicosController;
 use App\Http\Controllers\Auth\LoginController;
-use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\ReporteController;
+use App\Http\Controllers\TabIndicatesController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -38,6 +39,8 @@ Route::get('/', [LoginController::class, 'showLoginForm']);
 Route::post('/login', [LoginController::class, 'login']);
 Route::group(['middlaware' => 'auth'], function() {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
-    Route::get('/reporte', [ReporteController::class, 'index'])->name('reporte-medico');
+    Route::get('/medicos', [MedicosController::class, 'index'])->name('medico');
+    Route::get('/ficha-indica', [TabIndicatesController::class, 'index'])->name('tab-indicates');
+    Route::get('/cupones', [TabIndicatesController::class, 'index'])->name('coupons');
 });
 
