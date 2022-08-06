@@ -32,7 +32,7 @@
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title" id="myModalLabel1">Crear especialidad</h4>
+        <h4 class="modal-title" id="myModalLabel1">Registrar Ficha Indica</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -40,8 +40,8 @@
       <div class="modal-body">
         <form id="addNewSpecialty" class="row gy-1 gx-2" onsubmit="return false" novalidate="novalidate">
           <div class="col-12">
-            <label class="form-label" for="especialidad">Nombre</label>
-            <input type="text" id="especialidad" name="especialidad" class="form-control" placeholder="especialidad">
+            <label class="form-label" for="nombre">Nombre</label>
+            <input type="text" id="nombre" name="nombre" class="form-control" placeholder="nombre">
           </div>
           <div class="col-12">
             <label class="form-label" for="especialidad">Descripción</label>

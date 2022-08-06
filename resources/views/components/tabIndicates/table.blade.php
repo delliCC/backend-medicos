@@ -21,7 +21,9 @@
   <thead>
     <tr role="row">
       <th class="control sorting_disabled" rowspan="1" colspan="1" style="width: 0px; display: none;" aria-label=""></th>
-      <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 97px;" aria-label="Salary: activate to sort column ascending">Especialidad</th>
+      <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 97px;" aria-label="Salary: activate to sort column ascending">Ficha Indica</th>
+      <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 97px;" aria-label="Salary: activate to sort column ascending">Imagen</th>
+      <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 97px;" aria-label="Salary: activate to sort column ascending">Descripción</th>
       <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 123px;" aria-label="Status: activate to sort column ascending">estatus</th>
       <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 92px;" aria-label="Actions">Acción</th>
     </tr>
@@ -29,6 +31,8 @@
   <tbody>
     <tr class="odd">
       <td class=" control" tabindex="0" style="display: none;"></td>
+      <td>$24973.48</td>
+      <td>$24973.48</td>
       <td>$24973.48</td>
       <td><span class="badge rounded-pill  badge-light-success">Professional</span></td>
       <td>
@@ -42,6 +46,8 @@
     </tr>
     <tr class="odd"><td class=" control" tabindex="0" style="display: none;"></td>
       <td>$15211.60</td>
+      <td>$24973.48</td>
+      <td>$24973.48</td>
       <td><span class="badge rounded-pill  badge-light-success">Professional</span></td>
       <td>
         <button type="button" class="btn btn-icon btn-warning waves-effect waves-float waves-light">

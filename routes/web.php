@@ -3,10 +3,12 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\CouponsController;
 use App\Http\Controllers\MedicosController;
+use App\Http\Controllers\StudiesController;
+use App\Http\Controllers\SpecialtyController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\TabIndicatesController;
-use App\Http\Controllers\EspecialidadesController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -40,10 +42,11 @@ Route::get('/', [LoginController::class, 'showLoginForm']);
 Route::post('/login', [LoginController::class, 'login']);
 Route::group(['middlaware' => 'auth'], function() {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
-    Route::get('/especialidades', [EspecialidadesController::class, 'index'])->name('specialty');
+    Route::get('/especialidades', [SpecialtyController::class, 'index'])->name('specialty');
+    Route::get('/estudios', [StudiesController::class, 'index'])->name('studies');
 
     Route::get('/medicos', [MedicosController::class, 'index'])->name('medico');
     Route::get('/ficha-indica', [TabIndicatesController::class, 'index'])->name('tab-indicates');
-    Route::get('/cupones', [TabIndicatesController::class, 'index'])->name('coupons');
+    Route::get('/cupones', [CouponsController::class, 'index'])->name('coupons');
 });
 

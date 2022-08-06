@@ -19,7 +19,7 @@
               </div>
             </div>
           </div>  
-          @include('components/table')
+          @include('components/specialty/table')
         </div>
       </div>
     </div>

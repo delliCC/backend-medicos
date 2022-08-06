@@ -8,6 +8,7 @@ return [
   "Cupones"=>"Cupones",
   "Catálogos"=>"Catálogos",
   "Especialidades"=>"Especialidades",
+  "Estudios"=>"Estudios",
   "Starter Kit"=>"Starter Kit",
   "Dashboards" => "Dashboards",
   "Analytics" => "Analytics",

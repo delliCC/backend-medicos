@@ -36,6 +36,12 @@
           "name": "Especialidades",
           "icon": "circle",
           "slug": "especialidades"
+        },
+        {
+          "url": "estudios",
+          "name": "Estudios",
+          "icon": "circle",
+          "slug": "estudios"
         }
       ]
     }
