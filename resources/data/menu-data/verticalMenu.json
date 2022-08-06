@@ -16,13 +16,28 @@
       "url": "ficha-indica",
       "name": "Ficha Indica",
       "icon": "file-text",
-      "slug": "ficha indica"
+      "slug": "ficha-indica"
     },
     {
       "url": "cupones",
       "name": "Cupones",
       "icon": "bookmark",
       "slug": "cupones"
+    },
+    {
+      "name": "Catálogos",
+      "icon": "layers",
+      "slug": "",
+      "badge": "1",
+      "badgeClass": "badge badge-pill badge-light-danger ml-auto mr-1",
+      "submenu": [
+        {
+          "url": "especialidades",
+          "name": "Especialidades",
+          "icon": "circle",
+          "slug": "especialidades"
+        }
+      ]
     }
   ]
 }

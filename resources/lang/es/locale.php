@@ -6,6 +6,8 @@ return [
   "Medicos"=>"Medicos",
   "Ficha Indica"=>"Ficha Indica",
   "Cupones"=>"Cupones",
+  "Catálogos"=>"Catálogos",
+  "Especialidades"=>"Especialidades",
   "Starter Kit"=>"Starter Kit",
   "Dashboards" => "Dashboards",
   "Analytics" => "Analytics",

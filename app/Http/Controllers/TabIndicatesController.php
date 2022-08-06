@@ -13,7 +13,7 @@ class TabIndicatesController extends Controller
      */
     public function index()
     {
-        $pageConfigs = ['blankPage' => true];
+        $pageConfigs = ['blankPage' => false];
         $breadcrumbs = [
             ['link'=>"javascript:void(0)", 'name'=>"Ficha Indica"]
         ];

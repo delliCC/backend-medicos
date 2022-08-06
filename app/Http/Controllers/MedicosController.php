@@ -13,11 +13,11 @@ class MedicosController extends Controller
      */
     public function index()
     {
-        $pageConfigs = ['blankPage' => true];
+        $pageConfigs = ['blankPage' => false];
         $breadcrumbs = [
             ['link'=>"javascript:void(0)", 'name'=>"Medicos"]
         ];
-        return view('/pages/index', ['pageConfigs' => $pageConfigs, 'breadcrumbs' => $breadcrumbs]);
+        return view('/pages/medicos', ['pageConfigs' => $pageConfigs, 'breadcrumbs' => $breadcrumbs]);
     }
 
     /**
