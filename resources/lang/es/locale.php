@@ -7,6 +7,8 @@ return [
   "Ficha Indica"=>"Ficha Indica",
   "Cupones"=>"Cupones",
   "Catálogos"=>"Catálogos",
+  "Permisos"=>"Permisos",
+  "Roles"=>"Roles",
   "Especialidades"=>"Especialidades",
   "Estudios"=>"Estudios",
   "Starter Kit"=>"Starter Kit",

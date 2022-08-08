@@ -58,14 +58,15 @@
               <span class="user-status">Admin</span>
             </div>
             <span class="avatar">
-              <img class="round" src="{{asset('images/portrait/small/avatar-s-11.jpg')}}" alt="avatar" height="40" width="40">
+              <img src="https://laboratorios-chontalpa-file.s3.amazonaws.com/favicon.png" alt="avatar" height="40" width="40">
+              {{--  <img class="round" src="{{asset('images/portrait/small/avatar-s-11.jpg')}}" alt="avatar" height="40" width="40">  --}}
               <span class="avatar-status-online"></span>
             </span>
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-user">
-            <a class="dropdown-item" href="javascript:void(0)">
+            {{--  <a class="dropdown-item" href="javascript:void(0)">
               <i class="mr-50" data-feather="user"></i> Perfil
-            </a>
+            </a>  --}}
             <form method="POST" action="{{ route('logout') }}">
               @csrf
               <button class="dropdown-item"><i class="mr-50" data-feather="power"></i> Cerrar Sesión</button>

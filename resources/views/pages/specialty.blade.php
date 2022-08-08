@@ -43,7 +43,7 @@
         <div class="modal-body">
           <div class="col-12">
             <label class="form-label" for="especialidad">Especialidad</label>
-            <input type="text" id="modalAddressFirstName" name="modalAddressFirstName" class="form-control" placeholder="John" data-msg="Please enter your first name">
+            {{--  <input type="text" id="modalAddressFirstName" name="modalAddressFirstName" class="form-control" placeholder="John" data-msg="Please enter your first name">  --}}
             <input type="text" id="especialidad" name="especialidad" class="form-control" placeholder="especialidad">
           </div>
         </div>

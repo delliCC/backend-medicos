@@ -45,7 +45,7 @@ Route::group(['middlaware' => 'auth'], function() {
     Route::get('/especialidades', [SpecialtyController::class, 'index'])->name('specialty');
     Route::post('/guardar', [SpecialtyController::class, 'store'])->name('save-specialty');
     Route::get('/estudios', [StudiesController::class, 'index'])->name('studies');
-
+    
     Route::get('/medicos', [MedicosController::class, 'index'])->name('medico');
     Route::get('/ficha-indica', [TabIndicatesController::class, 'index'])->name('tab-indicates');
     Route::get('/cupones', [CouponsController::class, 'index'])->name('coupons');

@@ -7,6 +7,27 @@
       "slug": "inicio"
     },
     {
+      "name": "Permisos",
+      "icon": "lock",
+      "slug": "",
+      "badge": "2",
+      "badgeClass": "badge badge-pill badge-light-danger ml-auto mr-1",
+      "submenu": [
+        {
+          "url": "roles",
+          "name": "Roles",
+          "icon": "circle",
+          "slug": "roles"
+        },
+        {
+          "url": "usuario",
+          "name": "Usuarios",
+          "icon": "circle",
+          "slug": "usuario"
+        }
+      ]
+    },
+    {
       "url": "medicos",
       "name": "Medicos",
       "icon": "thermometer",
@@ -28,7 +49,7 @@
       "name": "Catálogos",
       "icon": "layers",
       "slug": "",
-      "badge": "1",
+      "badge": "2",
       "badgeClass": "badge badge-pill badge-light-danger ml-auto mr-1",
       "submenu": [
         {

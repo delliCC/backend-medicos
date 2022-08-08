@@ -10,7 +10,8 @@ class studies extends Model
     use HasFactory;
 
     protected $fillable = [
-        'especialidad',
+        'estudios',
+        'descripcion',
         'status'
     ];
 }
