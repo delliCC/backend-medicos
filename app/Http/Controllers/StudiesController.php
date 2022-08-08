@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\specialty;
+use App\Models\studies;
 use Illuminate\Http\Request;
 
 class StudiesController extends Controller
@@ -38,7 +38,7 @@ class StudiesController extends Controller
      */
     public function store(Request $request)
     {
-        specialty::create($request);
+        studies::create($request);
     }
 
     /**
@@ -60,7 +60,7 @@ class StudiesController extends Controller
      */
     public function edit($id)
     {
-        $datos = specialty::find($id);
+        $datos = studies::find($id);
         $datos->update();
     }
 

@@ -13,30 +13,25 @@ class Medicos extends Migration
      */
     public function up()
     {
-        // Schema::create('medicos', function (Blueprint $table) {
-        //     $table->id();
-        //     $table->string('nombre');
-        //     $table->string('apaterno');
-        //     $table->string('amaterno');
-        //     $table->string('email');
-        //     $table->string('celular');
-        //     $table->text('direccion');
-        //     $table->string('pais');
-        //     $table->string('estado')->unsigned();
-        //     $table->string('municipio')->unsigned();
-        //     $table->string('prefijo');
-        //     $table->string('hospital_trabajo')->null();
-        //     $table->enum('tipo_medico',['General','Especialista'])->default('general');
-        //     $table->integer('especialidad_id')->null()->unsigned();
-        //     $table->boolean('status')->default(true);
-        //     $table->timestamps();
-
-        //     $table->foreign('especialidad_id')->references('id')->on('cat_especialidades');
-        // });
-
-        // Schema::table('medicos', function (Blueprint $table) {
-        //     $table->foreign('especialidad_id')->references('id')->on('cat_especialidades');
-        // });
+        Schema::create('medicos', function (Blueprint $table) {
+            $table->id();
+            $table->string('nombre');
+            $table->string('apaterno');
+            $table->string('amaterno');
+            $table->string('email');
+            $table->string('celular');
+            $table->text('direccion');
+            $table->string('pais');
+            $table->string('estado');
+            $table->string('municipio');
+            $table->string('prefijo');
+            $table->string('hospital_trabajo')->nullable();
+            $table->enum('tipo_medico',['General','Especialista'])->default('general');
+            $table->unsignedBigInteger('especialidad_id')->nullable();
+            $table->boolean('status')->default(true);
+            $table->timestamps();
+            $table->foreign('especialidad_id')->references('id')->on('cat_especialidades');
+        });
     }
 
     /**

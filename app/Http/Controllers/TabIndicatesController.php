@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\TabIndicates;
 use Illuminate\Http\Request;
 
 class TabIndicatesController extends Controller
@@ -38,7 +39,7 @@ class TabIndicatesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        TabIndicates::create($request);
     }
 
     /**

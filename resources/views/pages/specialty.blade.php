@@ -37,19 +37,26 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
-        <form id="addNewSpecialty" class="row gy-1 gx-2" onsubmit="return false" novalidate="novalidate">
+      <form id="addNewSpecialty" class="row gy-1 gx-2" onsubmit="return false" novalidate="novalidate" action="" method="POST">
+        {{--  {{ route('guardar')}}  --}}
+        @csrf
+        <div class="modal-body">
           <div class="col-12">
             <label class="form-label" for="especialidad">Especialidad</label>
+            <input type="text" id="modalAddressFirstName" name="modalAddressFirstName" class="form-control" placeholder="John" data-msg="Please enter your first name">
             <input type="text" id="especialidad" name="especialidad" class="form-control" placeholder="especialidad">
           </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-outline-success waves-effect">Guardar</button>
-        <button type="button" class="btn btn-outline-dark waves-effect" data-dismiss="modal">Cancelar</button>
-      </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-success waves-effect">Guardar</button>
+          <button type="button" class="btn btn-outline-dark waves-effect" data-dismiss="modal">Cancelar</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
+@endsection
+
+@section('javascript')
+<script src="{{ asset('js/scripts/components/specialty/specialty.js') }}"></script>
 @endsection

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\specialty;
 use Illuminate\Http\Request;
 
 class SpecialtyController extends Controller
@@ -36,7 +37,8 @@ class SpecialtyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return $request;
+        specialty::create($request);
     }
 
     /**
@@ -58,7 +60,8 @@ class SpecialtyController extends Controller
      */
     public function edit($id)
     {
-        //
+        $datos = specialty::find($id);
+        $datos->update();
     }
 
     /**

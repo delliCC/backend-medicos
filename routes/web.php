@@ -43,6 +43,7 @@ Route::post('/login', [LoginController::class, 'login']);
 Route::group(['middlaware' => 'auth'], function() {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('/especialidades', [SpecialtyController::class, 'index'])->name('specialty');
+    Route::post('/guardar', [SpecialtyController::class, 'store'])->name('save-specialty');
     Route::get('/estudios', [StudiesController::class, 'index'])->name('studies');
 
     Route::get('/medicos', [MedicosController::class, 'index'])->name('medico');
