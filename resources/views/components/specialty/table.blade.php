@@ -27,36 +27,33 @@
     </tr>
   </thead>
   <tbody>
-    <tr class="odd">
-      <td class=" control" tabindex="0" style="display: none;"></td>
-      <td>$24973.48</td>
-      <td><span class="badge rounded-pill  badge-light-success">Professional</span></td>
-      <td>
-        <a href="javascript:;" class="item-edit">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit font-small-4">
-            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
-            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
-          </svg>
-        </a>
-      </td>
-    </tr>
-    <tr class="odd"><td class=" control" tabindex="0" style="display: none;"></td>
-      <td>$15211.60</td>
-      <td><span class="badge rounded-pill  badge-light-success">Professional</span></td>
-      <td>
-        <button type="button" class="btn btn-icon btn-warning waves-effect waves-float waves-light">
-          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-inbox">
-            <polyline points="22 12 16 12 14 15 10 15 8 12 2 12"></polyline><path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"></path>
-          </svg>
-        </button>
-        {{--  <a href="javascript:;" class="item-edit">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit font-small-4">
-            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
-            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
-          </svg>
-        </a>  --}}
-      </td>
-    </tr>     
+    @foreach ($datos as $dato)
+      <tr class="odd">
+        <td class=" control" tabindex="0" style="display: none;"></td>
+        <td>{{$dato->especialidad}}</td>
+        <td>
+          @if ($dato->status === 1)
+            <span class="badge rounded-pill  badge-light-success">Activo</span>
+          @else
+            <span class="badge rounded-pill badge-light-danger me-1">Desactivado</span>
+          @endif
+        </td>
+        <td>
+          @if ($dato->status === 1)
+            <button type="button" class="btn btn-icon rounded-circle btn-outline-danger waves-effect"><i data-feather='thumbs-down'></i></button>
+          @else
+            <button type="button" class="btn btn-icon rounded-circle btn-outline-success waves-effect"><i data-feather='thumbs-up'></i></button>
+          @endif
+          {{--  <a href="javascript:;" class="item-edit">
+            <i data-feather='edit'></i>
+          </a>  --}}
+          {{--  $dato->status   --}}
+          <button type="button" class="btn btn-icon rounded-circle btn-outline-info waves-effect" data-toggle="modal" data-target="#editSpecialty">
+            <i data-feather='edit'></i>
+          </button>
+        </td>
+      </tr>
+    @endforeach 
   </tbody>
 </table>
 <div class="d-flex justify-content-between mx-0 row">

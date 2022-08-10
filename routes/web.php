@@ -42,8 +42,12 @@ Route::get('/', [LoginController::class, 'showLoginForm']);
 Route::post('/login', [LoginController::class, 'login']);
 Route::group(['middlaware' => 'auth'], function() {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
+    //catalogue
     Route::get('/especialidades', [SpecialtyController::class, 'index'])->name('specialty');
-    Route::post('/guardar', [SpecialtyController::class, 'store'])->name('save-specialty');
+    Route::post('/guardar-especialidad', [SpecialtyController::class, 'store'])->name('save-specialty');
+    Route::get('/editar-especialidad', [SpecialtyController::class, 'edit'])->name('edit-specialty');
+    Route::put('/actualizar-especialidad', [SpecialtyController::class, 'update'])->name('update-specialty');
+
     Route::get('/estudios', [StudiesController::class, 'index'])->name('studies');
     
     Route::get('/medicos', [MedicosController::class, 'index'])->name('medico');

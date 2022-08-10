@@ -9,6 +9,8 @@ class specialty extends Model
 {
     use HasFactory;
 
+    protected $table = 'cat_especialidades';
+ 
     protected $fillable = [
         'especialidad',
         'status'

@@ -3,7 +3,7 @@
 @section('title', 'Especialidades')
 
 @section('content')
-<!-- Page layout -->
+
 <div class="card">
   <div class="card-body">
     <div class="col-12">
@@ -25,36 +25,9 @@
     </div>
   </div>
 </div>
-<!--/ Page layout -->
 
-<!-- Add Role Modal -->
-<div class="modal fade text-left" id="default" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title" id="myModalLabel1">Crear especialidad</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <form id="addNewSpecialty" class="row gy-1 gx-2" onsubmit="return false" novalidate="novalidate" action="" method="POST">
-        {{--  {{ route('guardar')}}  --}}
-        @csrf
-        <div class="modal-body">
-          <div class="col-12">
-            <label class="form-label" for="especialidad">Especialidad</label>
-            {{--  <input type="text" id="modalAddressFirstName" name="modalAddressFirstName" class="form-control" placeholder="John" data-msg="Please enter your first name">  --}}
-            <input type="text" id="especialidad" name="especialidad" class="form-control" placeholder="especialidad">
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-outline-success waves-effect">Guardar</button>
-          <button type="button" class="btn btn-outline-dark waves-effect" data-dismiss="modal">Cancelar</button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
+@include('components/specialty/modal')
+
 @endsection
 
 @section('javascript')

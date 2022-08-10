@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\specialty;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class SpecialtyController extends Controller
 {
@@ -14,9 +15,10 @@ class SpecialtyController extends Controller
      */
     public function index()
     {
+        $datos = specialty::all();
         $pageConfigs = ['blankPage' => false];
         $breadcrumbs = [['link' => "javascript:void(0)", 'name' => "Catálogos"], ['link' => "javascript:void(0)", 'name' => "Especialidades"]];
-        return view('/pages/specialty', ['pageConfigs' => $pageConfigs, 'breadcrumbs' => $breadcrumbs]);
+        return view('/pages/specialty', ['pageConfigs' => $pageConfigs, 'breadcrumbs' => $breadcrumbs, 'datos'=>$datos]);
     }
 
     /**
@@ -37,8 +39,13 @@ class SpecialtyController extends Controller
      */
     public function store(Request $request)
     {
-        return $request;
-        specialty::create($request);
+        $this->validate($request, [
+            'especialidad' => 'required|string'
+        ]);
+        
+        // return $request;
+        specialty::create($request->all());
+        return redirect('/especialidades')->with('message', 'Datos guardados correctamente');
     }
 
     /**
@@ -61,7 +68,7 @@ class SpecialtyController extends Controller
     public function edit($id)
     {
         $datos = specialty::find($id);
-        $datos->update();
+        return $datos;
     }
 
     /**
