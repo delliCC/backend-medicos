@@ -19,7 +19,7 @@
       <h4 class="card-title text-left">Lista de Médicos</h4>
     </div>
     <div class="col-3 text-right">
-      <a href="{{route('medicos.create')}}" class="btn btn-outline-warning"><i data-feather="plus"></i> Nuevo Médico</a>
+      <a href="{{route('medicos.create')}}" class="btn btn-outline-success"><i data-feather="plus"></i> Nuevo Médico</a>
     </div>
   </div>
   <!-- Basic table -->

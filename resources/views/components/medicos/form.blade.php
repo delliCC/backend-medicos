@@ -90,7 +90,7 @@
 
     <div class="col-xl-4 col-md-6 col-12 mb-1">
         <fieldset class="form-group">
-            <label for="tipo_medico">Médico <i style="color: red">*</i></label>
+            <label for="tipo_medico">Médico</label>
             <input type="tel" value="{{ old('tipo_medico', isset($medico) ? $medico->tipo_medico : '') }}" class="form-control @error('tipo_medico') is-invalid @enderror" name="tipo_medico"  placeholder="Médico">
             @error('tipo_medico')
             <span class="invalid-feedback" role="alert">
@@ -102,7 +102,7 @@
 
     <div class="col-xl-4 col-md-6 col-12 mb-1">
         <fieldset class="form-group">
-            <label for="especialidad_id">Especialidad <i style="color: red">*</i></label>
+            <label for="especialidad_id">Especialidad</label>
             <input type="tel" value="{{ old('especialidad_id', isset($medico) ? $medico->especialidad_id : '') }}" class="form-control @error('especialidad_id') is-invalid @enderror" name="especialidad_id"  placeholder="Especialidad">
             @error('especialidad_id')
             <span class="invalid-feedback" role="alert">
@@ -168,7 +168,7 @@
     
     
     <div class="col-xl-12 col-md-12 col-12">
-        <a href="{{ route('medicos.index') }}" class="btn btn-secondary"><i data-feather="slash"></i> Cancelar</a>
+        <a href="{{ route('medicos.index') }}" class="btn btn-outline-warning"><i data-feather="slash"></i> Cancelar</a>
         <button type="submit" class="btn btn-success"><i data-feather="save"></i> Guardar</button>
     </div>
 </div>

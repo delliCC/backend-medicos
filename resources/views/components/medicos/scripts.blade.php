@@ -22,9 +22,8 @@
           { "data": "nombre" },
           { "data": "correo" },
           { "data": "telefono" },
-          { "data": "direccion" },
           { "data": "tipo_medico" },
-          { "data": "especialidad" },
+          { "data": "especialidad_id" },
           { "data": "accion" }
         ]
         $('#medicos-table').DataTable(configuracionesBasicasDatatable);

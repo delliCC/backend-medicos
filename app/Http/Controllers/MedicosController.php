@@ -51,15 +51,12 @@ class MedicosController extends Controller
             'apellido_paterno' => 'required',
             'apellido_materno' => 'required',
             'correo' => 'required|email|unique:users,email',
-            'telefono' => 'required',
+            'telefono' => 'required|min:10|numeric',
             'direccion' => 'required',
             'pais' => 'required',
             'estado' => 'required',
             'municipio' => 'required',
             'prefijo' => 'required',
-            'hospital_trabajo' => 'required',
-            'tipo_medico' => 'required',
-            'especialidad_id' => 'required',
         ]);
 
         Medico::create($request->all());
@@ -120,11 +117,18 @@ class MedicosController extends Controller
     function listar()
     {
         $medicos = Medico::select(
-            'id'
+            'id',
+            'nombre',
+            'apellido_paterno',
+            'apellido_materno',
+            'correo',
+            'telefono',
+            'tipo_medico',
+            'especialidad_id',
         )->get();
         return DataTables::of($medicos)->addColumn('accion', function($row){
             $btn = '<div class="demo-inline-spacing">';
-            $btn .= '<a href="'.route("medicos.edit", $row->id).'" class="btn btn-secondary btn-sm"><i data-feather="edit"></i></a>';
+            $btn .= '<a href="'.route("medicos.edit", $row->id).'" class="btn btn-outline-info btn-sm"><i data-feather="edit"></i></a>';
             return $btn;
         })->rawColumns(['accion'])->make();
     }

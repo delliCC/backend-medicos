@@ -58,7 +58,7 @@ Route::group(['middlaware' => 'auth'], function() {
         Route::get('/listar', [MedicosController::class, 'listar']);
         Route::get('/crear', [MedicosController::class, 'create'])->name('medicos.create');
         Route::post('/guardar', [MedicosController::class, 'store'])->name('medicos.store');
-        Route::get('/{id}', [MedicosController::class, 'edit']);
+        Route::get('/{id}', [MedicosController::class, 'edit'])->name('medicos.edit');
         Route::put('/actualizar', [MedicosController::class, 'update']);
     });
 });
