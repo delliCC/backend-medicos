@@ -31,7 +31,11 @@ class MedicosController extends Controller
      */
     public function create()
     {
-        //
+        $breadcrumbs = [
+            ['link'=>"medicos",'name'=>"Médicos"], ['name'=>"Crear"]
+        ];
+
+        return view('/pages/medicos/create', ['breadcrumbs' => $breadcrumbs]);
     }
 
     /**
@@ -42,7 +46,25 @@ class MedicosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'nombre' => 'required',
+            'apellido_paterno' => 'required',
+            'apellido_materno' => 'required',
+            'correo' => 'required|email|unique:users,email',
+            'telefono' => 'required',
+            'direccion' => 'required',
+            'pais' => 'required',
+            'estado' => 'required',
+            'municipio' => 'required',
+            'prefijo' => 'required',
+            'hospital_trabajo' => 'required',
+            'tipo_medico' => 'required',
+            'especialidad_id' => 'required',
+        ]);
+
+        Medico::create($request->all());
+
+        return redirect()->route('medicos.index')->with('success', 'Datos guardados correctamente.');
     }
 
     /**
