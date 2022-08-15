@@ -16,19 +16,19 @@ class Medicos extends Migration
         Schema::create('medicos', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
-            $table->string('apaterno');
-            $table->string('amaterno');
-            $table->string('email');
-            $table->string('celular');
+            $table->string('apellido_paterno');
+            $table->string('apellido_materno');
+            $table->string('correo');
+            $table->string('telefono');
             $table->text('direccion');
             $table->string('pais');
             $table->string('estado');
             $table->string('municipio');
             $table->string('prefijo');
             $table->string('hospital_trabajo')->nullable();
-            $table->enum('tipo_medico',['General','Especialista'])->default('general');
-            $table->unsignedBigInteger('especialidad_id')->nullable();
+            $table->enum('tipo_medico',['General','Especialista'])->default('General');
             $table->boolean('status')->default(true);
+            $table->unsignedBigInteger('especialidad_id')->nullable();
             $table->timestamps();
             $table->foreign('especialidad_id')->references('id')->on('cat_especialidades');
         });

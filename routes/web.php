@@ -49,9 +49,16 @@ Route::group(['middlaware' => 'auth'], function() {
     Route::put('/actualizar-especialidad', [SpecialtyController::class, 'update'])->name('update-specialty');
 
     Route::get('/estudios', [StudiesController::class, 'index'])->name('studies');
-    
-    Route::get('/medicos', [MedicosController::class, 'index'])->name('medico');
+
     Route::get('/ficha-indica', [TabIndicatesController::class, 'index'])->name('tab-indicates');
     Route::get('/cupones', [CouponsController::class, 'index'])->name('coupons');
+
+    Route::group(['prefix' => 'medicos'], function () {
+        Route::get('/', [MedicosController::class, 'index']);
+        Route::get('/listar', [MedicosController::class, 'listar']);
+        Route::post('/crear', [MedicosController::class, 'store'])->name('medicos.create');
+        Route::get('/{id}', [MedicosController::class, 'edit']);
+        Route::put('/actualizar', [MedicosController::class, 'update']);
+    });
 });
 
