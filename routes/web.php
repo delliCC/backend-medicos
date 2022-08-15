@@ -47,11 +47,13 @@ Route::group(['middlaware' => 'auth'], function() {
     Route::post('/guardar-especialidad', [SpecialtyController::class, 'store'])->name('save-specialty');
     Route::get('/editar-especialidad', [SpecialtyController::class, 'edit'])->name('edit-specialty');
     Route::put('/actualizar-especialidad', [SpecialtyController::class, 'update'])->name('update-specialty');
+    Route::get('/estatus-especialidad/{id}/{estado}', [SpecialtyController::class, 'status'])->name('status-specialty');
 
     Route::get('/estudios', [StudiesController::class, 'index'])->name('studies');
     
     Route::get('/medicos', [MedicosController::class, 'index'])->name('medico');
     Route::get('/ficha-indica', [TabIndicatesController::class, 'index'])->name('tab-indicates');
+    Route::post('/guardar-ficha-indica', [TabIndicatesController::class, 'store'])->name('save-tab-indicates');
     Route::get('/cupones', [CouponsController::class, 'index'])->name('coupons');
 });
 

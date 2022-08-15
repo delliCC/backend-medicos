@@ -80,7 +80,9 @@ class SpecialtyController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $datos = specialty::find($id);
+        $datos->update($request->all());
+        return redirect('/especialidades')->with('message', 'Datos editados correctamente');
     }
 
     /**
@@ -92,5 +94,21 @@ class SpecialtyController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function status($id, $estado)
+    {
+        $datos = specialty::findOrFail($id);
+        if ($datos->status === 1) {
+            $datos->status = $estado;
+            $datos->save();
+            return 'cambio: activo a '.$estado;
+        }else{
+            
+            $datos->status = $estado;
+            $datos->save();
+            return 'cambio: inactivo a '. $estado;
+        }
+        return $datos;
     }
 }

@@ -26,34 +26,5 @@
   </div>
 </div>
 <!--/ Page layout -->
-
-<!-- Add Role Modal -->
-<div class="modal fade text-left" id="default" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title" id="myModalLabel1">Registrar Ficha Indica</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form id="addNewSpecialty" class="row gy-1 gx-2" onsubmit="return false" novalidate="novalidate">
-          <div class="col-12">
-            <label class="form-label" for="nombre">Nombre</label>
-            <input type="text" id="nombre" name="nombre" class="form-control" placeholder="nombre">
-          </div>
-          <div class="col-12">
-            <label class="form-label" for="especialidad">Descripción</label>
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Textarea"></textarea>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-outline-success waves-effect">Guardar</button>
-        <button type="button" class="btn btn-outline-dark waves-effect" data-dismiss="modal">Cancelar</button>
-      </div>
-    </div>
-  </div>
-</div>
+@include('components/tabIndicates/modal')
 @endsection
