@@ -50,7 +50,7 @@ class MedicosController extends Controller
             'nombre' => 'required',
             'apellido_paterno' => 'required',
             'apellido_materno' => 'required',
-            'correo' => 'required|email|unique:users,email',
+            'correo' => 'required|email|unique:medicos,email',
             'telefono' => 'required|min:10|numeric',
             'direccion' => 'required',
             'pais' => 'required',
@@ -83,7 +83,13 @@ class MedicosController extends Controller
      */
     public function edit($id)
     {
-        //
+        $breadcrumbs = [
+            ['link'=>"medicos", 'name'=>"Lista de Médicos"], ['name'=>"Editar"]
+        ];
+
+        $medico = Medico::find($id);
+
+        return view('/pages/medicos/edit', ['breadcrumbs' => $breadcrumbs, 'medico' => $medico]);
     }
 
     /**
@@ -95,7 +101,24 @@ class MedicosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'nombre' => 'required',
+            'apellido_paterno' => 'required',
+            'apellido_materno' => 'required',
+            'correo' => 'required|email|email',
+            'telefono' => 'required|min:10|numeric',
+            'direccion' => 'required',
+            'pais' => 'required',
+            'estado' => 'required',
+            'municipio' => 'required',
+            'prefijo' => 'required',
+        ]);
+
+        $medico = Medico::find($id);
+
+        $medico->update($request->all());
+
+        return redirect()->route('medicos.index')->with('success', 'Datos actualizados correctamente.');
     }
 
     /**

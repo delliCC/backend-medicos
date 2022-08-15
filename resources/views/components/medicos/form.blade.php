@@ -120,8 +120,8 @@
 
     <div class="col-xl-4 col-md-6 col-12">
         <fieldset class="form-group">
-            <label for="pais">País</label>
-            <input type="text" value="{{ old('pais', isset($cliente) ? $cliente->pais : '') }}" class="form-control @error('pais') is-invalid @enderror" name="pais"  placeholder="País">
+            <label for="pais">País <i style="color: red">*</i></label>
+            <input type="text" value="{{ old('pais', isset($medico) ? $medico->pais : '') }}" class="form-control @error('pais') is-invalid @enderror" name="pais"  placeholder="País">
             @error('pais')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
@@ -132,8 +132,8 @@
 
     <div class="col-xl-4 col-md-6 col-12">
         <fieldset class="form-group">
-            <label for="estado">Estado</label>
-            <input type="text" value="{{ old('estado', isset($cliente) ? $cliente->estado : '') }}" class="form-control @error('estado') is-invalid @enderror" name="estado"  placeholder="Estado">
+            <label for="estado">Estado <i style="color: red">*</i></label>
+            <input type="text" value="{{ old('estado', isset($medico) ? $medico->estado : '') }}" class="form-control @error('estado') is-invalid @enderror" name="estado"  placeholder="Estado">
             @error('estado')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
@@ -145,7 +145,7 @@
     <div class="col-xl-4 col-md-6 col-12">
         <fieldset class="form-group">
             <label for="municipio">Municipio <i style="color: red">*</i></label>
-            <input type="text" value="{{ old('municipio', isset($cliente) ? $cliente->municipio : '') }}" class="form-control @error('municipio') is-invalid @enderror" name="municipio"  placeholder="Municipio">
+            <input type="text" value="{{ old('municipio', isset($medico) ? $medico->municipio : '') }}" class="form-control @error('municipio') is-invalid @enderror" name="municipio"  placeholder="Municipio">
             @error('municipio')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
@@ -157,7 +157,9 @@
     <div class="col-xl-12 col-md-12 col-12">
         <fieldset class="form-group">
             <label for="direccion">Dirección completa <i style="color: red">*</i></label>
-            <textarea class="form-control @error('direccion') is-invalid @enderror" name="direccion"  placeholder="Dirección"></textarea>
+            <textarea class="form-control @error('direccion') is-invalid @enderror" name="direccion"  placeholder="Dirección">
+                {{ isset($medico) ? $medico->direccion : '' }}
+            </textarea>
             @error('direccion')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
