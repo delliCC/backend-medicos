@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use DataTables;
 use App\Models\specialty;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -15,10 +16,11 @@ class SpecialtyController extends Controller
      */
     public function index()
     {
-        $datos = specialty::all();
         $pageConfigs = ['blankPage' => false];
-        $breadcrumbs = [['link' => "javascript:void(0)", 'name' => "Catálogos"], ['link' => "javascript:void(0)", 'name' => "Especialidades"]];
-        return view('/pages/specialty', ['pageConfigs' => $pageConfigs, 'breadcrumbs' => $breadcrumbs, 'datos'=>$datos]);
+        $breadcrumbs = [
+            ['link' => "javascript:void(0)", 'name' => "Catálogos"], ['link' => "javascript:void(0)", 'name' => "Especialidades"]
+        ];
+        return view('/pages/specialty/index', ['pageConfigs' => $pageConfigs, 'breadcrumbs' => $breadcrumbs]);
     }
 
     /**
@@ -40,12 +42,11 @@ class SpecialtyController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'especialidad' => 'required|string'
+            'especialidad' => 'required|string|unique:cat_especialidades,especialidad',
         ]);
-        
-        // return $request;
+
         specialty::create($request->all());
-        return redirect('/especialidades')->with('message', 'Datos guardados correctamente');
+        return redirect()->route('specialty.index')->with('success', 'Datos guardados correctamente.');
     }
 
     /**
@@ -67,8 +68,13 @@ class SpecialtyController extends Controller
      */
     public function edit($id)
     {
-        $datos = specialty::find($id);
-        return $datos;
+        $breadcrumbs = [
+            ['link'=>"especialidad", 'name'=>"Lista de Especialidad"], ['name'=>"Editar"]
+        ];
+
+        $especialidad = specialty::find($id);
+
+        return view('/pages/specialty/edit', ['breadcrumbs' => $breadcrumbs, 'especialidad' => $especialidad]);
     }
 
     /**
@@ -80,9 +86,15 @@ class SpecialtyController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $datos = specialty::find($id);
-        $datos->update($request->all());
-        return redirect('/especialidades')->with('message', 'Datos editados correctamente');
+        $this->validate($request, [
+            'especialidad' => 'required|string|unique:cat_especialidades,especialidad',
+        ]);
+
+        $especialidad = specialty::find($id);
+
+        $especialidad->update($request->all());
+
+        return redirect()->route('specialty.index')->with('success', 'Datos actualizados correctamente.');
     }
 
     /**
@@ -110,5 +122,19 @@ class SpecialtyController extends Controller
             return 'cambio: inactivo a '. $estado;
         }
         return $datos;
+    }
+
+    function listar()
+    {
+        $especialidad = specialty::select(
+            'id',
+            'especialidad',
+            'status',
+        )->get();
+        return DataTables::of($especialidad)->addColumn('accion', function($row){
+            $btn = '<div class="demo-inline-spacing">';
+            $btn .= '<a href="'.route("specialty.edit", $row->id).'" class="btn btn-outline-info btn-sm"><i data-feather="edit"></i></a>';
+            return $btn;
+        })->rawColumns(['accion'])->make();
     }
 }

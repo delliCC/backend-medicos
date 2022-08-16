@@ -7,14 +7,20 @@
             <span aria-hidden="true">&times;</span>
             </button>
         </div>
-        <form class="needs-validation" id="addNewSpecialty" action="{{ route('save-specialty')}}" method="POST" novalidate>
+        <form class="needs-validation" id="addNewSpecialty" action="{{ route('specialty.store')}}" method="POST" novalidate>
             @csrf
             <div class="modal-body">
-            <div class="col-12">
-                <label class="form-label" for="especialidad">Especialidad</label>
-                {{--  <input type="text" id="modalAddressFirstName" name="modalAddressFirstName" class="form-control" placeholder="John" data-msg="Please enter your first name">  --}}
-                <input type="text" id="especialidad" name="especialidad" class="form-control" placeholder="especialidad">
-            </div>
+              <div class="col-12 mb-1">
+                <fieldset class="form-group">
+                    <label for="hospital_trabajo">Hospital</label>
+                    <input type="text" value="{{ old('especialidad', isset($especialidad) ? $especialidad->especialidad : '') }}" class="form-control @error('especialidad') is-invalid @enderror" name="especialidad"  placeholder="especialidad">
+                    @error('especialidad')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </fieldset>
+              </div>
             </div>
             <div class="modal-footer">
             <button type="submit" class="btn btn-outline-success waves-effect">Guardar</button>
@@ -34,7 +40,7 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form class="needs-validation" id="editSpecialty" action="{{ route('update-specialty')}}" method="POST" novalidate>
+        <form class="needs-validation" id="editSpecialty"  method="POST" novalidate>
           @csrf
           <div class="modal-body">
             <div class="col-12">

@@ -29,7 +29,3 @@
 @include('components/specialty/modal')
 
 @endsection
-
-@section('javascript')
-<script src="{{ asset('js/scripts/components/specialty/specialty.js') }}"></script>
-@endsection

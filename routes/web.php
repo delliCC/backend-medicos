@@ -43,11 +43,15 @@ Route::post('/login', [LoginController::class, 'login']);
 Route::group(['middlaware' => 'auth'], function() {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     //catalogue
-    Route::get('/especialidades', [SpecialtyController::class, 'index'])->name('specialty');
-    Route::post('/guardar-especialidad', [SpecialtyController::class, 'store'])->name('save-specialty');
-    Route::get('/editar-especialidad', [SpecialtyController::class, 'edit'])->name('edit-specialty');
-    Route::put('/actualizar-especialidad', [SpecialtyController::class, 'update'])->name('update-specialty');
-    Route::get('/estatus-especialidad/{id}/{estado}', [SpecialtyController::class, 'status'])->name('status-specialty');
+    Route::group(['prefix' => 'especialidad'], function () {
+        Route::get('/', [SpecialtyController::class, 'index'])->name('specialty.index');
+        Route::get('/listar', [SpecialtyController::class, 'listar']);
+        Route::post('/guardar', [SpecialtyController::class, 'store'])->name('specialty.store');
+        Route::get('/{id}', [SpecialtyController::class, 'edit'])->name('specialty.edit');
+        Route::put('/actualizar/{id}', [SpecialtyController::class, 'update'])->name('specialty.update');
+        Route::get('/estatus/{id}/{estado}', [SpecialtyController::class, 'status'])->name('specialty.status');
+    });
+    
 
     Route::get('/estudios', [StudiesController::class, 'index'])->name('studies');
 

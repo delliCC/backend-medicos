@@ -50,7 +50,7 @@ class MedicosController extends Controller
             'nombre' => 'required',
             'apellido_paterno' => 'required',
             'apellido_materno' => 'required',
-            'correo' => 'required|email|unique:medicos,email',
+            'correo' => 'required|email|unique:medicos,correo',
             'telefono' => 'required|min:10|numeric',
             'direccion' => 'required',
             'pais' => 'required',

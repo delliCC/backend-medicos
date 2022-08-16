@@ -53,10 +53,10 @@
       "badgeClass": "badge badge-pill badge-light-danger ml-auto mr-1",
       "submenu": [
         {
-          "url": "especialidades",
+          "url": "especialidad",
           "name": "Especialidades",
           "icon": "circle",
-          "slug": "especialidades"
+          "slug": "especialidad"
         },
         {
           "url": "estudios",
