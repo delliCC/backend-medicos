@@ -92,8 +92,8 @@
         <fieldset class="form-group">
             <label for="tipo_medico">Médico</label>
             <select class="form-control"  class="form-control" name="tipo_medico">
-                <option {{$medico->tipo_medico == 'General' ? 'selected' : ''}}>General</option>
-                <option {{$medico->tipo_medico == 'Especialista' ? 'selected' : ''}}>Especialista</option>
+                <option {{isset($medico) ? $medico->tipo_medico == 'General' ? 'selected' : '' : ''}}>General</option>
+                <option {{isset($medico) ? $medico->tipo_medico == 'Especialista' ? 'selected' : '' : ''}}>Especialista</option>
             </select>
         </fieldset>
     </div>
