@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Medico;
+use DataTables;
+use Carbon\Carbon;
 
 class MedicosController extends Controller
 {
@@ -15,9 +18,10 @@ class MedicosController extends Controller
     {
         $pageConfigs = ['blankPage' => false];
         $breadcrumbs = [
-            ['link'=>"javascript:void(0)", 'name'=>"Medicos"]
+            ['link'=>"medicos", 'name'=>"Lista de Médicos"], ['name'=>"Index"]
         ];
-        return view('/pages/medicos', ['pageConfigs' => $pageConfigs, 'breadcrumbs' => $breadcrumbs]);
+
+        return view('/pages/medicos/index', ['pageConfigs' => $pageConfigs, 'breadcrumbs' => $breadcrumbs]);
     }
 
     /**
@@ -27,7 +31,11 @@ class MedicosController extends Controller
      */
     public function create()
     {
-        //
+        $breadcrumbs = [
+            ['link'=>"medicos",'name'=>"Médicos"], ['name'=>"Crear"]
+        ];
+
+        return view('/pages/medicos/create', ['breadcrumbs' => $breadcrumbs]);
     }
 
     /**
@@ -38,7 +46,22 @@ class MedicosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'nombre' => 'required',
+            'apellido_paterno' => 'required',
+            'apellido_materno' => 'required',
+            'correo' => 'required|email|unique:medicos,email',
+            'telefono' => 'required|min:10|numeric',
+            'direccion' => 'required',
+            'pais' => 'required',
+            'estado' => 'required',
+            'municipio' => 'required',
+            'prefijo' => 'required',
+        ]);
+
+        Medico::create($request->all());
+
+        return redirect()->route('medicos.index')->with('success', 'Datos guardados correctamente.');
     }
 
     /**
@@ -60,7 +83,13 @@ class MedicosController extends Controller
      */
     public function edit($id)
     {
-        //
+        $breadcrumbs = [
+            ['link'=>"medicos", 'name'=>"Lista de Médicos"], ['name'=>"Editar"]
+        ];
+
+        $medico = Medico::find($id);
+
+        return view('/pages/medicos/edit', ['breadcrumbs' => $breadcrumbs, 'medico' => $medico]);
     }
 
     /**
@@ -72,7 +101,24 @@ class MedicosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'nombre' => 'required',
+            'apellido_paterno' => 'required',
+            'apellido_materno' => 'required',
+            'correo' => 'required|email|email',
+            'telefono' => 'required|min:10|numeric',
+            'direccion' => 'required',
+            'pais' => 'required',
+            'estado' => 'required',
+            'municipio' => 'required',
+            'prefijo' => 'required',
+        ]);
+
+        $medico = Medico::find($id);
+
+        $medico->update($request->all());
+
+        return redirect()->route('medicos.index')->with('success', 'Datos actualizados correctamente.');
     }
 
     /**
@@ -84,5 +130,29 @@ class MedicosController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * Lista medicos con Datatables.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    function listar()
+    {
+        $medicos = Medico::select(
+            'id',
+            'nombre',
+            'apellido_paterno',
+            'apellido_materno',
+            'correo',
+            'telefono',
+            'tipo_medico',
+            'especialidad_id',
+        )->get();
+        return DataTables::of($medicos)->addColumn('accion', function($row){
+            $btn = '<div class="demo-inline-spacing">';
+            $btn .= '<a href="'.route("medicos.edit", $row->id).'" class="btn btn-outline-info btn-sm"><i data-feather="edit"></i></a>';
+            return $btn;
+        })->rawColumns(['accion'])->make();
     }
 }

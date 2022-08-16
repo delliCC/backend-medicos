@@ -4,7 +4,7 @@
 .env
 .env.backup
 .phpunit.result.cache
-.docker\mariadb\datamysql
+/.docker\mariadb\datamysql
 Homestead.json
 Homestead.yaml
 npm-debug.log

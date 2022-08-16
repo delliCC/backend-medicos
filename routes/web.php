@@ -50,10 +50,18 @@ Route::group(['middlaware' => 'auth'], function() {
     Route::get('/estatus-especialidad/{id}/{estado}', [SpecialtyController::class, 'status'])->name('status-specialty');
 
     Route::get('/estudios', [StudiesController::class, 'index'])->name('studies');
-    
-    Route::get('/medicos', [MedicosController::class, 'index'])->name('medico');
+
     Route::get('/ficha-indica', [TabIndicatesController::class, 'index'])->name('tab-indicates');
     Route::post('/guardar-ficha-indica', [TabIndicatesController::class, 'store'])->name('save-tab-indicates');
     Route::get('/cupones', [CouponsController::class, 'index'])->name('coupons');
+
+    Route::group(['prefix' => 'medicos'], function () {
+        Route::get('/', [MedicosController::class, 'index'])->name('medicos.index');
+        Route::get('/listar', [MedicosController::class, 'listar']);
+        Route::get('/crear', [MedicosController::class, 'create'])->name('medicos.create');
+        Route::post('/guardar', [MedicosController::class, 'store'])->name('medicos.store');
+        Route::get('/{id}', [MedicosController::class, 'edit'])->name('medicos.edit');
+        Route::put('/actualizar/{id}', [MedicosController::class, 'update'])->name('medicos.update');
+    });
 });
 
