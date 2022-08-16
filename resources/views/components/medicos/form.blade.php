@@ -67,7 +67,7 @@
     <div class="col-xl-4 col-md-6 col-12 mb-1">
         <fieldset class="form-group">
             <label for="hospital_trabajo">Hospital</label>
-            <input type="tel" value="{{ old('hospital_trabajo', isset($medico) ? $medico->hospital_trabajo : '') }}" class="form-control @error('hospital_trabajo') is-invalid @enderror" name="hospital_trabajo"  placeholder="Hospital">
+            <input type="text" value="{{ old('hospital_trabajo', isset($medico) ? $medico->hospital_trabajo : '') }}" class="form-control @error('hospital_trabajo') is-invalid @enderror" name="hospital_trabajo"  placeholder="Hospital">
             @error('hospital_trabajo')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
@@ -79,7 +79,7 @@
     <div class="col-xl-4 col-md-6 col-12 mb-1">
         <fieldset class="form-group">
             <label for="prefijo">Prefijo <i style="color: red">*</i></label>
-            <input type="tel" value="{{ old('prefijo', isset($medico) ? $medico->prefijo : '') }}" class="form-control @error('prefijo') is-invalid @enderror" name="prefijo"  placeholder="Prefijo">
+            <input type="text" value="{{ old('prefijo', isset($medico) ? $medico->prefijo : '') }}" class="form-control @error('prefijo') is-invalid @enderror" name="prefijo"  placeholder="Prefijo">
             @error('prefijo')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
@@ -91,12 +91,10 @@
     <div class="col-xl-4 col-md-6 col-12 mb-1">
         <fieldset class="form-group">
             <label for="tipo_medico">Médico</label>
-            <input type="tel" value="{{ old('tipo_medico', isset($medico) ? $medico->tipo_medico : '') }}" class="form-control @error('tipo_medico') is-invalid @enderror" name="tipo_medico"  placeholder="Médico">
-            @error('tipo_medico')
-            <span class="invalid-feedback" role="alert">
-                <strong>{{ $message }}</strong>
-            </span>
-            @enderror
+            <select class="form-control"  class="form-control" name="tipo_medico">
+                <option {{$medico->tipo_medico == 'General' ? 'selected' : ''}}>General</option>
+                <option {{$medico->tipo_medico == 'Especialista' ? 'selected' : ''}}>Especialista</option>
+            </select>
         </fieldset>
     </div>
 
