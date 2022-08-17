@@ -10,9 +10,8 @@ class TabIndicates extends Model
     use HasFactory;
 
     protected $fillable = [
-        'medico_id',
+        'nombre',
         'url',
-        'imagen',
         'descripcion',
         'status'
     ];

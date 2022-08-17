@@ -52,11 +52,18 @@ Route::group(['middlaware' => 'auth'], function() {
         Route::get('/estatus/{id}/{estado}', [SpecialtyController::class, 'status'])->name('specialty.status');
     });
     
+    Route::group(['prefix' => 'ficha-indica'], function () {
+        Route::get('/', [TabIndicatesController::class, 'index'])->name('tabIndicates.index');
+        Route::get('/listar', [TabIndicatesController::class, 'listar']);
+        Route::post('/guardar', [TabIndicatesController::class, 'store'])->name('tabIndicates.store');
+        Route::get('/{id}', [TabIndicatesController::class, 'edit'])->name('tabIndicates.edit');
+        Route::put('/actualizar/{id}', [TabIndicatesController::class, 'update'])->name('tabIndicates.update');
+        Route::get('/estatus/{id}/{estado}', [TabIndicatesController::class, 'status'])->name('tabIndicates.status');
+    });
+    
 
     Route::get('/estudios', [StudiesController::class, 'index'])->name('studies');
 
-    Route::get('/ficha-indica', [TabIndicatesController::class, 'index'])->name('tab-indicates');
-    Route::post('/guardar-ficha-indica', [TabIndicatesController::class, 'store'])->name('save-tab-indicates');
     Route::get('/cupones', [CouponsController::class, 'index'])->name('coupons');
 
     Route::group(['prefix' => 'medicos'], function () {

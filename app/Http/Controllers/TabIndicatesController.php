@@ -18,7 +18,7 @@ class TabIndicatesController extends Controller
         $breadcrumbs = [
             ['link'=>"javascript:void(0)", 'name'=>"Ficha Indica"]
         ];
-        return view('/pages/tabIndicates', ['pageConfigs' => $pageConfigs, 'breadcrumbs' => $breadcrumbs]);
+        return view('/pages/tabIndicates/index', ['pageConfigs' => $pageConfigs, 'breadcrumbs' => $breadcrumbs]);
     }
 
     /**

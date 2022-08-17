@@ -20,7 +20,7 @@
         configuracionesBasicasDatatable['ajax'] = "especialidad/listar"
         configuracionesBasicasDatatable['columns'] = [
           { "data": "especialidad" },
-          { "data": "estatus" },
+          { "data": "status" },
           { "data": "accion" }
         ]
         $('#especialidad-table').DataTable(configuracionesBasicasDatatable);

@@ -133,7 +133,7 @@ class SpecialtyController extends Controller
         )->get();
         return DataTables::of($especialidad)->addColumn('accion', function($row){
             $btn = '<div class="demo-inline-spacing">';
-            $btn .= '<a href="'.route("specialty.edit", $row->id).'" class="btn btn-outline-info btn-sm"><i data-feather="edit"></i></a>';
+            $btn .= '<a href="'.route("specialty.edit", $row->id).'" class="btn btn-outline-info btn-sm" data-toggle="modal" data-target="#default"><i data-feather="edit"></i></a>';
             return $btn;
         })->rawColumns(['accion'])->make();
     }
