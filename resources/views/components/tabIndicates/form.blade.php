@@ -24,6 +24,36 @@
         </fieldset>
     </div>
     
+    <div class="col-12 mb-2">
+        <div class="border rounded p-2">
+          <h4 class="mb-1">Featured Image</h4>
+          <div class="media flex-column flex-md-row">
+            <img
+              src="{{asset('images/slider/03.jpg')}}"
+              id="blog-feature-image"
+              class="rounded mr-2 mb-1 mb-md-0"
+              width="170"
+              height="110"
+              alt="Blog Featured Image"
+            />
+            <div class="media-body">
+              <h5 class="mb-0">Main image:</h5>
+              <small class="text-muted">Required image resolution 800x400, image size 10mb.</small>
+              <p class="my-50">
+                <a href="javascript:void(0);" id="blog-image-text">C:\fakepath\banner.jpg</a>
+              </p>
+              <div class="d-inline-block">
+                <div class="form-group mb-0">
+                  <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="blogCustomFile" accept="image/*" />
+                    <label class="custom-file-label" for="blogCustomFile">Choose file</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 </div>
 <div class="modal-footer">
     <a href="{{ route('tabIndicates.index') }}" class="btn btn-outline-warning"><i data-feather="slash"></i> Cancelar</a>

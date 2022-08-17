@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use DataTables;
+use App\Models\Cupons;
 use Illuminate\Http\Request;
 
 class CouponsController extends Controller
@@ -17,7 +19,7 @@ class CouponsController extends Controller
         $breadcrumbs = [
             ['link'=>"javascript:void(0)", 'name'=>"cupones"]
         ];
-        return view('/pages/coupons', ['pageConfigs' => $pageConfigs, 'breadcrumbs' => $breadcrumbs]);
+        return view('/pages/coupons/index', ['pageConfigs' => $pageConfigs, 'breadcrumbs' => $breadcrumbs]);
     }
 
     /**
@@ -84,5 +86,20 @@ class CouponsController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    function listar()
+    {
+        $cupon = Cupons::select(
+            'id',
+            'nombre',
+            'url',
+            'status',
+        )->get();
+        return DataTables::of($cupon)->addColumn('accion', function($row){
+            $btn = '<div class="demo-inline-spacing">';
+            $btn .= '<a href="'.route("specialty.edit", $row->id).'" class="btn btn-outline-info btn-sm" data-toggle="modal" data-target="#default"><i data-feather="edit"></i></a>';
+            return $btn;
+        })->rawColumns(['accion'])->make();
     }
 }

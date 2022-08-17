@@ -51,6 +51,23 @@ Route::group(['middlaware' => 'auth'], function() {
         Route::put('/actualizar/{id}', [SpecialtyController::class, 'update'])->name('specialty.update');
         Route::get('/estatus/{id}/{estado}', [SpecialtyController::class, 'status'])->name('specialty.status');
     });
+    Route::group(['prefix' => 'especialidad'], function () {
+        Route::get('/', [SpecialtyController::class, 'index'])->name('specialty.index');
+        Route::get('/listar', [SpecialtyController::class, 'listar']);
+        Route::post('/guardar', [SpecialtyController::class, 'store'])->name('specialty.store');
+        Route::get('/{id}', [SpecialtyController::class, 'edit'])->name('specialty.edit');
+        Route::put('/actualizar/{id}', [SpecialtyController::class, 'update'])->name('specialty.update');
+        Route::get('/estatus/{id}/{estado}', [SpecialtyController::class, 'status'])->name('specialty.status');
+    });
+
+    Route::group(['prefix' => 'metodo'], function () {
+        Route::get('/', [SpecialtyController::class, 'index'])->name('method.index');
+        Route::get('/listar', [SpecialtyController::class, 'listar']);
+        Route::post('/guardar', [SpecialtyController::class, 'store'])->name('method.store');
+        Route::get('/{id}', [SpecialtyController::class, 'edit'])->name('method.edit');
+        Route::put('/actualizar/{id}', [SpecialtyController::class, 'update'])->name('method.update');
+        Route::get('/estatus/{id}/{estado}', [SpecialtyController::class, 'status'])->name('method.status');
+    });
     
     Route::group(['prefix' => 'ficha-indica'], function () {
         Route::get('/', [TabIndicatesController::class, 'index'])->name('tabIndicates.index');
@@ -61,10 +78,23 @@ Route::group(['middlaware' => 'auth'], function() {
         Route::get('/estatus/{id}/{estado}', [TabIndicatesController::class, 'status'])->name('tabIndicates.status');
     });
     
+    Route::group(['prefix' => 'estudios'], function () {
+        Route::get('/', [StudiesController::class, 'index'])->name('studies.index');
+        Route::get('/listar', [StudiesController::class, 'listar']);
+        Route::post('/guardar', [StudiesController::class, 'store'])->name('studies.store');
+        Route::get('/{id}', [StudiesController::class, 'edit'])->name('studies.edit');
+        Route::put('/actualizar/{id}', [StudiesController::class, 'update'])->name('studies.update');
+        Route::get('/estatus/{id}/{estado}', [StudiesController::class, 'status'])->name('studies.status');
+    });
 
-    Route::get('/estudios', [StudiesController::class, 'index'])->name('studies');
-
-    Route::get('/cupones', [CouponsController::class, 'index'])->name('coupons');
+    Route::group(['prefix' => 'cupones'], function () {
+        Route::get('/', [CouponsController::class, 'index'])->name('coupons.index');
+        Route::get('/listar', [CouponsController::class, 'listar']);
+        Route::post('/guardar', [CouponsController::class, 'store'])->name('coupons.store');
+        Route::get('/{id}', [CouponsController::class, 'edit'])->name('coupons.edit');
+        Route::put('/actualizar/{id}', [CouponsController::class, 'update'])->name('coupons.update');
+        Route::get('/estatus/{id}/{estado}', [CouponsController::class, 'status'])->name('coupons.status');
+    });
 
     Route::group(['prefix' => 'medicos'], function () {
         Route::get('/', [MedicosController::class, 'index'])->name('medicos.index');

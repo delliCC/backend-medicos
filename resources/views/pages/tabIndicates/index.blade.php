@@ -2,7 +2,7 @@
 
 @section('title', 'Ficha Indica')
 
-@include('components/specialty/scripts')
+@include('components/tabIndicates/scripts')
 
 @section('content')
 <!-- Kick start -->

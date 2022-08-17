@@ -17,7 +17,7 @@ class StudiesController extends Controller
         $pageConfigs = ['blankPage' => false];
 
         $breadcrumbs = [['link' => "javascript:void(0)", 'name' => "Catálogos"], ['link' => "javascript:void(0)", 'name' => "Estudios"]];
-        return view('/pages/studies', ['pageConfigs' => $pageConfigs, 'breadcrumbs' => $breadcrumbs]);
+        return view('/pages/studies/index', ['pageConfigs' => $pageConfigs, 'breadcrumbs' => $breadcrumbs]);
     }
 
     /**

@@ -11,6 +11,8 @@ return [
   "Roles"=>"Roles",
   "Especialidades"=>"Especialidades",
   "Estudios"=>"Estudios",
+  "Tipo de muestra"=>"Tipo de muestra",
+  "Método"=>"Método",
   "Starter Kit"=>"Starter Kit",
   "Dashboards" => "Dashboards",
   "Analytics" => "Analytics",

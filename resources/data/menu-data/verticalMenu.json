@@ -34,6 +34,12 @@
       "slug": "medicos"
     },
     {
+      "url": "estudios",
+      "name": "Estudios",
+      "icon": "thermometer",
+      "slug": "estudios"
+    },
+    {
       "url": "ficha-indica",
       "name": "Ficha Indica",
       "icon": "file-text",
@@ -59,10 +65,16 @@
           "slug": "especialidad"
         },
         {
-          "url": "estudios",
-          "name": "Estudios",
+          "url": "metodo",
+          "name": "Método",
           "icon": "circle",
-          "slug": "estudios"
+          "slug": "metodo"
+        },
+        {
+          "url": "tipo-muestra",
+          "name": "Tipo de muestra",
+          "icon": "circle",
+          "slug": "tipo-muestra"
         }
       ]
     }
