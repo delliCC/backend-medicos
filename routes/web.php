@@ -62,6 +62,14 @@ Route::group(['middlaware' => 'auth'], function() {
         Route::put('/actualizar/{id}', [TypeSampleController::class, 'update'])->name('sample.update');
         Route::get('/estatus/{id}/{estado}', [TypeSampleController::class, 'status'])->name('sample.status');
     });
+    Route::group(['prefix' => 'especialidad'], function () {
+        Route::get('/', [SpecialtyController::class, 'index'])->name('specialty.index');
+        Route::get('/listar', [SpecialtyController::class, 'listar']);
+        Route::post('/guardar', [SpecialtyController::class, 'store'])->name('specialty.store');
+        Route::get('/{id}', [SpecialtyController::class, 'edit'])->name('specialty.edit');
+        Route::put('/actualizar/{id}', [SpecialtyController::class, 'update'])->name('specialty.update');
+        Route::get('/status/{id}/{status}', [SpecialtyController::class, 'changeStatus']);
+    });
 
     Route::group(['prefix' => 'tipo-metodo'], function () {
         Route::get('/', [TypeMethodController::class, 'index'])->name('method.index');
@@ -108,4 +116,3 @@ Route::group(['middlaware' => 'auth'], function() {
         Route::put('/actualizar/{id}', [MedicosController::class, 'update'])->name('medicos.update');
     });
 });
-

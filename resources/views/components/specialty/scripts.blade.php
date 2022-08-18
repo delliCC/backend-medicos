@@ -42,9 +42,20 @@
             $('#loading').show();
           }
         }).done(response => {
+        
+          $('#default').modal('hide')
+            Swal.fire({
+              title: response.message,
+              text: 'Los datos se guardaron correctamente',
+              icon: 'success',
+              customClass: {
+                confirmButton: 'btn btn-primary'
+              },
+              buttonsStyling: false
+            });
           location.reload()
-        }).fail((xhr, status, err) => {
-          console.log(err);
+        }).fail(function (data) {
+          alert(data.responseJSON.errors.especialidad[0])
         });
 
         event.preventDefault();
@@ -54,6 +65,38 @@
         $('#id-especialidad').val(id);
         $('#input-especialidad').val(especialidad);
       }
-      
+
+      function changeStatus(event, id){
+        event.preventDefault();
+
+        let checked = event.target.checked
+
+        $.ajax({
+          method: "GET",
+          url: `/especialidad/status/${id}/${checked}`,
+          beforeSend: function() {
+            section.block({
+              message: '<div class="spinner-border text-white" role="status"></div>',
+              timeout: 1000,
+              css: {
+                backgroundColor: 'transparent',
+                border: '0'
+              },
+              overlayCSS: {
+                opacity: 0.5
+              }
+            });
+            {{--  Metronic.blockUI({
+              target: '.card',
+              animate: true
+            });  --}}
+          },
+          success: response => {
+            console.log(response.message)
+              event.target.checked = response.data.status
+          }
+        })
+      }
+
     </script>
 @endsection
