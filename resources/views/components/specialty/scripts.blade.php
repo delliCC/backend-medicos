@@ -54,5 +54,20 @@
         $('#id-especialidad').val(id);
         $('#input-especialidad').val(especialidad);
       }
+
+      function changeStatus(event, id){
+        event.preventDefault();
+
+        let checked = event.target.checked
+
+        $.ajax({
+          method: "GET",
+          url: `/especialidad/status/${id}/${checked}`,
+          success: response => {
+            console.log(response)
+              event.target.checked = response.data.status
+          }
+        })
+      }
     </script>
 @endsection

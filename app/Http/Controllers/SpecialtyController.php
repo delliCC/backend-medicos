@@ -108,22 +108,6 @@ class SpecialtyController extends Controller
         //
     }
 
-    public function status($id, $estado)
-    {
-        $datos = specialty::findOrFail($id);
-        if ($datos->status === 1) {
-            $datos->status = $estado;
-            $datos->save();
-            return 'cambio: activo a '.$estado;
-        }else{
-            
-            $datos->status = $estado;
-            $datos->save();
-            return 'cambio: inactivo a '. $estado;
-        }
-        return $datos;
-    }
-
     function listar()
     {
         $especialidad = specialty::select(
@@ -136,7 +120,18 @@ class SpecialtyController extends Controller
             $btn .= '<a onclick="editarEspecilidad('.$row->id.', `'.$row->especialidad.'`)" class="btn btn-outline-info btn-sm" data-toggle="modal" data-target="#default"><i data-feather="edit"></i></a>';
             return $btn;
         })->addColumn('status', function($row) {
-            return view('components.specialty.badges', ['data' => $row]);
+            return view('components.specialty.switch', ['data' => $row]);
         })->rawColumns(['accion'])->make();
+    }
+
+    public function changeStatus($id, $status)
+    {
+        $especialidad = specialty::find($id);
+
+        $especialidad->status = $status == 'false' ? 0 : 1;
+
+        $especialidad->save();
+
+        return $this->sendResponse($especialidad);
     }
 }

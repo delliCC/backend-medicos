@@ -57,7 +57,7 @@ Route::group(['middlaware' => 'auth'], function() {
         Route::post('/guardar', [SpecialtyController::class, 'store'])->name('specialty.store');
         Route::get('/{id}', [SpecialtyController::class, 'edit'])->name('specialty.edit');
         Route::put('/actualizar/{id}', [SpecialtyController::class, 'update'])->name('specialty.update');
-        Route::get('/estatus/{id}/{estado}', [SpecialtyController::class, 'status'])->name('specialty.status');
+        Route::get('/status/{id}/{status}', [SpecialtyController::class, 'changeStatus']);
     });
 
     Route::group(['prefix' => 'metodo'], function () {
