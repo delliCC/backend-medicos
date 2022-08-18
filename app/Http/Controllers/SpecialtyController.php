@@ -46,7 +46,7 @@ class SpecialtyController extends Controller
         ]);
 
         specialty::create($request->all());
-        return redirect()->route('specialty.index')->with('success', 'Datos guardados correctamente.');
+        return $this->sendResponse();
     }
 
     /**
@@ -94,7 +94,7 @@ class SpecialtyController extends Controller
 
         $especialidad->update($request->all());
 
-        return redirect()->route('specialty.index')->with('success', 'Datos actualizados correctamente.');
+        return $this->sendResponse();
     }
 
     /**
@@ -133,8 +133,10 @@ class SpecialtyController extends Controller
         )->get();
         return DataTables::of($especialidad)->addColumn('accion', function($row){
             $btn = '<div class="demo-inline-spacing">';
-            $btn .= '<a href="'.route("specialty.edit", $row->id).'" class="btn btn-outline-info btn-sm" data-toggle="modal" data-target="#default"><i data-feather="edit"></i></a>';
+            $btn .= '<a onclick="editarEspecilidad('.$row->id.', `'.$row->especialidad.'`)" class="btn btn-outline-info btn-sm" data-toggle="modal" data-target="#default"><i data-feather="edit"></i></a>';
             return $btn;
+        })->addColumn('status', function($row) {
+            return view('components.specialty.badges', ['data' => $row]);
         })->rawColumns(['accion'])->make();
     }
 }
