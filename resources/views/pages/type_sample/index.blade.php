@@ -1,8 +1,8 @@
 @extends('layouts/contentLayoutMaster')
 
-@section('title', 'Método')
+@section('title', 'Muestra')
 
-@include('components/specialty/scripts')
+@include('components/type_sample/scripts')
 
 @section('content')
 <!-- Kick start -->
@@ -16,13 +16,13 @@
       @endif
     </div>
     <div class="col-9">
-      <h4 class="card-title text-left">Lista de Método</h4>
+      <h4 class="card-title text-left">Tipo de muestra</h4>
     </div>
     <div class="col-3 text-right">
       <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#default">
-        Crear Método
+        Crear Muestra
       </button>
-      {{--  <a href="{{route('medicos.create')}}" class="btn btn-outline-success"><i data-feather="plus"></i> Nuevo Médico</a>  --}}
+      {{--  <a href="{{route('sample.create')}}" class="btn btn-outline-success"><i data-feather="plus"></i> Nuevo Médico</a>  --}}
     </div>
   </div>
   <!-- Basic table -->
@@ -30,13 +30,13 @@
     <div class="row">
       <div class="col-12">
         <div class="card-body">
-          @include('components/specialty/table')
+          @include('components/type_sample/table')
         </div>
       </div>
     </div>
   </section>
 </div>
 
-@include('components/specialty/modal')
+@include('components/type_sample/modal')
 
 @endsection

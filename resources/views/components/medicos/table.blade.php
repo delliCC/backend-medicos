@@ -6,7 +6,7 @@
       <th>Teléfono</th>
       <th>Tipo de Médico</th>
       <th>Especialidad</th>
-      <th>Accion</th>
+      <th>Acción</th>
     </tr>
   </thead>
   <tbody>

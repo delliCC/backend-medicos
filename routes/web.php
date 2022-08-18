@@ -8,6 +8,8 @@ use App\Http\Controllers\MedicosController;
 use App\Http\Controllers\StudiesController;
 use App\Http\Controllers\SpecialtyController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\TypeMethodController;
+use App\Http\Controllers\TypeSampleController;
 use App\Http\Controllers\TabIndicatesController;
 /*
 |--------------------------------------------------------------------------
@@ -51,22 +53,23 @@ Route::group(['middlaware' => 'auth'], function() {
         Route::put('/actualizar/{id}', [SpecialtyController::class, 'update'])->name('specialty.update');
         Route::get('/estatus/{id}/{estado}', [SpecialtyController::class, 'status'])->name('specialty.status');
     });
-    Route::group(['prefix' => 'especialidad'], function () {
-        Route::get('/', [SpecialtyController::class, 'index'])->name('specialty.index');
-        Route::get('/listar', [SpecialtyController::class, 'listar']);
-        Route::post('/guardar', [SpecialtyController::class, 'store'])->name('specialty.store');
-        Route::get('/{id}', [SpecialtyController::class, 'edit'])->name('specialty.edit');
-        Route::put('/actualizar/{id}', [SpecialtyController::class, 'update'])->name('specialty.update');
-        Route::get('/estatus/{id}/{estado}', [SpecialtyController::class, 'status'])->name('specialty.status');
+
+    Route::group(['prefix' => 'tipo-muestra'], function () {
+        Route::get('/', [TypeSampleController::class, 'index'])->name('sample.index');
+        Route::get('/listar', [TypeSampleController::class, 'listar']);
+        Route::post('/guardar', [TypeSampleController::class, 'store'])->name('sample.store');
+        Route::get('/{id}', [TypeSampleController::class, 'edit'])->name('sample.edit');
+        Route::put('/actualizar/{id}', [TypeSampleController::class, 'update'])->name('sample.update');
+        Route::get('/estatus/{id}/{estado}', [TypeSampleController::class, 'status'])->name('sample.status');
     });
 
-    Route::group(['prefix' => 'metodo'], function () {
-        Route::get('/', [SpecialtyController::class, 'index'])->name('method.index');
-        Route::get('/listar', [SpecialtyController::class, 'listar']);
-        Route::post('/guardar', [SpecialtyController::class, 'store'])->name('method.store');
-        Route::get('/{id}', [SpecialtyController::class, 'edit'])->name('method.edit');
-        Route::put('/actualizar/{id}', [SpecialtyController::class, 'update'])->name('method.update');
-        Route::get('/estatus/{id}/{estado}', [SpecialtyController::class, 'status'])->name('method.status');
+    Route::group(['prefix' => 'tipo-metodo'], function () {
+        Route::get('/', [TypeMethodController::class, 'index'])->name('method.index');
+        Route::get('/listar', [TypeMethodController::class, 'listar']);
+        Route::post('/guardar', [TypeMethodController::class, 'store'])->name('method.store');
+        Route::get('/{id}', [TypeMethodController::class, 'edit'])->name('method.edit');
+        Route::put('/actualizar/{id}', [TypeMethodController::class, 'update'])->name('method.update');
+        Route::get('/estatus/{id}/{estado}', [TypeMethodController::class, 'status'])->name('method.status');
     });
     
     Route::group(['prefix' => 'ficha-indica'], function () {

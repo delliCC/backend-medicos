@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use DataTables;
+use App\Models\TypeMethod;
 use Illuminate\Http\Request;
 
 class TypeMethodController extends Controller
@@ -39,7 +40,12 @@ class TypeMethodController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'metodo'=> 'required|string|unique:type_method,metodo',
+        ]);
+
+        TypeMethod::create($request->all());
+        return redirect()->route('method.index')->with('success', 'Datos guardados correctamente.');
     }
 
     /**
@@ -73,7 +79,15 @@ class TypeMethodController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'metodo'=> 'required|string|unique:type_method,metodo',
+        ]);
+
+        $datos = TypeMethod::find($id);
+
+        $datos->update($request->all());
+
+        return redirect()->route('method.index')->with('success', 'Datos actualizados correctamente.');
     }
 
     /**
@@ -85,5 +99,19 @@ class TypeMethodController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    function listar()
+    {
+        $ficha = TypeMethod::select(
+            'id',
+            'metodo',
+            'status',
+        )->get();
+        return DataTables::of($ficha)->addColumn('accion', function($row){
+            $btn = '<div class="demo-inline-spacing">';
+            $btn .= '<a href="'.route("specialty.edit", $row->id).'" class="btn btn-outline-info btn-sm" data-toggle="modal" data-target="#default"><i data-feather="edit"></i></a>';
+            return $btn;
+        })->rawColumns(['accion'])->make();
     }
 }

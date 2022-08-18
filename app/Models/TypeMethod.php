@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class TypeMethod extends Model
 {
     use HasFactory;
+
+    protected $table = 'type_method';
+ 
+    protected $fillable = [
+        'metodo',
+        'status'
+    ];
 }

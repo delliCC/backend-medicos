@@ -17,14 +17,13 @@
 
         configuracionesBasicasDatatable['processing'] = true
         configuracionesBasicasDatatable['serverSide'] = true
-        configuracionesBasicasDatatable['ajax'] = "especialidad/listar"
+        configuracionesBasicasDatatable['ajax'] = "metodo/listar"
         configuracionesBasicasDatatable['columns'] = [
-          { "data": "especialidad" },
+          { "data": "metodo" },
           { "data": "status" },
           { "data": "accion" }
         ]
-        $('#especialidad-table').DataTable(configuracionesBasicasDatatable);
+        $('#metodo-table').DataTable(configuracionesBasicasDatatable);
       });
-
     </script>
 @endsection

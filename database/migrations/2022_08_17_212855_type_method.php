@@ -15,6 +15,8 @@ class TypeMethod extends Migration
     {
         Schema::create('type_method', function (Blueprint $table) {
             $table->id();
+            $table->string('metodo');
+            $table->boolean('status')->default(true);
             $table->timestamps();
         });
     }

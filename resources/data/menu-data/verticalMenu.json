@@ -36,7 +36,7 @@
     {
       "url": "estudios",
       "name": "Estudios",
-      "icon": "thermometer",
+      "icon": "airplay",
       "slug": "estudios"
     },
     {
@@ -65,7 +65,7 @@
           "slug": "especialidad"
         },
         {
-          "url": "metodo",
+          "url": "tipo-metodo",
           "name": "Método",
           "icon": "circle",
           "slug": "metodo"

@@ -2,7 +2,7 @@
 
 @section('title', 'Método')
 
-@include('components/specialty/scripts')
+@include('components/type_method/scripts')
 
 @section('content')
 <!-- Kick start -->
@@ -22,7 +22,7 @@
       <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#default">
         Crear Método
       </button>
-      {{--  <a href="{{route('medicos.create')}}" class="btn btn-outline-success"><i data-feather="plus"></i> Nuevo Médico</a>  --}}
+      {{--  <a href="{{route('method.create')}}" class="btn btn-outline-success"><i data-feather="plus"></i> Nuevo Médico</a>  --}}
     </div>
   </div>
   <!-- Basic table -->
@@ -30,13 +30,13 @@
     <div class="row">
       <div class="col-12">
         <div class="card-body">
-          @include('components/specialty/table')
+          @include('components/type_method/table')
         </div>
       </div>
     </div>
   </section>
 </div>
 
-@include('components/specialty/modal')
+@include('components/type_method/modal')
 
 @endsection

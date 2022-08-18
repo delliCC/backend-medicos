@@ -1,7 +1,7 @@
-<table class="datatables-basic table" id="especialidad-table">
+<table class="datatables-basic table" id="muestra-table">
   <thead>
     <tr>
-      <th>Especialidad</th>
+      <th>Muestra</th>
       <th>estatus</th>
       <th>Acción</th>
     </tr>

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use DataTables;
+use App\Models\TypeSample;
 use Illuminate\Http\Request;
 
 class TypeSampleController extends Controller
@@ -38,7 +40,12 @@ class TypeSampleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'metodo'=> 'required|string|unique:type_sample,muestra',
+        ]);
+
+        TypeSample::create($request->all());
+        return redirect()->route('sample.index')->with('success', 'Datos guardados correctamente.');
     }
 
     /**
@@ -72,7 +79,15 @@ class TypeSampleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'metodo'=> 'required|string|unique:type_sample,muestra',
+        ]);
+
+        $datos = TypeSample::find($id);
+
+        $datos->update($request->all());
+
+        return redirect()->route('sample.index')->with('success', 'Datos actualizados correctamente.');
     }
 
     /**
@@ -84,5 +99,19 @@ class TypeSampleController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    function listar()
+    {
+        $ficha = TypeSample::select(
+            'id',
+            'muestra',
+            'status',
+        )->get();
+        return DataTables::of($ficha)->addColumn('accion', function($row){
+            $btn = '<div class="demo-inline-spacing">';
+            $btn .= '<a href="'.route("specialty.edit", $row->id).'" class="btn btn-outline-info btn-sm" data-toggle="modal" data-target="#default"><i data-feather="edit"></i></a>';
+            return $btn;
+        })->rawColumns(['accion'])->make();
     }
 }

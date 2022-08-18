@@ -15,6 +15,8 @@ class TypeSample extends Migration
     {
         Schema::create('type_sample', function (Blueprint $table) {
             $table->id();
+            $table->string('muestra');
+            $table->boolean('status')->default(true);
             $table->timestamps();
         });
     }
