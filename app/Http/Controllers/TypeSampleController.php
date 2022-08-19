@@ -103,15 +103,28 @@ class TypeSampleController extends Controller
 
     function listar()
     {
-        $ficha = TypeSample::select(
+        $datos = TypeSample::select(
             'id',
             'muestra',
-            'status',
+            'status'
         )->get();
-        return DataTables::of($ficha)->addColumn('accion', function($row){
+        return DataTables::of($datos)->addColumn('accion', function($row){
             $btn = '<div class="demo-inline-spacing">';
-            $btn .= '<a href="'.route("specialty.edit", $row->id).'" class="btn btn-outline-info btn-sm" data-toggle="modal" data-target="#default"><i data-feather="edit"></i></a>';
+            $btn .= '<a href="'.route("sample.edit", $row->id).'" class="btn btn-outline-info btn-sm" data-toggle="modal" data-target="#default"><i data-feather="edit"></i></a>';
             return $btn;
+        })->addColumn('status', function($row) {
+            return view('components.type_sample.switch', ['data' => $row]);
         })->rawColumns(['accion'])->make();
+    }
+
+    public function changeStatus($id, $status)
+    {
+        $datos = TypeSample::find($id);
+
+        $datos->status = $status == 'false' ? 0 : 1;
+
+        $datos->save();
+
+        return $this->sendResponse($datos);
     }
 }

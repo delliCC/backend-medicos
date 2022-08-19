@@ -15,10 +15,11 @@ class Studies extends Migration
     {
         Schema::create('studies', function (Blueprint $table) {
             $table->id();
+            $table->string('titulo');
+            $table->text('descripcion');
             $table->unsignedBigInteger('metodo_id')->nullable();
             $table->unsignedBigInteger('muestra_id')->nullable();
-            $table->string('estudios');
-            $table->text('descripcion');
+            $table->string('informacion_clinica');
             $table->boolean('status')->default(true);
             $table->timestamps();
 

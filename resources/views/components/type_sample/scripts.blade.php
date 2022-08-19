@@ -17,7 +17,7 @@
 
         configuracionesBasicasDatatable['processing'] = true
         configuracionesBasicasDatatable['serverSide'] = true
-        configuracionesBasicasDatatable['ajax'] = "muestra/listar"
+        configuracionesBasicasDatatable['ajax'] = "tipo-muestra/listar"
         configuracionesBasicasDatatable['columns'] = [
           { "data": "muestra" },
           { "data": "status" },

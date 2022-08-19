@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\studies;
+use DataTables;
+use App\Models\Studies;
+use App\Models\TypeMethod;
+use App\Models\TypeSample;
 use Illuminate\Http\Request;
 
 class StudiesController extends Controller
@@ -15,8 +18,8 @@ class StudiesController extends Controller
     public function index()
     {
         $pageConfigs = ['blankPage' => false];
-
-        $breadcrumbs = [['link' => "javascript:void(0)", 'name' => "Catálogos"], ['link' => "javascript:void(0)", 'name' => "Estudios"]];
+    
+        $breadcrumbs = [ ['link' => "javascript:void(0)", 'name' => "index"]];
         return view('/pages/studies/index', ['pageConfigs' => $pageConfigs, 'breadcrumbs' => $breadcrumbs]);
     }
 
@@ -27,7 +30,13 @@ class StudiesController extends Controller
      */
     public function create()
     {
-        //
+        $tipoMetodo = TypeMethod::where('status',1)->get()->pluck('metodo', 'id');
+        $tipoMuestra = TypeSample::where('status',1)->get()->pluck('muestra', 'id');
+        $breadcrumbs = [
+            ['link'=>"javascript:void(0)",'name'=>"Estudios"], ['name'=>"Crear"]
+        ];
+
+        return view('/pages/studies/create', ['breadcrumbs' => $breadcrumbs], compact(['muestra','metodo']));
     }
 
     /**
@@ -38,7 +47,17 @@ class StudiesController extends Controller
      */
     public function store(Request $request)
     {
-        studies::create($request);
+        $this->validate($request, [
+            'titulo' => 'required',
+            'descripcion' => 'required',
+            'metodo_id' => 'required',
+            'muestra_id' => 'required',
+            'informacion_clinica' => 'required',
+        ]);
+
+        Studies::create($request->all());
+
+        return redirect()->route('studies.index')->with('success', 'Datos guardados correctamente.');
     }
 
     /**
@@ -60,8 +79,13 @@ class StudiesController extends Controller
      */
     public function edit($id)
     {
-        $datos = studies::find($id);
-        $datos->update();
+        $breadcrumbs = [
+            ['link'=>"medicos", 'name'=>"Lista de Estudios"], ['name'=>"Editar"]
+        ];
+
+        $estudios = Studies::find($id);
+
+        return view('/pages/studies/edit', ['breadcrumbs' => $breadcrumbs, 'datos' => $estudios]);
     }
 
     /**
@@ -73,7 +97,19 @@ class StudiesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'titulo' => 'required',
+            'descripcion' => 'required',
+            'metodo_id' => 'required',
+            'muestra_id' => 'required',
+            'informacion_clinica' => 'required',
+        ]);
+
+        $estudios = Studies::find($id);
+
+        $estudios->update($request->all());
+
+        return redirect()->route('studies.index')->with('success', 'Datos actualizados correctamente.');
     }
 
     /**
@@ -85,5 +121,37 @@ class StudiesController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    function listar()
+    {
+        $datos = Studies::select(
+            'id',
+            'titulo',
+            'descripcion',
+            'metodo_id',
+            'muestra_id',
+            'informacion_clinica',
+            'status'
+        )->get();
+
+        return DataTables::of($datos)->addColumn('accion', function($row){
+            $btn = '<div class="demo-inline-spacing">';
+            $btn .= '<a href="'.route("studies.edit", $row->id).'" class="btn btn-outline-info btn-sm"><i data-feather="edit"></i></a>';
+            return $btn;
+        })->addColumn('status', function($row) {
+            return view('components.studies.switch', ['data' => $row]);
+        })->rawColumns(['accion'])->make();
+    }
+
+    public function changeStatus($id, $status)
+    {
+        $datos = Studies::find($id);
+
+        $datos->status = $status == 'false' ? 0 : 1;
+
+        $datos->save();
+
+        return $this->sendResponse($datos);
     }
 }

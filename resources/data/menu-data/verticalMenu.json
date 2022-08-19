@@ -66,7 +66,7 @@
         },
         {
           "url": "tipo-metodo",
-          "name": "Método",
+          "name": "Tipo de método",
           "icon": "circle",
           "slug": "metodo"
         },

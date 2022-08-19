@@ -66,15 +66,8 @@ class SpecialtyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        $breadcrumbs = [
-            ['link'=>"especialidad", 'name'=>"Lista de Especialidad"], ['name'=>"Editar"]
-        ];
-
-        $especialidad = specialty::find($id);
-
-        return view('/pages/specialty/edit', ['breadcrumbs' => $breadcrumbs, 'especialidad' => $especialidad]);
+    public function edit($id){
+    
     }
 
     /**

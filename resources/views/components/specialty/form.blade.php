@@ -13,5 +13,5 @@
     </div>
 </div>
 <div class="modal-footer">
-    <button type="submit" class="btn btn-success  btn-form-block"><i data-feather="save"></i> Guardar</button>
+    <button type="submit" class="btn btn-success btn-form-block"><i data-feather="save"></i> Guardar</button>
 </div>

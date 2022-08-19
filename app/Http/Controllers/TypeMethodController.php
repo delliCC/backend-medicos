@@ -17,7 +17,7 @@ class TypeMethodController extends Controller
     {
         $pageConfigs = ['blankPage' => false];
         $breadcrumbs = [
-            ['link' => "javascript:void(0)", 'name' => "Catálogos"], ['link' => "javascript:void(0)", 'name' => "Método"]
+            ['link' => "javascript:void(0)", 'name' => "Catálogos"], ['link' => "javascript:void(0)", 'name' => "Tipo de Método"]
         ];
         return view('/pages/type_method/index', ['pageConfigs' => $pageConfigs, 'breadcrumbs' => $breadcrumbs]);
     }
@@ -45,7 +45,7 @@ class TypeMethodController extends Controller
         ]);
 
         TypeMethod::create($request->all());
-        return redirect()->route('method.index')->with('success', 'Datos guardados correctamente.');
+        return $this->sendResponse();
     }
 
     /**
@@ -87,7 +87,7 @@ class TypeMethodController extends Controller
 
         $datos->update($request->all());
 
-        return redirect()->route('method.index')->with('success', 'Datos actualizados correctamente.');
+        return $this->sendResponse();
     }
 
     /**
@@ -103,15 +103,28 @@ class TypeMethodController extends Controller
 
     function listar()
     {
-        $ficha = TypeMethod::select(
+        $datos = TypeMethod::select(
             'id',
             'metodo',
-            'status',
+            'status'
         )->get();
-        return DataTables::of($ficha)->addColumn('accion', function($row){
+        return DataTables::of($datos)->addColumn('accion', function($row){
             $btn = '<div class="demo-inline-spacing">';
-            $btn .= '<a href="'.route("specialty.edit", $row->id).'" class="btn btn-outline-info btn-sm" data-toggle="modal" data-target="#default"><i data-feather="edit"></i></a>';
+            $btn .= '<a onclick="editarMetodo('.$row->id.', `'.$row->metodo.'`)" class="btn btn-outline-info btn-sm" data-toggle="modal" data-target="#default"><i data-feather="edit"></i></a>';
             return $btn;
+        })->addColumn('status', function($row) {
+            return view('components.type_method.switch', ['data' => $row]);
         })->rawColumns(['accion'])->make();
+    }
+
+    public function changeStatus($id, $status)
+    {
+        $datos = TypeMethod::find($id);
+
+        $datos->status = $status == 'false' ? 0 : 1;
+
+        $datos->save();
+
+        return $this->sendResponse($datos);
     }
 }

@@ -12,7 +12,7 @@ return [
   "Especialidades"=>"Especialidades",
   "Estudios"=>"Estudios",
   "Tipo de muestra"=>"Tipo de muestra",
-  "Método"=>"Método",
+  "Tipo de método"=>"Tipo de método",
   "Starter Kit"=>"Starter Kit",
   "Dashboards" => "Dashboards",
   "Analytics" => "Analytics",
