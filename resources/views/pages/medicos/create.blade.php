@@ -2,6 +2,8 @@
 
 @section('title', 'Medicos')
 
+@include('components/medicos/scripts')
+
 @section('content')
 <!-- Kick start -->
 <div class="card">

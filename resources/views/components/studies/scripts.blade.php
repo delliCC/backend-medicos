@@ -10,7 +10,7 @@
           {
             extend: 'pdf',
             exportOptions: {
-              columns: [ 0, 1, 2, 3, 4 ]
+              columns: [ 0, 1, 2, 3, 4, 5 ]
             }
           }
         ]
@@ -21,9 +21,10 @@
         configuracionesBasicasDatatable['columns'] = [
           { "data": "titulo" },
           { "data": "descripcion" },
-          { "data": "metodo_id" },
-          { "data": "muestra_id" },
+          { "data": "metodo" },
+          { "data": "muestra" },
           { "data": "informacion_clinica" },
+          { "data": "status" },
           { "data": "accion" }
         ]
         $('#estudios-table').DataTable(configuracionesBasicasDatatable);

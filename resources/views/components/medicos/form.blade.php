@@ -91,22 +91,39 @@
     <div class="col-xl-4 col-md-6 col-12 mb-1">
         <fieldset class="form-group">
             <label for="tipo_medico">Médico</label>
-            <select class="form-control"  class="form-control" name="tipo_medico">
+            <select class="form-control"  class="form-control" name="tipo_medico" id="tipo_medico" onchange="verEspecialidad()">
                 <option {{isset($medico) ? $medico->tipo_medico == 'General' ? 'selected' : '' : ''}}>General</option>
                 <option {{isset($medico) ? $medico->tipo_medico == 'Especialista' ? 'selected' : '' : ''}}>Especialista</option>
             </select>
         </fieldset>
     </div>
 
-    <div class="col-xl-4 col-md-6 col-12 mb-1">
+    <div class="col-xl-4 col-md-6 col-12 mb-1" id="especialidades" style="display: none">
         <fieldset class="form-group">
             <label for="especialidad_id">Especialidad</label>
-            <input type="tel" value="{{ old('especialidad_id', isset($medico) ? $medico->especialidad_id : '') }}" class="form-control @error('especialidad_id') is-invalid @enderror" name="especialidad_id"  placeholder="Especialidad">
+            <select class="form-control" class="form-control" id="especialidad_id" name="especialidad_id">
+                <option value="" selected disabled> Selecciona una opción </option>
+                @foreach ($especialidad as $specialty)
+                    <option value="{{isset($medico) ? $specialty->id == $medico->especialidad_id ? 'selected' : '' : ''}}">
+                        {{ $specialty->especialidad }}
+                    </option>
+                @endforeach
+            </select>
             @error('especialidad_id')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
             </span>
             @enderror
+        </fieldset>
+    </div>
+
+    <div class="col-xl-4 col-md-6 col-12 mb-1">
+        <fieldset class="form-group">
+            <label for="empleado">Empleado</label>
+            <select class="form-control"  class="form-control" name="empleado" id="empleado">
+                <option {{isset($medico) ? $medico->empleado == 'no' ? 'selected' : '' : ''}}>No</option>
+                <option {{isset($medico) ? $medico->empleado == 'si' ? 'selected' : '' : ''}}>Si</option>
+            </select>
         </fieldset>
     </div>
 

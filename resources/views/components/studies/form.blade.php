@@ -20,7 +20,10 @@
         <fieldset class="form-group">
             <label for="tipo_metodo">Tipo de Método</label>
             <select class="form-control"  class="form-control" name="metodo_id">
-                {{--  <option {{isset($medico) ? $medico->tipo_medico == 'General' ? 'selected' : '' : ''}}>General</option>  --}}
+                <option value="" selected disabled> Selecciona una opción </option>
+                @foreach ($tipoMetodo as $metodo)
+                    <option {{isset($datos) ? $metodo->id == $datos->metodo_id ? 'selected' : '' : ''}}>{{ $metodo->metodo }}</option>
+                @endforeach
             </select>
         </fieldset>
     </div>
@@ -29,8 +32,9 @@
         <fieldset class="form-group">
             <label for="tipo_muestra">Tipo de Muestra</label>
             <select class="form-control"  class="form-control" name="muestra_id">
+                <option value="" selected disabled> Selecciona una opción </option>
                 @foreach ($tipoMuestra as $muestra)
-                <option value="{{ $muestra->id }}">{{ $muestra->muestra }}</option>
+                    <option {{isset($datos) ? $muestra->id == $datos->muestra_id ? 'selected' : '' : ''}}>{{ $muestra->muestra }}</option>
                 @endforeach
             </select>
         </fieldset>
@@ -53,10 +57,10 @@
     <div class="col-xl-6 col-md-6 col-12">
         <fieldset class="form-group">
             <label for="informacion_clinica">Información clinica <i style="color: red">*</i></label>
-            <textarea class="form-control @error('direccion') is-invalid @enderror" name="direccion"  placeholder="Dirección">
-                {{ isset($datos) ? $datos->direccion : '' }}
+            <textarea class="form-control @error('informacion_clinica') is-invalid @enderror" name="informacion_clinica"  placeholder="Información Clinica">
+                {{ isset($datos) ? $datos->informacion_clinica : '' }}
             </textarea>
-            @error('direccion')
+            @error('informacion_clinica')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
             </span>

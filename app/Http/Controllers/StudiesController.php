@@ -30,13 +30,13 @@ class StudiesController extends Controller
      */
     public function create()
     {
-        $tipoMetodo = TypeMethod::where('status',1)->get()->pluck('metodo', 'id');
-        $tipoMuestra = TypeSample::where('status',1)->get()->pluck('muestra', 'id');
+        $tipoMetodo = TypeMethod::select('id','metodo','status')->where('status',1)->get();
+        $tipoMuestra = TypeSample::select('id','muestra','status')->where('status',1)->get();
         $breadcrumbs = [
             ['link'=>"javascript:void(0)",'name'=>"Estudios"], ['name'=>"Crear"]
         ];
-
-        return view('/pages/studies/create', ['breadcrumbs' => $breadcrumbs], compact(['muestra','metodo']));
+       
+        return view('/pages/studies/create', ['breadcrumbs' => $breadcrumbs], compact(['tipoMuestra','tipoMetodo']));
     }
 
     /**
@@ -47,6 +47,7 @@ class StudiesController extends Controller
      */
     public function store(Request $request)
     {
+        // return $request->all();
         $this->validate($request, [
             'titulo' => 'required',
             'descripcion' => 'required',
@@ -55,6 +56,7 @@ class StudiesController extends Controller
             'informacion_clinica' => 'required',
         ]);
 
+       
         Studies::create($request->all());
 
         return redirect()->route('studies.index')->with('success', 'Datos guardados correctamente.');
@@ -79,13 +81,16 @@ class StudiesController extends Controller
      */
     public function edit($id)
     {
+        $tipoMetodo = TypeMethod::select('id','metodo','status')->where('status',1)->get();
+        $tipoMuestra = TypeSample::select('id','muestra','status')->where('status',1)->get();
+
         $breadcrumbs = [
             ['link'=>"medicos", 'name'=>"Lista de Estudios"], ['name'=>"Editar"]
         ];
 
         $estudios = Studies::find($id);
 
-        return view('/pages/studies/edit', ['breadcrumbs' => $breadcrumbs, 'datos' => $estudios]);
+        return view('/pages/studies/edit', ['breadcrumbs' => $breadcrumbs, 'datos' => $estudios], compact(['tipoMuestra','tipoMetodo']));
     }
 
     /**
@@ -133,12 +138,20 @@ class StudiesController extends Controller
             'muestra_id',
             'informacion_clinica',
             'status'
-        )->get();
+        )->with(['metodo'=> function ($query){
+            $query->select('id', 'metodo');
+        }])->with(['muestra'=> function ($query){
+            $query->select('id', 'muestra');
+        }])->get();
 
         return DataTables::of($datos)->addColumn('accion', function($row){
             $btn = '<div class="demo-inline-spacing">';
             $btn .= '<a href="'.route("studies.edit", $row->id).'" class="btn btn-outline-info btn-sm"><i data-feather="edit"></i></a>';
             return $btn;
+        })->addColumn('metodo', function($row) {
+            return  $row->metodo->metodo;
+        })->addColumn('muestra', function($row) {
+            return  $row->muestra->muestra;
         })->addColumn('status', function($row) {
             return view('components.studies.switch', ['data' => $row]);
         })->rawColumns(['accion'])->make();

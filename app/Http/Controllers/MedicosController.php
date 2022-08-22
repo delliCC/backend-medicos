@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Medico;
 use DataTables;
 use Carbon\Carbon;
+use App\Models\Medico;
+use App\Models\Specialty;
+use Illuminate\Http\Request;
 
 class MedicosController extends Controller
 {
@@ -31,11 +32,12 @@ class MedicosController extends Controller
      */
     public function create()
     {
+        $especialidad = Specialty::select('id','especialidad','status')->where('status',1)->get();
         $breadcrumbs = [
             ['link'=>"medicos",'name'=>"Médicos"], ['name'=>"Crear"]
         ];
 
-        return view('/pages/medicos/create', ['breadcrumbs' => $breadcrumbs]);
+        return view('/pages/medicos/create', ['breadcrumbs' => $breadcrumbs], compact('especialidad'));
     }
 
     /**
@@ -46,6 +48,7 @@ class MedicosController extends Controller
      */
     public function store(Request $request)
     {
+        return $request->all();
         $this->validate($request, [
             'nombre' => 'required',
             'apellido_paterno' => 'required',
@@ -57,6 +60,8 @@ class MedicosController extends Controller
             'estado' => 'required',
             'municipio' => 'required',
             'prefijo' => 'required',
+            'especialidad_id' => 'required',
+            'empleado'=> 'required',
         ]);
 
         Medico::create($request->all());
@@ -83,13 +88,14 @@ class MedicosController extends Controller
      */
     public function edit($id)
     {
+        $especialidad = Specialty::select('id','especialidad','status')->where('status',1)->get();
         $breadcrumbs = [
             ['link'=>"medicos", 'name'=>"Lista de Médicos"], ['name'=>"Editar"]
         ];
 
         $medico = Medico::find($id);
-
-        return view('/pages/medicos/edit', ['breadcrumbs' => $breadcrumbs, 'medico' => $medico]);
+     return $medico;
+        return view('/pages/medicos/edit', ['breadcrumbs' => $breadcrumbs, 'medico' => $medico], compact('especialidad'));
     }
 
     /**
@@ -112,6 +118,7 @@ class MedicosController extends Controller
             'estado' => 'required',
             'municipio' => 'required',
             'prefijo' => 'required',
+            'empleado'=> 'required',
         ]);
 
         $medico = Medico::find($id);
@@ -148,11 +155,17 @@ class MedicosController extends Controller
             'telefono',
             'tipo_medico',
             'especialidad_id',
-        )->get();
+        )->with(['especialidad'=> function ($query){
+            $query->select('id', 'especialidad');
+        }])->get();
         return DataTables::of($medicos)->addColumn('accion', function($row){
             $btn = '<div class="demo-inline-spacing">';
             $btn .= '<a href="'.route("medicos.edit", $row->id).'" class="btn btn-outline-info btn-sm"><i data-feather="edit"></i></a>';
             return $btn;
+        })->addColumn('especialidad', function($row) {
+            return  $row->especialidad->especialidad;
+        })->addColumn('status', function($row) {
+            return view('components.medicos.switch', ['data' => $row]);
         })->rawColumns(['accion'])->make();
     }
 }

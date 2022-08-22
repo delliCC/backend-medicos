@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use DataTables;
-use App\Models\specialty;
+use App\Models\Specialty;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -83,11 +83,13 @@ class SpecialtyController extends Controller
             'especialidad' => 'required|string|unique:cat_especialidades,especialidad',
         ]);
 
-        $especialidad = specialty::find($id);
+        $especialidad = Specialty::find($id);
 
+        return $especialidad;
         $especialidad->update($request->all());
 
-        return $this->sendResponse();
+        // return $this->sendResponse();
+        return redirect()->route('specialty.index')->with('success', 'Datos guardados correctamente.');
     }
 
     /**
@@ -103,7 +105,7 @@ class SpecialtyController extends Controller
 
     function listar()
     {
-        $especialidad = specialty::select(
+        $especialidad = Specialty::select(
             'id',
             'especialidad',
             'status',
@@ -119,7 +121,7 @@ class SpecialtyController extends Controller
 
     public function changeStatus($id, $status)
     {
-        $especialidad = specialty::find($id);
+        $especialidad = Specialty::find($id);
 
         $especialidad->status = $status == 'false' ? 0 : 1;
 

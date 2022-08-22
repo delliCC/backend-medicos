@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Specialty;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Medico extends Model
 {
@@ -12,4 +13,9 @@ class Medico extends Model
     protected $table = 'medicos';
 
     protected $guarded = [];
+
+    public function especialidad()
+    {
+        return $this->belongsTo(Specialty::class, 'especialidad_id');
+    }
 }

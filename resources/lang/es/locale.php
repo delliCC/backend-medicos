@@ -13,6 +13,7 @@ return [
   "Estudios"=>"Estudios",
   "Tipo de muestra"=>"Tipo de muestra",
   "Tipo de método"=>"Tipo de método",
+  "Webinar"=>"Webinar",
   "Starter Kit"=>"Starter Kit",
   "Dashboards" => "Dashboards",
   "Analytics" => "Analytics",

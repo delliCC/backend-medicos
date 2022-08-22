@@ -28,5 +28,16 @@
         ]
         $('#medicos-table').DataTable(configuracionesBasicasDatatable);
       });
+
+      function verEspecialidad(){
+        var selected = document.getElementById('tipo_medico').value
+        if(selected == "Especialista"){
+          $("#especialidad_id").val([]).trigger("change");
+          $("#especialidades").css("display","block");
+        }else{
+          $("#especialidad_id").val([]).trigger("change");
+          $("#especialidades").css("display","none");
+        }
+      }
     </script>
 @endsection

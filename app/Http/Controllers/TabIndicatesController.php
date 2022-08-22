@@ -48,7 +48,7 @@ class TabIndicatesController extends Controller
         ]);
 
         TabIndicates::create($request->all());
-        return redirect()->route('tabIndicates.index')->with('success', 'Datos guardados correctamente.');
+        return $this->sendResponse();
         // $factura = Factura::where('factura', $this->nombreFactura)->first();
 
         // if ($factura) {
@@ -95,7 +95,13 @@ class TabIndicatesController extends Controller
      */
     public function edit($id)
     {
-        //
+        // $breadcrumbs = [
+        //     ['link'=>"medicos", 'name'=>"Lista de Médicos"], ['name'=>"Editar"]
+        // ];
+
+        // $ficha = TabIndicates::find($id);
+
+        // return view('/pages/medicos/edit', ['breadcrumbs' => $breadcrumbs, 'datos' => $ficha]);
     }
 
     /**
@@ -117,7 +123,7 @@ class TabIndicatesController extends Controller
 
         $datos->update($request->all());
 
-        return redirect()->route('tabIndicates.index')->with('success', 'Datos actualizados correctamente.');
+        return $this->sendResponse();
     }
 
     /**
@@ -144,6 +150,8 @@ class TabIndicatesController extends Controller
             $btn = '<div class="demo-inline-spacing">';
             $btn .= '<a href="'.route("specialty.edit", $row->id).'" class="btn btn-outline-info btn-sm" data-toggle="modal" data-target="#default"><i data-feather="edit"></i></a>';
             return $btn;
+        })->addColumn('status', function($row) {
+            return view('components.tabIndicates.switch', ['data' => $row]);
         })->rawColumns(['accion'])->make();
     }
 

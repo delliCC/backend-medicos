@@ -6,6 +6,7 @@
       <th>Tipo de método</th>
       <th>Tipo de muestra</th>
       <th>Información clinica</th>
+      <th>estatus</th>
       <th>Acción</th>
     </tr>
   </thead>

@@ -17,8 +17,8 @@ class Studies extends Migration
             $table->id();
             $table->string('titulo');
             $table->text('descripcion');
-            $table->unsignedBigInteger('metodo_id')->nullable();
-            $table->unsignedBigInteger('muestra_id')->nullable();
+            $table->unsignedBigInteger('metodo_id');
+            $table->unsignedBigInteger('muestra_id');
             $table->string('informacion_clinica');
             $table->boolean('status')->default(true);
             $table->timestamps();

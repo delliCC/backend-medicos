@@ -22,7 +22,6 @@
       <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#default">
         Crear Ficha Indica
       </button>
-      {{--  <a href="{{route('medicos.create')}}" class="btn btn-outline-success"><i data-feather="plus"></i> Nuevo Médico</a>  --}}
     </div>
   </div>
   <!-- Basic table -->

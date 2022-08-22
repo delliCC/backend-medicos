@@ -5,15 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class specialty extends Model
+class Specialty extends Model
 {
     use HasFactory;
 
     protected $table = 'cat_especialidades';
  
     protected $fillable = [
+        'id',
         'especialidad',
         'status'
     ];
-
 }

@@ -36,8 +36,14 @@
     {
       "url": "estudios",
       "name": "Estudios",
-      "icon": "airplay",
+      "icon": "grid",
       "slug": "estudios"
+    },
+    {
+      "url": "webinar",
+      "name": "Webinar",
+      "icon": "airplay",
+      "slug": "webinar"
     },
     {
       "url": "ficha-indica",
