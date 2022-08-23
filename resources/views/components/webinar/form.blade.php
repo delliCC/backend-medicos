@@ -27,7 +27,7 @@
     
     <div class="col-12 mb-2">
         <div class="border rounded p-2">
-          <h4 class="mb-1">Featured Image</h4>
+          <h4 class="mb-1">Video</h4>
           <div class="media flex-column flex-md-row">
             <img
               src="{{asset('images/slider/03.jpg')}}"
@@ -38,8 +38,8 @@
               alt="Blog Featured Image"
             />
             <div class="media-body">
-              <h5 class="mb-0">Main image:</h5>
-              <small class="text-muted">Required image resolution 800x400, image size 10mb.</small>
+              {{--  <h5 class="mb-0">Requiere video max 10mb</h5>  --}}
+              <small class="text-muted">Requiere video max 10mb.</small>
               <p class="my-50">
                 <a href="javascript:void(0);" id="blog-image-text">C:\fakepath\banner.jpg</a>
               </p>

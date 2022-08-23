@@ -2,6 +2,8 @@
   <thead>
     <tr>
       <th>Usuario</th>
+      <th>Médico</th>
+      <th>E-mail</th>
       <th>estatus</th>
       <th>Acción</th>
     </tr>

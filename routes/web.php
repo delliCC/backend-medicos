@@ -3,9 +3,11 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\CouponsController;
 use App\Http\Controllers\MedicosController;
 use App\Http\Controllers\StudiesController;
+use App\Http\Controllers\WebinarController;
 use App\Http\Controllers\SpecialtyController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\TypeMethodController;
@@ -46,12 +48,12 @@ Route::group(['middlaware' => 'auth'], function() {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
    
     Route::group(['prefix' => 'usuario'], function () {
-        Route::get('/', [TypeSampleController::class, 'index'])->name('user.index');
-        Route::get('/listar', [TypeSampleController::class, 'listar']);
-        Route::post('/guardar', [TypeSampleController::class, 'store'])->name('user.store');
-        Route::get('/{id}', [TypeSampleController::class, 'edit'])->name('user.edit');
-        Route::put('/actualizar/{id}', [TypeSampleController::class, 'update'])->name('user.update');
-        Route::get('/status/{id}/{status}', [TypeSampleController::class, 'changeStatus'])->name('user.status');
+        Route::get('/', [UserController::class, 'index'])->name('user.index');
+        Route::get('/listar', [UserController::class, 'listar']);
+        Route::post('/guardar', [UserController::class, 'store'])->name('user.store');
+        Route::get('/{id}', [UserController::class, 'edit'])->name('user.edit');
+        Route::put('/actualizar/{id}', [UserController::class, 'update'])->name('user.update');
+        Route::get('/status/{id}/{status}', [UserController::class, 'changeStatus'])->name('user.status');
     });
     //catalogue
     Route::group(['prefix' => 'especialidad'], function () {

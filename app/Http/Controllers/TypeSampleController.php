@@ -41,7 +41,7 @@ class TypeSampleController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'metodo'=> 'required|string|unique:type_sample,muestra',
+            'muestra'=> 'required|string|unique:type_sample,muestra',
         ]);
 
         TypeSample::create($request->all());
@@ -80,7 +80,7 @@ class TypeSampleController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'metodo'=> 'required|string|unique:type_sample,muestra',
+            'muestra'=> 'required|string|unique:type_sample,muestra',
         ]);
 
         $datos = TypeSample::find($id);

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use DataTables;
+use App\Models\Webinar;
 use Illuminate\Http\Request;
 
 class WebinarController extends Controller
@@ -36,7 +38,14 @@ class WebinarController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'nombre'=> 'required|string|unique:webinar,nombre',
+            'url'=> 'required|string|unique:webinar,url',
+            'descripcion'=> 'required|string|unique:webinar,descripcion',
+        ]);
+
+        Webinar::create($request->all());
+        return $this->sendResponse();
     }
 
     /**
@@ -82,5 +91,34 @@ class WebinarController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    function listar()
+    {
+        $datos = Webinar::select(
+            'id',
+            'nombre',
+            'url',
+            'descripcion',
+            'status'
+        )->get();
+        return DataTables::of($datos)->addColumn('accion', function($row){
+            $btn = '<div class="demo-inline-spacing">';
+            $btn .= '<a href="'.route("sample.edit", $row->id).'" class="btn btn-outline-info btn-sm" data-toggle="modal" data-target="#default"><i data-feather="edit"></i></a>';
+            return $btn;
+        })->addColumn('status', function($row) {
+            return view('components.webinar.switch', ['data' => $row]);
+        })->rawColumns(['accion'])->make();
+    }
+
+    public function changeStatus($id, $status)
+    {
+        $datos = Webinar::find($id);
+
+        $datos->status = $status == 'false' ? 0 : 1;
+
+        $datos->save();
+
+        return $this->sendResponse($datos);
     }
 }

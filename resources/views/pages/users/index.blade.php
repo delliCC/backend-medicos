@@ -19,7 +19,9 @@
       <h4 class="card-title text-left">Lista de Usuario</h4>
     </div>
     <div class="col-3 text-right">
-      <a href="{{route('users.create')}}" class="btn btn-outline-success"><i data-feather="plus"></i> Nuevo Usuario</a>
+      <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#default">
+        Nuevo Usuario
+      </button>
     </div>
   </div>
   <!-- Basic table -->
@@ -33,4 +35,6 @@
     </div>
   </section>
 </div>
+
+@include('components/users/modal')
 @endsection
