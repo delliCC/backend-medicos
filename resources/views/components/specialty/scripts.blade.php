@@ -27,15 +27,16 @@
       });
 
       $('#form-especialidad').submit(event => {
+        {{--  event.preventDefault()  --}}
         const idEspecialidad = event.target['id-especialidad'].value
-        console.log(idEspecialidad)
+        {{--  console.log(idEspecialidad)  --}}
         const url = idEspecialidad ? `/especialidad/actualizar/${idEspecialidad}` : '/especialidad/guardar'
         const method = idEspecialidad ? 'PUT' : 'POST'
-        console.log('url',url)
-        console.log('method',method)
+        {{--  console.log('url',url)  --}}
+        {{--  console.log('method',method)  --}}
         $.ajax({
-          url,
-          method,
+          url: url,
+          method:method,
           data: {
             '_token': "{{ csrf_token() }}",
             'especialidad': event.target['input-especialidad'].value
@@ -66,7 +67,7 @@
               },
               buttonsStyling: false
             });
-          location.reload()
+          {{--  location.reload()  --}}
         }).fail(function (data) {
           alert(data.responseJSON.errors.especialidad[0])
         });

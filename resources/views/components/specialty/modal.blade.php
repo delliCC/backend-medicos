@@ -7,7 +7,7 @@
             <span aria-hidden="true">&times;</span>
             </button>
         </div>
-        <form class="form-block p-50 mt-2" method="POST" id="form-especialidad">
+        <form class="form-block p-50 mt-2" id="form-especialidad">
           @csrf
           @include('components/specialty/form')
         </form>

@@ -39,14 +39,14 @@
             />
             <div class="media-body">
               {{--  <h5 class="mb-0">Requiere video max 10mb</h5>  --}}
-              <small class="text-muted">Requiere video max 10mb.</small>
+              <small class="text-muted"> El tamaño máximo de archivo es de 250 GB.</small>
               <p class="my-50">
                 <a href="javascript:void(0);" id="blog-image-text">C:\fakepath\banner.jpg</a>
               </p>
               <div class="d-inline-block">
                 <div class="form-group mb-0">
                   <div class="custom-file">
-                    <input type="file" class="custom-file-input" id="blogCustomFile" accept="image/*" />
+                    <input type="file" class="custom-file-input" id="blogCustomFile" accept="video/*" />
                     <label class="custom-file-label" for="blogCustomFile">Choose file</label>
                   </div>
                 </div>

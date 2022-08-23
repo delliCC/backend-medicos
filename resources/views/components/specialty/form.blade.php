@@ -1,6 +1,8 @@
 <div class="modal-body">
     <div class="col-12 mb-1">
-        <input type="hidden" id="id-especialidad">
+        <input type="hidden" id="id-especialidad" 
+        {{--  value="{{ old('id', isset($especialidad) ? $especialidad->id : '') }}"  --}}
+        >
         <fieldset class="form-group">
             <label for="especialidad">Especialidad</label>
             <input type="text" id="input-especialidad" value="{{ old('especialidad', isset($especialidad) ? $especialidad->especialidad : '') }}" class="form-control @error('especialidad') is-invalid @enderror" name="especialidad"  placeholder="Especialidad">

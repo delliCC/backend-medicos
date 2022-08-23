@@ -15,6 +15,7 @@ class Webinar extends Migration
     {
         Schema::create('webinar', function (Blueprint $table) {
             $table->id();
+
             $table->string('nombre');
             $table->string('url');
             $table->text('descripcion');

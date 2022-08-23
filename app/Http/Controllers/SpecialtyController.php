@@ -85,7 +85,6 @@ class SpecialtyController extends Controller
 
         $especialidad = Specialty::find($id);
 
-        return $especialidad;
         $especialidad->update($request->all());
 
         // return $this->sendResponse();

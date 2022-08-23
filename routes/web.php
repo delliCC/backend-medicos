@@ -8,6 +8,7 @@ use App\Http\Controllers\CouponsController;
 use App\Http\Controllers\MedicosController;
 use App\Http\Controllers\StudiesController;
 use App\Http\Controllers\WebinarController;
+use App\Http\Controllers\TrainingController;
 use App\Http\Controllers\SpecialtyController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\TypeMethodController;
@@ -82,6 +83,15 @@ Route::group(['middlaware' => 'auth'], function() {
         Route::put('/actualizar/{id}', [TypeMethodController::class, 'update'])->name('method.update');
         Route::get('/status/{id}/{status}', [TypeMethodController::class, 'changeStatus'])->name('method.status');
     });
+
+    // Route::group(['prefix' => 'evaluacion'], function () {
+    //     Route::get('/', [TypeMethodController::class, 'index'])->name('evaluation.index');
+    //     Route::get('/listar', [TypeMethodController::class, 'listar']);
+    //     Route::post('/guardar', [TypeMethodController::class, 'store'])->name('evaluation.store');
+    //     Route::get('/{id}', [TypeMethodController::class, 'edit'])->name('evaluation.edit');
+    //     Route::put('/actualizar/{id}', [TypeMethodController::class, 'update'])->name('evaluation.update');
+    //     Route::get('/status/{id}/{status}', [TypeMethodController::class, 'changeStatus'])->name('evaluation.status');
+    // });
     
     Route::group(['prefix' => 'ficha-indica'], function () {
         Route::get('/', [TabIndicatesController::class, 'index'])->name('tabIndicates.index');
@@ -108,6 +118,15 @@ Route::group(['middlaware' => 'auth'], function() {
         Route::get('/{id}', [WebinarController::class, 'edit'])->name('webinar.edit');
         Route::put('/actualizar/{id}', [WebinarController::class, 'update'])->name('webinar.update');
         Route::get('/status/{id}/{status}', [WebinarController::class, 'changeStatus'])->name('webinar.status');
+    });
+
+    Route::group(['prefix' => 'capacitacion'], function () {
+        Route::get('/', [TrainingController::class, 'index'])->name('training.index');
+        Route::get('/listar', [TrainingController::class, 'listar']);
+        Route::post('/guardar', [TrainingController::class, 'store'])->name('training.store');
+        Route::get('/{id}', [TrainingController::class, 'edit'])->name('training.edit');
+        Route::put('/actualizar/{id}', [TrainingController::class, 'update'])->name('training.update');
+        Route::get('/status/{id}/{status}', [TrainingController::class, 'changeStatus'])->name('training.status');
     });
 
     Route::group(['prefix' => 'medicos'], function () {

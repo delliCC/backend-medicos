@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use DataTables;
 use App\Models\Webinar;
 use Illuminate\Http\Request;
+use Vimeo\Laravel\VimeoManager;
 
 class WebinarController extends Controller
 {
@@ -36,15 +37,21 @@ class WebinarController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, VimeoManager $vimeo)
     {
         $this->validate($request, [
             'nombre'=> 'required|string|unique:webinar,nombre',
-            'url'=> 'required|string|unique:webinar,url',
             'descripcion'=> 'required|string|unique:webinar,descripcion',
+            'file'=> 'required|mimetypes:video/mp4,video/mpeg,video/quicktime|max:60000',
         ]);
 
-        Webinar::create($request->all());
+        // Webinar::create($request->all());
+        $uri = $vimeo->upload($request->video,[
+            'nombre'=> $request->nombre,
+            'descripcion'=> $request->descripcion
+        ]);
+
+        dd($uri);
         return $this->sendResponse();
     }
 

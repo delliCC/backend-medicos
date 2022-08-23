@@ -40,12 +40,6 @@
       "slug": "estudios"
     },
     {
-      "url": "webinar",
-      "name": "Webinar",
-      "icon": "airplay",
-      "slug": "webinar"
-    },
-    {
       "url": "ficha-indica",
       "name": "Ficha Indica",
       "icon": "file-text",
@@ -58,10 +52,31 @@
       "slug": "cupones"
     },
     {
+      "name": "Cursos",
+      "icon": "airplay",
+      "slug": "",
+      "badge": "2",
+      "badgeClass": "badge badge-pill badge-light-danger ml-auto mr-1",
+      "submenu": [
+        {
+          "url": "webinar",
+          "name": "Webinar",
+          "icon": "circle",
+          "slug": "webinar"
+        },
+      {
+        "url": "capacitacion",
+        "name": "Capacitación",
+        "icon": "circle",
+        "slug": "capacitacion"
+      }
+      ]
+    },
+    {
       "name": "Catálogos",
       "icon": "layers",
       "slug": "",
-      "badge": "2",
+      "badge": "3",
       "badgeClass": "badge badge-pill badge-light-danger ml-auto mr-1",
       "submenu": [
         {
