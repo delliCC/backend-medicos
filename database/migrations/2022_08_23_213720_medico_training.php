@@ -17,6 +17,9 @@ class MedicoTraining extends Migration
             $table->id();
             $table->unsignedBigInteger('medico_id');
             $table->unsignedBigInteger('training_id');
+            $table->dateTime('fecha_inicio');
+            $table->dateTime('fecha_fin');
+            $table->enum('status',['pendiente','proceso','finalizado'])->default('pendiente');
             $table->timestamps();
 
             $table->foreign('medico_id')->references('id')->on('medicos');

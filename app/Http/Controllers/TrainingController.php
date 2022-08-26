@@ -99,7 +99,7 @@ class TrainingController extends Controller
         )->get();
         return DataTables::of($datos)->addColumn('accion', function($row){
             $btn = '<div class="demo-inline-spacing">';
-            $btn .= '<a href="'.route("training.edit", $row->id).'" class="btn btn-outline-info btn-sm" data-toggle="modal" data-target="#default"><i data-feather="edit"></i></a>';
+            $btn .= '<a onclick="editarTraining('.$row->id.', `'.$row->nombre.'`)" class="btn btn-outline-info btn-sm" data-toggle="modal" data-target="#default"><i data-feather="edit"></i></a>';
             return $btn;
         })->addColumn('status', function($row) {
             return view('components.training.switch', ['data' => $row]);

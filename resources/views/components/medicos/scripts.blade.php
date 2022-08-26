@@ -39,5 +39,19 @@
           $("#especialidades").css("display","none");
         }
       }
+
+      function geocode(){
+        var location = '17.9697117-92.9208398'
+        axios.get('https://maps.googleapis.com/maps/api/geocode/json',{
+          params:{
+            address:location,
+            key:'AIzaSyCh1gZvUsD9ljetIt-i5jfTPtXhHB8uq7Y'
+          }
+        }).then(function(response){
+          console.log('response', response)
+        }).catch(function(error){
+          console.log('error',error)
+        })
+      }
     </script>
 @endsection

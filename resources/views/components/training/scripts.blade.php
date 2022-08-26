@@ -29,10 +29,10 @@
       });
 
       $('#form-ficha').submit(event => {
-        const idFicha = event.target['id-ficha'].value
-        console.log(idFicha)
-        const url = idFicha ? `/capacitacion/actualizar/${idFicha}` : '/capacitacion/guardar'
-        const method = idFicha ? 'PUT' : 'POST'
+        const idTraining = event.target['id-ficha'].value
+        console.log(idTraining)
+        const url = idTraining ? `/capacitacion/actualizar/${idTraining}` : '/capacitacion/guardar'
+        const method = idTraining ? 'PUT' : 'POST'
         console.log('url',url)
         console.log('method',method)
         $.ajax({
@@ -77,7 +77,7 @@
         event.preventDefault();
       });
 
-      function editarEspecilidad(id, nombre) {
+      function editarTraining(id, nombre) {
         $('#id-ficha').val(id);
         $('#input-nombre').val(nombre);
       }

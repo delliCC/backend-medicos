@@ -47,7 +47,7 @@ class TabIndicatesController extends Controller
             'url'=> 'required|string|unique:tab_indicates,especialidad',
             'descripcion'=> 'required|string|unique:tab_indicates,especialidad',
         ]);
-
+        return $request->all();
         TabIndicates::create($request->all());
         return $this->sendResponse();
         // $factura = Factura::where('factura', $this->nombreFactura)->first();
@@ -57,20 +57,13 @@ class TabIndicatesController extends Controller
         //     foreach ($this->archivos as $archivo) {
         //         $urlArchivo = $this->uploadS3Base64($archivo['fullName'], $archivo['file']);
         //         if ($urlArchivo) {
-        //             $pos = strpos($urlArchivo['url'], '.xml');
-
-        //             if ($pos !== false) {
-        //                 $arrayArchivos['url_xml'] = $urlArchivo['url'];
-        //             } else {
-        //                 $arrayArchivos['url_pdf'] = $urlArchivo['url'];
-        //             }
+        //             $arrayArchivos['url_pdf'] = $urlArchivo['url'];
         //         }
         //     }
 
         //     if ([] !== $arrayArchivos) {
         //         ArchivoFactura::create([
         //             'url_pdf' => $arrayArchivos['url_pdf'],
-        //             'url_xml' => $arrayArchivos['url_xml'],
         //             'factura_id' => $factura->id,
         //         ]);
         //     }

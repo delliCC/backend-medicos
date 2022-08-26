@@ -104,7 +104,7 @@
             <select class="form-control" class="form-control" id="especialidad_id" name="especialidad_id">
                 <option value="" selected disabled> Selecciona una opción </option>
                 @foreach ($especialidad as $specialty)
-                    <option value="{{isset($medico) ? $specialty->id == $medico->especialidad_id ? 'selected' : '' : ''}}">
+                    <option {{isset($medico) ? $specialty->id == $medico->especialidad_id ? 'selected' : '' : ''}}>
                         {{ $specialty->especialidad }}
                     </option>
                 @endforeach

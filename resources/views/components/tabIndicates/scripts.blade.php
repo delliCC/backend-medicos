@@ -29,52 +29,61 @@
       });
 
       $('#form-ficha').submit(event => {
+        event.preventDefault();
+       
+        let headers = {
+          Authorization: "token",
+          {{--  'Content-Type':'multipart/form-data'  --}}
+        };
+        var inputFileImage = document.getElementById("input-video");
+        var formData = new FormData();
+
+        formData.append('nombre', $('#input-nombre').val());
+        formData.append('descripcion', $('#input-descripcion').val());
+
+        for(var a=0; a<inputFileImage.files.length; a++){
+          var imagen = inputFileImage.files[a]
+          console.log(imagen)
+          formData.append('imagenes[]', imagen);
+        }
+		
         const idFicha = event.target['id-ficha'].value
-        console.log(idFicha)
+         //--console.log(idFicha)
         const url = idFicha ? `/ficha-indica/actualizar/${idFicha}` : '/ficha-indica/guardar'
         const method = idFicha ? 'PUT' : 'POST'
-        console.log('url',url)
-        console.log('method',method)
+         //--console.log('url',url,'metodo->'method)
         $.ajax({
-          url,
-          method,
-          data: {
-            '_token': "{{ csrf_token() }}",
-            'nombre': event.target['input-nombre'].value,
-            'descripcion': event.target['input-descripcion'].value
-          },
-          beforeSend: xhr => {
-            formSection.block({
-              message: '<div class="spinner-border text-white" role="status"></div>',
-              timeout: 1000,
-              css: {
-                backgroundColor: 'transparent',
-                color: '#fff',
-                border: '0'
-              },
-              overlayCSS: {
-                opacity: 0.5
-              }
-            });
-          }
-        }).done(response => {
-        
-          $('#default').modal('hide')
-            Swal.fire({
-              title: response.message,
-              text: 'Los datos se guardaron correctamente',
-              icon: 'success',
-              customClass: {
-                confirmButton: 'btn btn-primary'
-              },
-              buttonsStyling: false
-            });
-          location.reload()
-        }).fail(function (data) {
-          alert(data.responseJSON.errors.especialidad[0])
-        });
+            url,
+            method,
+            enctype: 'multipart/form-data',
+            data: formData,
+            { headers }
+            //--data: {
+            //-- '_token': "{{ csrf_token() }}",
+            //-- 'nombre': event.target['input-nombre'].value,
+            //--  'descripcion': event.target['input-descripcion'].value
+            //--},
+            processData: false,
+            contentType: false,
+            beforeSend: xhr => {
+             
+           }
+          }).done(response => {
+            $('#default').modal('hide')
+              Swal.fire({
+                title: response.message,
+                text: 'Los datos se guardaron correctamente',
+                icon: 'success',
+                customClass: {
+                  confirmButton: 'btn btn-primary'
+                },
+                buttonsStyling: false
+              });
+              location.reload()
+         }).fail(function (data) {
+           alert(data.responseJSON.errors.especialidad[0])
+         });
 
-        event.preventDefault();
       });
 
       function editarEspecilidad(id, nombre) {

@@ -7,7 +7,7 @@
             <span aria-hidden="true">&times;</span>
             </button>
         </div>
-        <form class="mt-2" method="POST" id="form-ficha">
+        <form class="mt-2" method="POST" id="form-ficha" files="true">
           @csrf
           @include('components/tabIndicates/form')
         </form>

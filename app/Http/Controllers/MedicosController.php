@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use App\Models\Medico;
 use App\Models\Specialty;
 use Illuminate\Http\Request;
+use App\Models\HistoryWebinar;
 
 class MedicosController extends Controller
 {
@@ -127,7 +128,6 @@ class MedicosController extends Controller
 
         return redirect()->route('medicos.index')->with('success', 'Datos actualizados correctamente.');
     }
-
     /**
      * Remove the specified resource from storage.
      *
@@ -161,11 +161,47 @@ class MedicosController extends Controller
         return DataTables::of($medicos)->addColumn('accion', function($row){
             $btn = '<div class="demo-inline-spacing">';
             $btn .= '<a href="'.route("medicos.edit", $row->id).'" class="btn btn-outline-info btn-sm"><i data-feather="edit"></i></a>';
+            $btn .= '<a href="'.route("medicos.history", $row->id).'" class="btn btn-outline-info btn-sm"><i data-feather="archive"></i></a>';
             return $btn;
         })->addColumn('especialidad', function($row) {
             return  $row->especialidad->especialidad;
         })->addColumn('status', function($row) {
             return view('components.medicos.switch', ['data' => $row]);
+        })->rawColumns(['accion'])->make();
+    }
+    //Webinar
+    public function historyWebinar($id)
+    {
+        $especialidad = Specialty::select('id','especialidad','status')->where('status',1)->get();
+        $breadcrumbs = [
+            ['link'=>"medicos", 'name'=>"Lista de Médicos"], ['name'=>"Editar"]
+        ];
+
+        $medico = Medico::find($id);
+ 
+        return view('/pages/medicos/history', ['breadcrumbs' => $breadcrumbs, 'medico' => $medico], compact('especialidad'));
+    }
+
+    function listarWebinar()
+    {
+        $medicos = HistoryWebinar::select(
+            'id',
+            'medico_id',
+            'webinar_id',
+            'fecha_inicio',
+            'fecha_fin',
+            'status'
+        )->with(['historyWebinar'=> function ($query){
+            $query->select('id', 'webinar');
+        }])->get();
+        return DataTables::of($medicos)->addColumn('accion', function($row){
+            $btn = '<div class="demo-inline-spacing">';
+            $btn .= '<a onclick="constancia('.$row->id.', `'.$row->webinar_id.'`)" class="btn btn-outline-info btn-sm" data-toggle="modal" data-target="#default"><i data-feather="book-open"></i></a>';
+            return $btn;
+        })->addColumn('historyWebinar', function($row) {
+            return  $row->historyWebinar->webinar;
+        })->addColumn('status', function($row) {
+            // return view('components.medicos.switch', ['data' => $row]);
         })->rawColumns(['accion'])->make();
     }
 }
