@@ -40,7 +40,19 @@
         }
       }
 
-      function geocode(){
+      var settings = {
+        "url": "https://api.countrystatecity.in/v1/countries/IN/states/MH/cities",
+        "method": "GET",
+        "headers": {
+          "X-CSCAPI-KEY": "WHNBQUFjTzAwY01CRVhpbDNPQnl1OFBLWFZMczJxWWVzZTJGWG5TQQ"
+        },
+      };
+      
+      $.ajax(settings).done(function (response) {
+        console.log(response);
+      });
+
+      {{--  function geocode(){
         var location = '17.9697117-92.9208398'
         axios.get('https://maps.googleapis.com/maps/api/geocode/json',{
           params:{
@@ -52,6 +64,6 @@
         }).catch(function(error){
           console.log('error',error)
         })
-      }
+      }  --}}
     </script>
 @endsection

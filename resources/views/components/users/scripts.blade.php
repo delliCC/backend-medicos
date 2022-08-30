@@ -19,8 +19,8 @@
         configuracionesBasicasDatatable['serverSide'] = true
         configuracionesBasicasDatatable['ajax'] = "usuario/listar"
         configuracionesBasicasDatatable['columns'] = [
-          { "data": "username" },
           { "data": "medico_id" },
+          { "data": "username" },
           { "data": "email" },
           { "data": "status" },
           { "data": "accion" }

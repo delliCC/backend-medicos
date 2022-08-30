@@ -1,8 +1,15 @@
 <div class="modal-body">
     <div class="col-12 mb-1">
         <fieldset class="form-group">
-            <label for="medico_id">Medico</label>
-            <input type="text" id="input-medico_id"  value="{{ old('medico_id', isset($datos) ? $datos->medico_id : '') }}" class="form-control @error('medico_id') is-invalid @enderror" name="medico_id"  placeholder="Medico">
+            <label for="medico_id">Médico</label>
+            <select class="form-control" class="form-control" id="input-medico_id" name="medico_id">
+                <option value="" selected disabled> Selecciona una opción </option>
+                @foreach ($medicos as $medico)
+                    <option {{isset($datos) ? $medico->id == $datos->medico_id ? 'selected' : '' : ''}}>
+                        {{ $medico->nombre }} {{ $medico->apellido_paterno }} {{ $medico->apellido_materno }}
+                    </option>
+                @endforeach
+            </select>
             @error('medico_id')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
@@ -10,7 +17,7 @@
             @enderror
         </fieldset>
     </div>
-
+    
     <div class="col-12 mb-1">
         <fieldset class="form-group">
             <input type="hidden" id="id-user">

@@ -94,8 +94,10 @@ class MedicosController extends Controller
             ['link'=>"medicos", 'name'=>"Lista de Médicos"], ['name'=>"Editar"]
         ];
 
-        $medico = Medico::find($id);
-     return $medico;
+        $medico = Medico::with(['especialidad'=> function ($query){
+            $query->select('id', 'especialidad');
+        }])->find($id);
+     
         return view('/pages/medicos/edit', ['breadcrumbs' => $breadcrumbs, 'medico' => $medico], compact('especialidad'));
     }
 
@@ -158,13 +160,17 @@ class MedicosController extends Controller
         )->with(['especialidad'=> function ($query){
             $query->select('id', 'especialidad');
         }])->get();
+       
         return DataTables::of($medicos)->addColumn('accion', function($row){
             $btn = '<div class="demo-inline-spacing">';
             $btn .= '<a href="'.route("medicos.edit", $row->id).'" class="btn btn-outline-info btn-sm"><i data-feather="edit"></i></a>';
             $btn .= '<a href="'.route("medicos.history", $row->id).'" class="btn btn-outline-info btn-sm"><i data-feather="archive"></i></a>';
             return $btn;
-        })->addColumn('especialidad', function($row) {
-            return  $row->especialidad->especialidad;
+        })->addColumn('especialidad_id', function($row) {
+            if($row->especialidad_id != null){
+                return  $row->especialidad->especialidad;
+            }
+            return '';
         })->addColumn('status', function($row) {
             return view('components.medicos.switch', ['data' => $row]);
         })->rawColumns(['accion'])->make();
@@ -184,7 +190,7 @@ class MedicosController extends Controller
 
     function listarWebinar()
     {
-        $medicos = HistoryWebinar::select(
+        $history = HistoryWebinar::select(
             'id',
             'medico_id',
             'webinar_id',
@@ -194,7 +200,7 @@ class MedicosController extends Controller
         )->with(['historyWebinar'=> function ($query){
             $query->select('id', 'webinar');
         }])->get();
-        return DataTables::of($medicos)->addColumn('accion', function($row){
+        return DataTables::of($history)->addColumn('accion', function($row){
             $btn = '<div class="demo-inline-spacing">';
             $btn .= '<a onclick="constancia('.$row->id.', `'.$row->webinar_id.'`)" class="btn btn-outline-info btn-sm" data-toggle="modal" data-target="#default"><i data-feather="book-open"></i></a>';
             return $btn;

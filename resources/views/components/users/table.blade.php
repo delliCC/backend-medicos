@@ -1,8 +1,8 @@
 <table class="datatables-basic table" id="usuario-table">
   <thead>
     <tr>
-      <th>Usuario</th>
       <th>Médico</th>
+      <th>Usuario</th>
       <th>E-mail</th>
       <th>estatus</th>
       <th>Acción</th>
