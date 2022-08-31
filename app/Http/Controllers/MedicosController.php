@@ -164,7 +164,7 @@ class MedicosController extends Controller
         return DataTables::of($medicos)->addColumn('accion', function($row){
             $btn = '<div class="demo-inline-spacing">';
             $btn .= '<a href="'.route("medicos.edit", $row->id).'" class="btn btn-outline-info btn-sm"><i data-feather="edit"></i></a>';
-            $btn .= '<a href="'.route("medicos.history", $row->id).'" class="btn btn-outline-info btn-sm"><i data-feather="archive"></i></a>';
+            $btn .= '<a href="'.route("medicos.historyWebinar", $row->id).'" class="btn btn-outline-info btn-sm"><i data-feather="archive"></i></a>';
             return $btn;
         })->addColumn('especialidad_id', function($row) {
             if($row->especialidad_id != null){
@@ -175,6 +175,7 @@ class MedicosController extends Controller
             return view('components.medicos.switch', ['data' => $row]);
         })->rawColumns(['accion'])->make();
     }
+
     //Webinar
     public function historyWebinar($id)
     {
@@ -184,7 +185,6 @@ class MedicosController extends Controller
         ];
 
         $medico = Medico::find($id);
- 
         return view('/pages/medicos/history', ['breadcrumbs' => $breadcrumbs, 'medico' => $medico], compact('especialidad'));
     }
 
