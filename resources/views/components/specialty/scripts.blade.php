@@ -27,13 +27,11 @@
       });
 
       $('#form-especialidad').submit(event => {
-        {{--  event.preventDefault()  --}}
+        event.preventDefault()
         const idEspecialidad = event.target['id-especialidad'].value
-        {{--  console.log(idEspecialidad)  --}}
         const url = idEspecialidad ? `/especialidad/actualizar/${idEspecialidad}` : '/especialidad/guardar'
         const method = idEspecialidad ? 'PUT' : 'POST'
-        {{--  console.log('url',url)  --}}
-        {{--  console.log('method',method)  --}}
+
         $.ajax({
           url: url,
           method:method,
@@ -42,18 +40,7 @@
             'especialidad': event.target['input-especialidad'].value
           },
           beforeSend: xhr => {
-            formSection.block({
-              message: '<div class="spinner-border text-white" role="status"></div>',
-              timeout: 1000,
-              css: {
-                backgroundColor: 'transparent',
-                color: '#fff',
-                border: '0'
-              },
-              overlayCSS: {
-                opacity: 0.5
-              }
-            });
+           
           }
         }).done(response => {
         
@@ -67,12 +54,12 @@
               },
               buttonsStyling: false
             });
-          {{--  location.reload()  --}}
+            location.reload()
         }).fail(function (data) {
+          console.log(data.responseJSON.errors)
           alert(data.responseJSON.errors.especialidad[0])
         });
 
-        event.preventDefault();
       });
 
       function editarEspecilidad(id, especialidad) {

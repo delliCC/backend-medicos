@@ -22,7 +22,6 @@
       <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#default">
         Crear Muestra
       </button>
-      {{--  <a href="{{route('sample.create')}}" class="btn btn-outline-success"><i data-feather="plus"></i> Nuevo Médico</a>  --}}
     </div>
   </div>
   <!-- Basic table -->

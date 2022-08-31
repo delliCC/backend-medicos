@@ -45,7 +45,7 @@ class TypeSampleController extends Controller
         ]);
 
         TypeSample::create($request->all());
-        return redirect()->route('sample.index')->with('success', 'Datos guardados correctamente.');
+        return $this->sendResponse();
     }
 
     /**
@@ -110,7 +110,7 @@ class TypeSampleController extends Controller
         )->get();
         return DataTables::of($datos)->addColumn('accion', function($row){
             $btn = '<div class="demo-inline-spacing">';
-            $btn .= '<a href="'.route("sample.edit", $row->id).'" class="btn btn-outline-info btn-sm" data-toggle="modal" data-target="#default"><i data-feather="edit"></i></a>';
+            $btn .= '<a onclick="editarSample('.$row->id.', `'.$row->muestra.'`)" class="btn btn-outline-info btn-sm" data-toggle="modal" data-target="#default"><i data-feather="edit"></i></a>';
             return $btn;
         })->addColumn('status', function($row) {
             return view('components.type_sample.switch', ['data' => $row]);

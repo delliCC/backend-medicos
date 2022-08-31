@@ -47,8 +47,19 @@ class TabIndicatesController extends Controller
             'url'=> 'required|string|unique:tab_indicates,especialidad',
             'descripcion'=> 'required|string|unique:tab_indicates,especialidad',
         ]);
-        return $request->all();
-        TabIndicates::create($request->all());
+       
+        $imagenes = $request->imagenes;
+        foreach ($imagenes as $imagen) {
+            $fileS3 = uploadS3($imagen, 'ficha-indica', randomString() . '-' . time());
+
+            $datos = [
+                'nombre' => $fileS3['filename'],
+                'url' => $fileS3['route'],
+                'descripcion' => $request->descripcion,
+            ];
+            // $evidencia = TabIndicates::create($datos);
+        }
+
         return $this->sendResponse();
         // $factura = Factura::where('factura', $this->nombreFactura)->first();
 

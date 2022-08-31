@@ -33,9 +33,9 @@
        
         let headers = {
           Authorization: "token",
-          {{--  'Content-Type':'multipart/form-data'  --}}
+         // 'Content-Type':'multipart/form-data'
         };
-        var inputFileImage = document.getElementById("input-video");
+        var inputFileImage = document.getElementById("input-imagen");
         var formData = new FormData();
 
         formData.append('nombre', $('#input-nombre').val());
@@ -48,16 +48,17 @@
         }
 		
         const idFicha = event.target['id-ficha'].value
-         //--console.log(idFicha)
         const url = idFicha ? `/ficha-indica/actualizar/${idFicha}` : '/ficha-indica/guardar'
         const method = idFicha ? 'PUT' : 'POST'
-         //--console.log('url',url,'metodo->'method)
+
+        
+        
         $.ajax({
             url,
             method,
             enctype: 'multipart/form-data',
             data: formData,
-            { headers }
+            headers: headers,
             //--data: {
             //-- '_token': "{{ csrf_token() }}",
             //-- 'nombre': event.target['input-nombre'].value,

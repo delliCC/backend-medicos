@@ -87,8 +87,7 @@ class SpecialtyController extends Controller
 
         $especialidad->update($request->all());
 
-        // return $this->sendResponse();
-        return redirect()->route('specialty.index')->with('success', 'Datos guardados correctamente.');
+        return $this->sendResponse();
     }
 
     /**

@@ -28,11 +28,9 @@
 
       $('#form-metodo').submit(event => {
         const idMetodo = event.target['id-metodo'].value
-        console.log(idMetodo)
         const url = idMetodo ? `/tipo-metodo/actualizar/${idMetodo}` : '/tipo-metodo/guardar'
         const method = idMetodo ? 'PUT' : 'POST'
-        console.log('url',url)
-        console.log('method',method)
+
         $.ajax({
           url,
           method,
@@ -41,18 +39,7 @@
             'metodo': event.target['input-metodo'].value
           },
           beforeSend: xhr => {
-            formSection.block({
-              message: '<div class="spinner-border text-white" role="status"></div>',
-              timeout: 1000,
-              css: {
-                backgroundColor: 'transparent',
-                color: '#fff',
-                border: '0'
-              },
-              overlayCSS: {
-                opacity: 0.5
-              }
-            });
+            
           }
         }).done(response => {
         

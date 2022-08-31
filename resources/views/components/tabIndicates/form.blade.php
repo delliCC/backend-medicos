@@ -29,24 +29,24 @@
         <div class="border rounded p-2">
           <h4 class="mb-1">Archivo</h4>
           <div class="media flex-column flex-md-row">
-            <img
+            {{--  <img
               src="{{asset('images/slider/03.jpg')}}"
               id="blog-feature-image"
               class="rounded mr-2 mb-1 mb-md-0"
               width="170"
               height="110"
               alt="Blog Featured Image"
-            />
+            />  --}}
             <div class="media-body">
               {{--  <h5 class="mb-0">Main image:</h5>  --}}
               <small class="text-muted">Required archivo max 10mb.</small>
-              <p class="my-50">
+              {{--  <p class="my-50">
                 <a href="javascript:void(0);" id="blog-image-text">C:\fakepath\banner.jpg</a>
-              </p>
+              </p>  --}}
               <div class="d-inline-block">
                 <div class="form-group mb-0">
                   <div class="custom-file">
-                    <input type="file" class="custom-file-input" id="input-video" name="video" accept="image/*" />
+                    <input type="file" class="custom-file-input" id="input-imagen" name="imagen" accept="image/*" multiple/>
                     <label class="custom-file-label" for="blogCustomFile">Choose file</label>
                   </div>
                 </div>
