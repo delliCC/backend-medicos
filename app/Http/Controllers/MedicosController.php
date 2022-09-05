@@ -138,7 +138,7 @@ class MedicosController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // HistoryWebinar::
     }
 
     /**
