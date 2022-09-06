@@ -46,15 +46,15 @@ services:
           - chontalpa.localhost
     env_file:
       - ./.env
-  node:
-    build : nodejs
-    ports: 
-      - "8080:8080"
-    volumes:
-      - ./../:/var/www/html
-    working_dir: /var/www/html
-    networks:
-      - laravel-devkit
+  # node:
+  #   build : nodejs
+  #   ports: 
+  #     - "8080:8080"
+  #   volumes:
+  #     - ./../:/var/www/html
+  #   working_dir: /var/www/html
+  #   networks:
+  #     - laravel-devkit
 
 networks:
   laravel-devkit:

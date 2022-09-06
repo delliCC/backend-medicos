@@ -15,6 +15,9 @@ class Webinar extends Model
         'nombre',
         'url',
         'descripcion',
+        'nombre_medico',
+        'especialidad',
+        'fecha_inicio',
         'status'
     ];
 }

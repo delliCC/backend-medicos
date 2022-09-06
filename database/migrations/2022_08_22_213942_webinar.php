@@ -19,6 +19,9 @@ class Webinar extends Migration
             $table->string('nombre');
             $table->string('url');
             $table->text('descripcion');
+            $table->text('nombre_medico');
+            $table->text('especialidad');
+            $table->dateTime('fecha_inicio');
             $table->boolean('status')->default(true);
             $table->timestamps();
         });
