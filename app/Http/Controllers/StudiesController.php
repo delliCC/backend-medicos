@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use DataTables;
-use App\Models\Studies;
+
 use App\Models\TypeMethod;
 use App\Models\TypeSample;
 use Illuminate\Http\Request;
+use App\Models\Studies\Studies;
+use App\Models\Studies\StudieMethod;
+use App\Models\Studies\StudieSample;
 
 class StudiesController extends Controller
 {
@@ -57,7 +60,17 @@ class StudiesController extends Controller
         ]);
 
        
-        Studies::create($request->all());
+        $datos = Studies::create($request->all());
+
+        StudieMethod::create([
+            'estudio_id'=> $datos->id,
+            'metodo_id'=> $request->metodo_id,
+        ]);
+
+        StudieSample::create([
+            'estudio_id'=> $datos->id,
+            'muestra_id'=> $request->metodo_id,
+        ]);
 
         return redirect()->route('studies.index')->with('success', 'Datos guardados correctamente.');
     }
@@ -108,6 +121,7 @@ class StudiesController extends Controller
             'metodo_id' => 'required',
             'muestra_id' => 'required',
             'informacion_clinica' => 'required',
+            'precauciones'=> 'required',
         ]);
 
         $estudios = Studies::find($id);
@@ -134,14 +148,17 @@ class StudiesController extends Controller
             'id',
             'titulo',
             'descripcion',
-            'metodo_id',
-            'muestra_id',
             'informacion_clinica',
+            'precauciones',
             'status'
-        )->with(['metodo'=> function ($query){
-            $query->select('id', 'metodo');
-        }])->with(['muestra'=> function ($query){
-            $query->select('id', 'muestra');
+        )->with(['metodos'=> function ($query){
+            $query->select('*')->where('status',1)->with(['metodo'=> function ($query){
+                $query->select('id', 'metodo');
+            }]);
+        }])->with(['muestras'=> function ($query){
+            $query->select('*')->where('status',1)->with(['muestra'=> function ($query){
+                $query->select('id', 'muestra');
+            }]);
         }])->get();
 
         return DataTables::of($datos)->addColumn('accion', function($row){
@@ -149,9 +166,9 @@ class StudiesController extends Controller
             $btn .= '<a href="'.route("studies.edit", $row->id).'" class="btn btn-outline-info btn-sm"><i data-feather="edit"></i></a>';
             return $btn;
         })->addColumn('metodo', function($row) {
-            return  $row->metodo->metodo;
+            return view('components.studies.listMethod', ['data' => $row->metodos]);
         })->addColumn('muestra', function($row) {
-            return  $row->muestra->muestra;
+            return view('components.studies.listSample', ['data' => $row->muestras]);
         })->addColumn('status', function($row) {
             return view('components.studies.switch', ['data' => $row]);
         })->rawColumns(['accion'])->make();

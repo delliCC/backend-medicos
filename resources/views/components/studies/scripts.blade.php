@@ -10,7 +10,7 @@
           {
             extend: 'pdf',
             exportOptions: {
-              columns: [ 0, 1, 2, 3, 4, 5 ]
+              columns: [ 0, 1, 2, 3, 4]
             }
           }
         ]
@@ -20,10 +20,10 @@
         configuracionesBasicasDatatable['ajax'] = "estudios/listar"
         configuracionesBasicasDatatable['columns'] = [
           { "data": "titulo" },
-          { "data": "descripcion" },
+          {{--  { "data": "descripcion" },  --}}
           { "data": "metodo" },
           { "data": "muestra" },
-          { "data": "informacion_clinica" },
+          {{--  { "data": "informacion_clinica" },  --}}
           { "data": "status" },
           { "data": "accion" }
         ]

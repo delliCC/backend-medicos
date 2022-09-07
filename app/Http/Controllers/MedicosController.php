@@ -207,7 +207,7 @@ class MedicosController extends Controller
         })->addColumn('historyWebinar', function($row) {
             return  $row->historyWebinar->webinar;
         })->addColumn('status', function($row) {
-            // return view('components.medicos.switch', ['data' => $row]);
+            return view('components.medicos.switch', ['data' => $row]);
         })->rawColumns(['accion'])->make();
     }
 }

@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Studies;
 
-use App\Models\TypeMethod;
-use App\Models\TypeSample;
+use App\Models\Studies\StudieMethod;
+use App\Models\Studies\StudieSample;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -16,19 +16,19 @@ class Studies extends Model
         'id',
         'titulo',
         'descripcion',
-        'metodo_id',
-        'muestra_id',
         'informacion_clinica',
+        'precauciones',
         'status'
     ];
 
-    public function metodo()
+    public function metodos()
     {
-        return $this->belongsTo(TypeMethod::class, 'metodo_id');
+        return $this->hasMany(StudieMethod::class, 'estudio_id');
+        // belongsToMany
     }
 
-    public function muestra()
+    public function muestras()
     {
-        return $this->belongsTo(TypeSample::class, 'muestra_id');
+        return $this->hasMany(StudieSample::class,'estudio_id');
     }
 }

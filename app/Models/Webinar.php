@@ -16,6 +16,7 @@ class Webinar extends Model
         'url',
         'descripcion',
         'nombre_medico',
+        'imagen_url',
         'especialidad',
         'fecha_inicio',
         'status'

@@ -17,14 +17,10 @@ class Studies extends Migration
             $table->id();
             $table->string('titulo');
             $table->text('descripcion');
-            $table->unsignedBigInteger('metodo_id');
-            $table->unsignedBigInteger('muestra_id');
-            $table->string('informacion_clinica');
+            $table->text('informacion_clinica');
+            $table->text('precauciones');
             $table->boolean('status')->default(true);
             $table->timestamps();
-
-            $table->foreign('metodo_id')->references('id')->on('type_method');
-            $table->foreign('muestra_id')->references('id')->on('type_sample');
         });
     }
 
