@@ -17,13 +17,13 @@ $configData = Helper::applClasses();
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
   <title>@yield('title') - Portal médico</title>
-  <link rel="shortcut icon" type="image/x-icon" href="{{asset('images/logo/favicon.ico')}}">
+  <link rel="shortcut icon" type="image/x-icon" href="https://laboratorios-chontalpa-file.s3.amazonaws.com/assets/favicon.png">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600" rel="stylesheet">
   
   <link rel="stylesheet" href="{{ asset('vendors/css/animate/animate.min.css') }}">
   <link rel="stylesheet" href="{{ asset('vendors/css/extensions/sweetalert2.min.css') }}">
   <link rel="stylesheet" href="{{ asset('css/base/plugins/extensions/ext-component-sweet-alerts.css') }}">
- 
+  <link rel="stylesheet" href="{{ asset('vendors/css/forms/select/select2.min.css') }}">
   {{-- Include core + vendor Styles --}}
   @include('panels/styles')
 

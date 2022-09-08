@@ -58,7 +58,7 @@
               <span class="user-status">Admin</span>
             </div>
             <span class="avatar">
-              <img src="https://laboratorios-chontalpa-file.s3.amazonaws.com/favicon.png" alt="avatar" height="40" width="40">
+              <img src="https://laboratorios-chontalpa-file.s3.amazonaws.com/assets/favicon.png" alt="avatar" height="40" width="40">
               {{--  <img class="round" src="{{asset('images/portrait/small/avatar-s-11.jpg')}}" alt="avatar" height="40" width="40">  --}}
               <span class="avatar-status-online"></span>
             </span>

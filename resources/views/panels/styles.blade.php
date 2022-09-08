@@ -3,7 +3,6 @@
 {{-- Vendor Styles --}}
 @yield('vendor-style')
 {{-- Theme Styles --}}
-
 <link rel="stylesheet" href="{{ asset('css/core.css') }}" />
 
 {{-- {!! Helper::applClasses() !!} --}}

@@ -72,7 +72,9 @@ class StudiesController extends Controller
             'muestra_id'=> $request->metodo_id,
         ]);
 
-        return redirect()->route('studies.index')->with('success', 'Datos guardados correctamente.');
+        return $request->all();
+        return $this->sendResponse();
+        // return redirect()->route('studies.index')->with('success', 'Datos guardados correctamente.');
     }
 
     /**

@@ -30,6 +30,64 @@
         $('#estudios-table').DataTable(configuracionesBasicasDatatable);
       });
 
+      $('#form-studie').submit(event => {
+        event.preventDefault();
+       
+        let headers = {
+          Authorization: "token",
+         // 'Content-Type':'multipart/form-data'
+        };
+        var inputFileImage = document.getElementById("input-imagen");
+        var formData = new FormData();
+
+        formData.append('titulo', $('#input-titulo').val());
+        formData.append('metodo_id', $('#select-metodo').val());
+        formData.append('muestra_id', $('#select-muestra').val());
+        formData.append('descripcion', $('#text-descripcion').val());
+        formData.append('informacion_clinica', $('#text-informacion').val());
+        formData.append('precauciones', $('#text-precauciones').val());
+
+        for(var a=0; a<inputFileImage.files.length; a++){
+          var imagen = inputFileImage.files[a]
+          console.log(imagen)
+          formData.append('imagenes[]', imagen);
+        }
+
+        $.ajax({
+            url:'/ficha-indica/guardar',
+            method:'POST',
+            enctype: 'multipart/form-data',
+            data: formData,
+            headers: headers,
+            //--data: {
+            //-- '_token': "{{ csrf_token() }}",
+            //-- 'nombre': event.target['input-nombre'].value,
+            //--  'descripcion': event.target['input-descripcion'].value
+            //--},
+            processData: false,
+            contentType: false,
+            beforeSend: xhr => {
+             
+           }
+          }).done(response => {
+              Swal.fire({
+                title: response.message,
+                text: 'Los datos se guardaron correctamente',
+                icon: 'success',
+                customClass: {
+                  confirmButton: 'btn btn-primary'
+                },
+                buttonsStyling: false
+              });
+              location.reload()
+         }).fail(function (data) {
+          console.log(data)
+           alert(data.responseJSON.errors.especialidad[0])
+         });
+
+      });
+
+
       function changeStatus(event, id){
         event.preventDefault();
         let checked = event.target.checked

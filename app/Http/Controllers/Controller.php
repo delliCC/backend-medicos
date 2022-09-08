@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
@@ -45,5 +46,17 @@ class Controller extends BaseController
         return response()->json([
             'message' => $message,
         ], $status);
+    }
+
+    public function uploadS3Base64($fileName, $fileBase64, $path = '')
+    {
+        $file = $path ."". $fileName;
+
+        Storage::disk('s3')->put($file, base64_decode($fileBase64), 'public');
+
+        return [
+            'url' => Storage::disk('s3')->getAdapter()->getClient()->getObjectUrl('facturas', $file),
+            'path' => $file,
+        ];
     }
 }

@@ -7,7 +7,7 @@
     <div class="col-xl-6 col-md-6 col-12 mb-1">
         <fieldset class="form-group">
             <label for="nombre">Titulo <i style="color: red">*</i></label>
-            <input type="text" value="{{ old('titulo', isset($datos) ? $datos->titulo : '') }}" class="form-control @error('titulo') is-invalid @enderror" name="titulo"  placeholder="Titulo">
+            <input type="text" value="{{ old('titulo', isset($datos) ? $datos->titulo : '') }}" class="form-control @error('titulo') is-invalid @enderror" name="titulo" id="input-titulo" placeholder="Titulo">
             @error('titulo')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
@@ -19,10 +19,10 @@
     <div class="col-xl-6 col-md-6 col-12 mb-1">
         <fieldset class="form-group">
             <label for="tipo_metodo">Tipo de Método</label>
-            <select class="form-control"  class="form-control" name="metodo_id">
+            <select class="form-control"  class="form-control" name="metodo_id" id="select-metodo">
                 <option value="" selected disabled> Selecciona una opción </option>
                 @foreach ($tipoMetodo as $metodo)
-                    <option {{isset($datos) ? $metodo->id == $datos->metodo_id ? 'selected' : '' : ''}}>{{ $metodo->metodo }}</option>
+                    <option value="{{$metodo->id}}" {{isset($datos) ? $metodo->id == $datos->metodo_id ? 'selected' : '' : ''}}>{{ $metodo->metodo }}</option>
                 @endforeach
             </select>
         </fieldset>
@@ -31,19 +31,31 @@
     <div class="col-xl-6 col-md-6 col-12 mb-1">
         <fieldset class="form-group">
             <label for="tipo_muestra">Tipo de Muestra</label>
-            <select class="form-control"  class="form-control" name="muestra_id">
+            <select class="form-control" id="normalMultiSelect" multiple="multiple">
+                <option selected="selected">Square</option>
+                <option>Rectangle</option>
+                <option selected="selected">Rombo</option>
+                <option>Romboid</option>
+                <option>Trapeze</option>
+                <option>Triangle</option>
+                <option selected="selected">Polygon</option>
+                <option>Regular polygon</option>
+                <option>Circumference</option>
+                <option>Circle</option>
+              </select>
+            {{--  <select class="form-control"  class="form-control" name="muestra_id" id="select-muestra">
                 <option value="" selected disabled> Selecciona una opción </option>
                 @foreach ($tipoMuestra as $muestra)
-                    <option {{isset($datos) ? $muestra->id == $datos->muestra_id ? 'selected' : '' : ''}}>{{ $muestra->muestra }}</option>
+                    <option value="{{$muestra->id}}" {{isset($datos) ? $muestra->id == $datos->muestra_id ? 'selected' : '' : ''}}>{{ $muestra->muestra }}</option>
                 @endforeach
-            </select>
+            </select>  --}}
         </fieldset>
     </div>
 
     <div class="col-xl-6 col-md-6 col-12">
         <fieldset class="form-group">
             <label for="descripcion">Descripción <i style="color: red">*</i></label>
-            <textarea class="form-control @error('descripcion') is-invalid @enderror" name="descripcion"  placeholder="Descripción">
+            <textarea class="form-control @error('descripcion') is-invalid @enderror" name="descripcion" placeholder="Descripción" id="text-descripcion">
                 {{ isset($datos) ? $datos->descripcion : '' }}
             </textarea>
             @error('descripcion')
@@ -57,7 +69,7 @@
     <div class="col-xl-6 col-md-6 col-12">
         <fieldset class="form-group">
             <label for="informacion_clinica">Información clinica <i style="color: red">*</i></label>
-            <textarea class="form-control @error('informacion_clinica') is-invalid @enderror" name="informacion_clinica"  placeholder="Información Clinica">
+            <textarea class="form-control @error('informacion_clinica') is-invalid @enderror" name="informacion_clinica" placeholder="Información Clinica" id="text-informacion">
                 {{ isset($datos) ? $datos->informacion_clinica : '' }}
             </textarea>
             @error('informacion_clinica')
@@ -71,8 +83,8 @@
     <div class="col-xl-6 col-md-6 col-12">
         <fieldset class="form-group">
             <label for="precauciones">Precauciones <i style="color: red">*</i></label>
-            <textarea class="form-control @error('precauciones') is-invalid @enderror" name="precauciones"  placeholder="precauciones">
-                {{ isset($datos) ? $datos->informacion_clinica : '' }}
+            <textarea class="form-control @error('precauciones') is-invalid @enderror" name="precauciones" placeholder="precauciones" id="text-precauciones">
+                {{ isset($datos) ? $datos->precauciones : '' }}
             </textarea>
             @error('precauciones')
             <span class="invalid-feedback" role="alert">
