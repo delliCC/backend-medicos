@@ -114,6 +114,7 @@ Route::group(['middlaware' => 'auth'], function() {
     Route::group(['prefix' => 'webinar'], function () {
         Route::get('/', [WebinarController::class, 'index'])->name('webinar.index');
         Route::get('/listar', [WebinarController::class, 'listar']);
+        Route::get('/crear', [WebinarController::class, 'create'])->name('webinar.create');
         Route::post('/guardar', [WebinarController::class, 'store'])->name('webinar.store');
         Route::get('/{id}', [WebinarController::class, 'edit'])->name('webinar.edit');
         Route::put('/actualizar/{id}', [WebinarController::class, 'update'])->name('webinar.update');

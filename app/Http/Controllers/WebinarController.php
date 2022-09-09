@@ -28,7 +28,11 @@ class WebinarController extends Controller
      */
     public function create()
     {
-        //
+        $breadcrumbs = [
+            ['link'=>"javascript:void(0)",'name'=>"Webinar"], ['name'=>"Crear"]
+        ];
+       
+        return view('/pages/webinar/create', ['breadcrumbs' => $breadcrumbs]);
     }
 
     /**
@@ -44,7 +48,16 @@ class WebinarController extends Controller
             'descripcion'=> 'required|string|unique:webinar,descripcion',
             'file'=> 'required|mimetypes:video/mp4,video/mpeg,video/quicktime|max:60000',
         ]);
-
+        // 'nombre',
+        // 'url',
+        // 'descripcion',
+        // 'preview_imagen',
+        // 'preview_url',
+        // 'nombre_medico',
+        // 'imagen_medico_url',
+        // 'especialidad',
+        // 'fecha_inicio',
+        // 'status'
         // Webinar::create($request->all());
         $uri = $vimeo->upload($request->video,[
             'nombre'=> $request->nombre,

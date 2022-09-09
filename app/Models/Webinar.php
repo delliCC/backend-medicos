@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Webinar extends Model
 {
@@ -15,8 +15,10 @@ class Webinar extends Model
         'nombre',
         'url',
         'descripcion',
+        'preview_imagen',
+        'preview_url',
         'nombre_medico',
-        'imagen_url',
+        'imagen_medico_url',
         'especialidad',
         'fecha_inicio',
         'status'

@@ -19,9 +19,7 @@
       <h4 class="card-title text-left">Lista de Webinar</h4>
     </div>
     <div class="col-3 text-right">
-      <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#default">
-        Crear Webinar
-      </button>
+      <a href="{{route('webinar.create')}}" class="btn btn-outline-success"><i data-feather="plus"></i> Nuevo Webinar</a>
     </div>
   </div>
   <!-- Basic table -->
@@ -35,7 +33,5 @@
     </div>
   </section>
 </div>
-
-@include('components/webinar/modal')
 
 @endsection
