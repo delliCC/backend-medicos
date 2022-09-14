@@ -34,7 +34,7 @@
     <div class="col-12 mb-1">
         <fieldset class="form-group">
             <label for="email">E-mail</label>
-            <input type="text" id="input-email"  value="{{ old('email', isset($datos) ? $datos->email : '') }}" class="form-control @error('email') is-invalid @enderror" name="email"  placeholder="E-mail">
+            <input type="text" id="input-email" value="{{ old('email', isset($datos) ? $datos->email : '') }}" class="form-control @error('email') is-invalid @enderror" name="email"  placeholder="E-mail">
             @error('email')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>

@@ -2,9 +2,10 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+
 use App\Http\Controllers\API\LoginController;
 use App\Http\Controllers\API\StudiesController;
-
+use App\Http\Controllers\API\WebinarController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +23,10 @@ use App\Http\Controllers\API\StudiesController;
 // });
 Route::group(['prefix' => 'estudios'], function () {
     Route::get('/', [StudiesController::class, 'index']);
+});
+
+Route::group(['prefix' => 'webinar'], function () {
+    Route::get('/', [WebinarController::class, 'index']);
 });
 
 Route::post('/login', [LoginController::class, 'login']);

@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use DataTables;
-use App\Models\User;
-use App\Models\Medico;
+use Vimeo\Vimeo;
+use App\Models\Blog;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
-class UserController extends Controller
+class BlogController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,10 +17,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        $medicos = Medico::select('id','nombre','apellido_paterno','apellido_materno','status')->where('status',1)->get();
         $pageConfigs = ['blankPage' => false];
         $breadcrumbs = [ ['link' => "javascript:void(0)", 'name' => "index"]];
-        return view('/pages/users/index', ['pageConfigs' => $pageConfigs, 'breadcrumbs' => $breadcrumbs], compact('medicos'));
+        return view('/pages/blog/index', ['pageConfigs' => $pageConfigs, 'breadcrumbs' => $breadcrumbs]);
     }
 
     /**
@@ -29,7 +29,11 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        $breadcrumbs = [
+            ['link'=>"medicos",'name'=>"blog"], ['name'=>"Crear"]
+        ];
+
+        return view('/pages/blog/create', ['breadcrumbs' => $breadcrumbs]);
     }
 
     /**
@@ -40,16 +44,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'name'=> 'required',
-            'username'=> 'required|string|unique:users,username',
-            'email'=> 'required',
-            'medico_id'=> 'required',
-            'password'=> 'required',
-        ]);
-
-        User::create($request->all());
-        return $this->sendResponse();
+        //
     }
 
     /**
@@ -99,35 +94,35 @@ class UserController extends Controller
 
     function listar()
     {
-        $datos = User::select(
+        $ficha = Blog::select(
             'id',
-            'username',
-            'email',
-            'medico_id',
-            'status'
-        )->with(['medico'=> function ($query){
-            $query->select('id', 'nombre','apellido_paterno','apellido_materno');
-        }])->get();
-   
-        return DataTables::of($datos)->addColumn('accion', function($row){
+            'titulo',
+            'imagen_destacada_url',
+            'descripcion',
+            'status',
+        )->get();
+        return DataTables::of($ficha)->addColumn('accion', function($row){
             $btn = '<div class="demo-inline-spacing">';
-            $btn .= '<a onclick="editarUser('.$row->id.', `'.$row->username.'`,`'.$row->email.'`,`'.$row->medico_id.'`)" class="btn btn-outline-info btn-sm" data-toggle="modal" data-target="#default"><i data-feather="edit"></i></a>';
+            $btn .= '<a href="'.route("blog.edit", $row->id).'" class="btn btn-outline-info btn-sm" data-toggle="modal" data-target="#default"><i data-feather="edit"></i></a>';
             return $btn;
-        })->addColumn('medico_id', function($row) {
-            return  $row->medico->nombre .' '. $row->medico->apellido_paterno .' '. $row->medico->apellido_materno;
         })->addColumn('status', function($row) {
-            return view('components.users.switch', ['data' => $row]);
+            return view('components.blog.switch', ['data' => $row]);
         })->rawColumns(['accion'])->make();
     }
 
-    public function changeStatus($id, $status)
+    public function uploadS3Base64($fileName, $fileBase64, $path = '')
     {
-        $datos = User::find($id);
+        $file = $path ."". $fileName;
 
-        $datos->status = $status == 'false' ? 0 : 1;
+        Storage::disk('s3')->put($file, base64_decode($fileBase64), 'public');
 
-        $datos->save();
+        // $url = Storage::temporaryUrl(
+        //     $fileName, now()->addMinutes(1)
+        // );
 
-        return $this->sendResponse($datos);
+        return [
+            'url' => Storage::disk('s3')->getAdapter()->getClient()->getObjectUrl('facturas', $file),
+            'path' => $file,
+        ];
     }
 }

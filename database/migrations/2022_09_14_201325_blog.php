@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class TabIndicates extends Migration
+class Blog extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class TabIndicates extends Migration
      */
     public function up()
     {
-        Schema::create('tab_indicates', function (Blueprint $table) {
+        Schema::create('blog', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre');
-            $table->string('url');
+            $table->string('titulo');
+            $table->string('imagen_destacada_url');
             $table->text('descripcion');
             $table->boolean('status')->default(true);
             $table->timestamps();
@@ -30,6 +30,6 @@ class TabIndicates extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tab_indicates');
+        Schema::dropIfExists('blog');
     }
 }

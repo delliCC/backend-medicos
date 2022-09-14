@@ -1,10 +1,10 @@
 <?php
-
+// delli
 return [
   "Inicio"=>"Inicio",
   "Usuarios"=>"Usuarios",
   "Medicos"=>"Medicos",
-  "Ficha Indica"=>"Ficha Indica",
+  "Blog"=>"Blog",
   "Cupones"=>"Cupones",
   "Catálogos"=>"Catálogos",
   "Permisos"=>"Permisos",

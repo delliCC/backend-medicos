@@ -30,6 +30,7 @@ class StudiesController extends Controller
             }]);
         }])->get();
 
-        return $datos;
+        $array = json_decode($datos, true);
+        return $this->sendResponse($array, 'Lista de clientes', 200);
     }
 }

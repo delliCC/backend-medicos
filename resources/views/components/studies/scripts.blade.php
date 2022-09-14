@@ -38,6 +38,7 @@
          // 'Content-Type':'multipart/form-data'
         };
         var inputFileImage = document.getElementById("input-imagen");
+        var inputFileImageDestacada = document.getElementById("input-imagen-destacada");
         var formData = new FormData();
 
         formData.append('titulo', $('#input-titulo').val());
@@ -53,8 +54,14 @@
           formData.append('imagenes[]', imagen);
         }
 
+        for(var a=0; a<inputFileImageDestacada.files.length; a++){
+          var imagenDestacada = inputFileImageDestacada.files[a]
+          console.log(imagenDestacada)
+          formData.append('imagenes[]', imagenDestacada);
+        }
+
         $.ajax({
-            url:'/ficha-indica/guardar',
+            url:'/estudios/guardar',
             method:'POST',
             enctype: 'multipart/form-data',
             data: formData,

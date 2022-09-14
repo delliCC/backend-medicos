@@ -94,36 +94,29 @@
         </fieldset>
     </div>
 
-    <div class="col-12 mb-2">
-        <div class="border rounded p-2">
-          <h4 class="mb-1">Archivo</h4>
-          <div class="media flex-column flex-md-row">
-            {{--  <img
-              src="{{asset('images/slider/03.jpg')}}"
-              id="blog-feature-image"
-              class="rounded mr-2 mb-1 mb-md-0"
-              width="170"
-              height="110"
-              alt="Blog Featured Image"
-            />  --}}
-            <div class="media-body">
-              {{--  <h5 class="mb-0">Main image:</h5>  --}}
-              <small class="text-muted">Required archivo max 10mb.</small>
-              {{--  <p class="my-50">
-                <a href="javascript:void(0);" id="blog-image-text">C:\fakepath\banner.jpg</a>
-              </p>  --}}
-              <div class="d-inline-block">
-                <div class="form-group mb-0">
-                  <div class="custom-file">
-                    <input type="file" class="custom-file-input" id="input-imagen" name="imagen" accept="image/*" multiple/>
-                    <label class="custom-file-label" for="blogCustomFile">Choose file</label>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+    <div class="col-6 mb-2">
+      <fieldset class="form-group">
+        <h4 class="mb-1">Imagen</h4>
+        <small class="text-muted"> El tamaño máximo de archivo es de 250 GB.</small>
+        <div class="custom-file b-form-file" data-v-3bcd05f2="" id="__BVID__1505__BV_file_outer_">
+          <input type="file" class="custom-file-input" id="input-imagen" style="z-index: -5;" accept="image/*">
+          <label data-browse="Browse" class="custom-file-label" for="input-imagen">
+            <span class="d-block form-file-text" style="pointer-events: none;"></span></label>
         </div>
-      </div>
+      </fieldset>
+    </div>
+
+    <div class="col-6 mb-2">
+      <fieldset class="form-group">
+        <h4 class="mb-1">Imagen destacada</h4>
+        <small class="text-muted"> El tamaño máximo de archivo es de 250 GB.</small>
+        <div class="custom-file b-form-file" data-v-3bcd05f2="" id="__BVID__1505__BV_file_outer_">
+          <input type="file" class="custom-file-input" id="input-imagen-destacada" style="z-index: -5;" accept="image/*">
+          <label data-browse="Browse" class="custom-file-label" for="input-imagen-destacada">
+            <span class="d-block form-file-text" style="pointer-events: none;"></span></label>
+        </div>
+      </fieldset>
+    </div>
     
     <div class="col-xl-12 col-md-12 col-12">
         <a href="{{ route('studies.index') }}" class="btn btn-outline-warning"><i data-feather="slash"></i> Cancelar</a>

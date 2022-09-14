@@ -46,8 +46,8 @@ return [
     'connections' => [
 
         'main' => [
-            'client_id' => env('VIMEO_CLIENT', 'your-client-id'),
-            'client_secret' => env('VIMEO_SECRET', 'your-client-secret'),
+            'client_id' => env('VIMEO_CLIENT', 'VIMEO_CLIENT_ID'),
+            'client_secret' => env('VIMEO_SECRET', 'VIMEO_CLIENT_SECRET'),
             'access_token' => env('VIMEO_ACCESS', null),
         ],
 

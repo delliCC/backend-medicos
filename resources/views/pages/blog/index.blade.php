@@ -1,8 +1,8 @@
 @extends('layouts/contentLayoutMaster')
 
-@section('title', 'Ficha Indica')
+@section('title', 'Blog')
 
-@include('components/tabIndicates/scripts')
+@include('components/blog/scripts')
 
 @section('content')
 <!-- Kick start -->
@@ -16,12 +16,10 @@
       @endif
     </div>
     <div class="col-9">
-      <h4 class="card-title text-left">Lista de Ficha Indica</h4>
+      <h4 class="card-title text-left">Casos clinicos</h4>
     </div>
     <div class="col-3 text-right">
-      <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#default">
-        Crear Ficha Indica
-      </button>
+      <a href="{{route('blog.create')}}" class="btn btn-outline-success"><i data-feather="plus"></i> Nuevo caso clinico</a>
     </div>
   </div>
   <!-- Basic table -->
@@ -29,13 +27,11 @@
     <div class="row">
       <div class="col-12">
         <div class="card-body">
-          @include('components/tabIndicates/table')
+          @include('components/blog/table')
         </div>
       </div>
     </div>
   </section>
 </div>
-
-@include('components/tabIndicates/modal')
 
 @endsection

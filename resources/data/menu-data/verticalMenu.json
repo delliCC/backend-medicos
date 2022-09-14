@@ -40,10 +40,10 @@
       "slug": "estudios"
     },
     {
-      "url": "ficha-indica",
-      "name": "Ficha Indica",
+      "url": "blog",
+      "name": "Blog",
       "icon": "file-text",
-      "slug": "ficha-indica"
+      "slug": "blog"
     },
     {
       "name": "Cursos",

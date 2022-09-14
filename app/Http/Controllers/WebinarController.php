@@ -43,28 +43,43 @@ class WebinarController extends Controller
      */
     public function store(Request $request, VimeoManager $vimeo)
     {
+        return $request->all();
         $this->validate($request, [
             'nombre'=> 'required|string|unique:webinar,nombre',
             'descripcion'=> 'required|string|unique:webinar,descripcion',
-            'file'=> 'required|mimetypes:video/mp4,video/mpeg,video/quicktime|max:60000',
+            'webinar_url'=> 'required|mimetypes:video/mp4,video/mpeg,video/quicktime|max:60000',
         ]);
         // 'nombre',
-        // 'url',
+        // 'fecha_inicio',
         // 'descripcion',
+        // 'webinar_url',
+        // 'tabIndicate_url',
         // 'preview_imagen',
         // 'preview_url',
+        // 'trailer_url',
         // 'nombre_medico',
-        // 'imagen_medico_url',
         // 'especialidad',
-        // 'fecha_inicio',
+        // 'imagen_medico_url',
         // 'status'
         // Webinar::create($request->all());
-        $uri = $vimeo->upload($request->video,[
+        $uri = $vimeo->upload($request->webinar_url,[
             'nombre'=> $request->nombre,
             'descripcion'=> $request->descripcion
         ]);
 
         dd($uri);
+
+        // $imagenes = $request->imagenes;
+        // foreach ($imagenes as $imagen) {
+        //     $fileS3 = uploadS3($imagen, 'ficha-indica', randomString() . '-' . time());
+
+        //     $datos = [
+        //         'nombre' => $fileS3['filename'],
+        //         'url' => $fileS3['route'],
+        //         'descripcion' => $request->descripcion,
+        //     ];
+        //     // $evidencia = TabIndicates::create($datos);
+        // }
         return $this->sendResponse();
     }
 
@@ -118,7 +133,7 @@ class WebinarController extends Controller
         $datos = Webinar::select(
             'id',
             'nombre',
-            'url',
+            'webinar_url',
             'descripcion',
             'status'
         )->get();

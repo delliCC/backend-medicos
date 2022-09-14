@@ -33,8 +33,7 @@
         console.log(idUser)
         const url = idUser ? `/usuario/actualizar/${idUser}` : '/usuario/guardar'
         const method = idUser ? 'PUT' : 'POST'
-        console.log('url',url)
-        console.log('method',method)
+
         $.ajax({
           url,
           method,

@@ -13,7 +13,7 @@ use App\Http\Controllers\SpecialtyController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\TypeMethodController;
 use App\Http\Controllers\TypeSampleController;
-use App\Http\Controllers\TabIndicatesController;
+use App\Http\Controllers\BlogController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -93,13 +93,14 @@ Route::group(['middlaware' => 'auth'], function() {
     //     Route::get('/status/{id}/{status}', [TypeMethodController::class, 'changeStatus'])->name('evaluation.status');
     // });
     
-    Route::group(['prefix' => 'ficha-indica'], function () {
-        Route::get('/', [TabIndicatesController::class, 'index'])->name('tabIndicates.index');
-        Route::get('/listar', [TabIndicatesController::class, 'listar']);
-        Route::post('/guardar', [TabIndicatesController::class, 'store'])->name('tabIndicates.store');
-        Route::get('/{id}', [TabIndicatesController::class, 'edit'])->name('tabIndicates.edit');
-        Route::put('/actualizar/{id}', [TabIndicatesController::class, 'update'])->name('tabIndicates.update');
-        Route::get('/estatus/{id}/{estado}', [TabIndicatesController::class, 'status'])->name('tabIndicates.status');
+    Route::group(['prefix' => 'blog'], function () {
+        Route::get('/', [BlogController::class, 'index'])->name('blog.index');
+        Route::get('/listar', [BlogController::class, 'listar']);
+        Route::get('/crear', [BlogController::class, 'create'])->name('blog.create');
+        Route::post('/guardar', [BlogController::class, 'store'])->name('blog.store');
+        Route::get('/{id}', [BlogController::class, 'edit'])->name('blog.edit');
+        Route::put('/actualizar/{id}', [BlogController::class, 'update'])->name('blog.update');
+        Route::get('/estatus/{id}/{estado}', [BlogController::class, 'status'])->name('blog.status');
     });
 
     Route::group(['prefix' => 'cupones'], function () {

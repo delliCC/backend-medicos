@@ -13,14 +13,18 @@ class Webinar extends Model
 
     protected $fillable = [
         'nombre',
-        'url',
+        'fecha_inicio',
         'descripcion',
+        'webinar_url',
+        'ficha_nombre',
+        'ficha_url',
+        'ficha_descripcion',
         'preview_imagen',
         'preview_url',
+        'trailer_url',
         'nombre_medico',
-        'imagen_medico_url',
         'especialidad',
-        'fecha_inicio',
+        'imagen_medico_url',
         'status'
     ];
 }

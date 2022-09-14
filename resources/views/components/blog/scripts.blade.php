@@ -10,25 +10,24 @@
           {
             extend: 'pdf',
             exportOptions: {
-              columns: [ 0, 1, 2, 3 ]
+              columns: [ 0, 1, 2 ]
             }
           }
         ]
 
         configuracionesBasicasDatatable['processing'] = true
         configuracionesBasicasDatatable['serverSide'] = true
-        configuracionesBasicasDatatable['ajax'] = "ficha-indica/listar"
+        configuracionesBasicasDatatable['ajax'] = "blog/listar"
         configuracionesBasicasDatatable['columns'] = [
           { "data": "nombre" },
           { "data": "url" },
-          { "data": "descripcion" },
           { "data": "status" },
           { "data": "accion" }
         ]
-        $('#ficha-table').DataTable(configuracionesBasicasDatatable);
+        $('#blog-table').DataTable(configuracionesBasicasDatatable);
       });
 
-      $('#form-ficha').submit(event => {
+      $('#form-blog').submit(event => {
         event.preventDefault();
        
         let headers = {
@@ -47,12 +46,10 @@
           formData.append('imagenes[]', imagen);
         }
 		
-        const idFicha = event.target['id-ficha'].value
-        const url = idFicha ? `/ficha-indica/actualizar/${idFicha}` : '/ficha-indica/guardar'
+        const idFicha = event.target['id-blog'].value
+        const url = idFicha ? `/blog/actualizar/${idFicha}` : '/blog/guardar'
         const method = idFicha ? 'PUT' : 'POST'
 
-        
-        
         $.ajax({
             url,
             method,
@@ -88,7 +85,7 @@
       });
 
       function editarEspecilidad(id, nombre) {
-        $('#id-ficha').val(id);
+        $('#id-blog').val(id);
         $('#input-nombre').val(nombre);
       }
 
@@ -111,7 +108,7 @@
             if (result.value){
               $.ajax({
                 method: "GET",
-                url: `/ficha-indica/status/${id}/${checked}`,
+                url: `/blog/status/${id}/${checked}`,
                 beforeSend: function() {
                   console.log('loanding')
                 },
