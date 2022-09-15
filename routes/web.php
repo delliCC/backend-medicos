@@ -125,6 +125,7 @@ Route::group(['middlaware' => 'auth'], function() {
     Route::group(['prefix' => 'capacitacion'], function () {
         Route::get('/', [TrainingController::class, 'index'])->name('training.index');
         Route::get('/listar', [TrainingController::class, 'listar']);
+        Route::get('/crear', [TrainingController::class, 'create'])->name('training.create');
         Route::post('/guardar', [TrainingController::class, 'store'])->name('training.store');
         Route::get('/{id}', [TrainingController::class, 'edit'])->name('training.edit');
         Route::put('/actualizar/{id}', [TrainingController::class, 'update'])->name('training.update');

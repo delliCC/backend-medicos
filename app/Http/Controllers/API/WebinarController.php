@@ -13,18 +13,17 @@ class WebinarController extends Controller
         $datos = Webinar::select(
             'id',
             'nombre',
-            'fecha_inicio',
-            'descripcion',
             'webinar_url',
+            'descripcion',
             'ficha_nombre',
             'ficha_url',
             'ficha_descripcion',
+            'fecha_inicio',
             'preview_imagen',
-            'preview_url',
             'trailer_url',
             'nombre_medico',
-            'especialidad',
             'imagen_medico_url',
+            'especialidad',
             'status'
         )->get();
 

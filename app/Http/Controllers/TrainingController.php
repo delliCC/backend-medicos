@@ -17,7 +17,7 @@ class TrainingController extends Controller
     {
         $pageConfigs = ['blankPage' => false];
         $breadcrumbs = [
-            ['link'=>"javascript:void(0)", 'name'=>"Ficha Indica"]
+            ['link'=>"javascript:void(0)", 'name'=>"Capacitación"]
         ];
         return view('/pages/training/index', ['pageConfigs' => $pageConfigs, 'breadcrumbs' => $breadcrumbs]);
     }
@@ -29,7 +29,10 @@ class TrainingController extends Controller
      */
     public function create()
     {
-        //
+        $breadcrumbs = [
+            ['link'=>"javascript:void(0)",'name'=>"Capacitación"], ['name'=>"Crear"]
+        ];
+        return view('/pages/training/create', ['breadcrumbs' => $breadcrumbs]);
     }
 
     /**

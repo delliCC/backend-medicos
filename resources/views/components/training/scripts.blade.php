@@ -28,8 +28,8 @@
         $('#capacitacion-table').DataTable(configuracionesBasicasDatatable);
       });
 
-      $('#form-ficha').submit(event => {
-        const idTraining = event.target['id-ficha'].value
+      $('#formTraining').submit(event => {
+        const idTraining = event.target['id-training'].value
         console.log(idTraining)
         const url = idTraining ? `/capacitacion/actualizar/${idTraining}` : '/capacitacion/guardar'
         const method = idTraining ? 'PUT' : 'POST'

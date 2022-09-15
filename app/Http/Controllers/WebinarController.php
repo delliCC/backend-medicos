@@ -50,16 +50,17 @@ class WebinarController extends Controller
             'webinar_url'=> 'required|mimetypes:video/mp4,video/mpeg,video/quicktime|max:60000',
         ]);
         // 'nombre',
-        // 'fecha_inicio',
-        // 'descripcion',
         // 'webinar_url',
-        // 'tabIndicate_url',
+        // 'descripcion',
+        // 'ficha_nombre',
+        // 'ficha_url',
+        // 'ficha_descripcion',
+        // 'fecha_inicio',
         // 'preview_imagen',
-        // 'preview_url',
         // 'trailer_url',
         // 'nombre_medico',
-        // 'especialidad',
         // 'imagen_medico_url',
+        // 'especialidad',
         // 'status'
         // Webinar::create($request->all());
         $uri = $vimeo->upload($request->webinar_url,[

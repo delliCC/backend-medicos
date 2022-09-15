@@ -12,6 +12,7 @@ class TypeMethod extends Model
     protected $table = 'type_method';
  
     protected $fillable = [
+        'id',
         'metodo',
         'status'
     ];

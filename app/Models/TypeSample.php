@@ -12,6 +12,7 @@ class TypeSample extends Model
     protected $table = 'type_sample';
  
     protected $fillable = [
+        'id',
         'muestra',
         'status'
     ];

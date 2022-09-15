@@ -19,10 +19,9 @@
       <h4 class="card-title text-left">Lista de Capacitación</h4>
     </div>
     <div class="col-3 text-right">
-      <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#default">
-        Crear Capacitación
-      </button>
+      <a href="{{route('training.create')}}" class="btn btn-outline-success"><i data-feather="plus"></i> Nuevo Capacitación</a>
     </div>
+    
   </div>
   <!-- Basic table -->
   <section id="basic-datatable">
@@ -35,7 +34,5 @@
     </div>
   </section>
 </div>
-
-@include('components/training/modal')
 
 @endsection
