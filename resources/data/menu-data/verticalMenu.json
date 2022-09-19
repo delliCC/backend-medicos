@@ -92,6 +92,48 @@
           "slug": "tipo-muestra"
         }
       ]
+    },
+    {
+      "name": "Página web",
+      "icon": "trello",
+      "slug": "",
+      "badge": "2",
+      "badgeClass": "badge badge-pill badge-light-danger ml-auto mr-1",
+      "submenu": [
+        {
+          "url": "webinar",
+          "name": "Webinar",
+          "icon": "circle",
+          "slug": "webinar"
+        },
+      {
+        "url": "capacitacion",
+        "name": "Capacitación",
+        "icon": "circle",
+        "slug": "capacitacion"
+      }
+      ]
+    },
+    {
+      "name": "Reclutamiento",
+      "icon": "award",
+      "slug": "",
+      "badge": "2",
+      "badgeClass": "badge badge-pill badge-light-danger ml-auto mr-1",
+      "submenu": [
+        {
+          "url": "vacantes",
+          "name": "Vacantes",
+          "icon": "archive",
+          "slug": "vacantes"
+        },
+      {
+        "url": "capacitacion",
+        "name": "Cartera",
+        "icon": "circle",
+        "slug": "capacitacion"
+      }
+      ]
     }
   ]
 }

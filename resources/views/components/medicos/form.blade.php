@@ -117,16 +117,6 @@
         </fieldset>
     </div>
 
-    <div class="col-xl-4 col-md-6 col-12 mb-1">
-        <fieldset class="form-group">
-            <label for="empleado">Empleado</label>
-            <select class="form-control"  class="form-control" name="empleado" id="empleado">
-                <option {{isset($medico) ? $medico->empleado == 'no' ? 'selected' : '' : ''}}>No</option>
-                <option {{isset($medico) ? $medico->empleado == 'si' ? 'selected' : '' : ''}}>Si</option>
-            </select>
-        </fieldset>
-    </div>
-
     <div class="col-xl-12 col-md-12 col-12">
         <div class="divider divider-left  divider-success">
             <div class="divider-text">Dirección</div>

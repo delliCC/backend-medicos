@@ -27,7 +27,6 @@ class Medicos extends Migration
             $table->string('prefijo');
             $table->string('hospital_trabajo')->nullable();
             $table->enum('tipo_medico',['General','Especialista'])->default('General');
-            $table->enum('empleado',['si','no'])->default('no');
             $table->boolean('status')->default(true);
             $table->unsignedBigInteger('especialidad_id')->nullable();
             $table->timestamps();

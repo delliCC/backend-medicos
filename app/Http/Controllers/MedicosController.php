@@ -62,7 +62,6 @@ class MedicosController extends Controller
             'municipio' => 'required',
             'prefijo' => 'required',
             'especialidad_id' => 'required',
-            'empleado'=> 'required',
         ]);
 
         Medico::create($request->all());
@@ -121,7 +120,6 @@ class MedicosController extends Controller
             'estado' => 'required',
             'municipio' => 'required',
             'prefijo' => 'required',
-            'empleado'=> 'required',
         ]);
 
         $medico = Medico::find($id);

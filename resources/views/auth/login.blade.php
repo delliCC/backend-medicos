@@ -42,7 +42,7 @@
           <img src="https://laboratorios-chontalpa-file.s3.amazonaws.com/laboratorios-chontalpa-logotipo1.png" alt="">
         </a>
 
-        <h4 class="card-title mb-1">PORTAL MÉDICO</h4>
+        <h4 class="card-title mb-1">PORTAL</h4>
         <p class="card-text mb-2">Inicia sesión en tu cuenta y comienza la aventura</p>
 
         <form class="auth-login-form mt-2" method="POST" action="{{ route('login') }}">

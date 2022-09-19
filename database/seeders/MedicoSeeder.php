@@ -27,7 +27,6 @@ class MedicoSeeder extends Seeder
             'prefijo' => 'MTI',
             'hospital_trabajo' => 'Laboratorio Chontalpa',
             'tipo_medico' => 'General',
-            'empleado' => 'si'
         ]);
     }
 }

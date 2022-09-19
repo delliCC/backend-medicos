@@ -15,8 +15,10 @@ class Users extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->unsignedBigInteger('medico_id')->nullable()->after('id');
+            $table->unsignedBigInteger('empleado_id')->nullable()->after('id');
     
             $table->foreign('medico_id')->references('id')->on('medicos');
+            $table->foreign('empleado_id')->references('id')->on('employees');
         });
     }
 

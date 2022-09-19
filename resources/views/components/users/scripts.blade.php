@@ -10,7 +10,7 @@
           {
             extend: 'pdf',
             exportOptions: {
-              columns: [ 0, 1, 2, 3]
+              columns: [ 0, 1, 2, 3, 4]
             }
           }
         ]
@@ -22,11 +22,28 @@
           { "data": "medico_id" },
           { "data": "username" },
           { "data": "email" },
+          { "data": "tipo_user" },
           { "data": "status" },
           { "data": "accion" }
         ]
         $('#usuario-table').DataTable(configuracionesBasicasDatatable);
       });
+
+      function verTipoUser(){
+        var selected = document.getElementById('tipo_user').value
+        if(selected == "medico"){
+          $("#medico_id").val([]).trigger("change");
+          $("#empleado_id").val([]).trigger("change");
+          $("#campo_medicos").css("display","block");
+          $("#campo_empleados").css("display","none");
+        }else{
+          $("#medico_id").val([]).trigger("change");
+          $("#empleado_id").val([]).trigger("change");
+          $("#campo_medicos").css("display","none");
+          $("#campo_empleados").css("display","block");
+          
+        }
+      }
 
       $('#form-user').submit(event => {
         const idUser = event.target['id-user'].value

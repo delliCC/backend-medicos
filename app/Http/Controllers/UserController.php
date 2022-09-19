@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use DataTables;
 use App\Models\User;
 use App\Models\Medico;
+use App\Models\Employees;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -17,9 +18,10 @@ class UserController extends Controller
     public function index()
     {
         $medicos = Medico::select('id','nombre','apellido_paterno','apellido_materno','status')->where('status',1)->get();
+        $empleados = Employees::select('id','nombre','apellido_paterno','apellido_materno','status')->where('status',1)->get();
         $pageConfigs = ['blankPage' => false];
         $breadcrumbs = [ ['link' => "javascript:void(0)", 'name' => "index"]];
-        return view('/pages/users/index', ['pageConfigs' => $pageConfigs, 'breadcrumbs' => $breadcrumbs], compact('medicos'));
+        return view('/pages/users/index', ['pageConfigs' => $pageConfigs, 'breadcrumbs' => $breadcrumbs], compact('medicos','empleados'));
     }
 
     /**
@@ -44,9 +46,13 @@ class UserController extends Controller
             'name'=> 'required',
             'username'=> 'required|string|unique:users,username',
             'email'=> 'required',
-            'medico_id'=> 'required',
+            'tipo_user'=> 'required',
             'password'=> 'required',
         ]);
+
+        // if($request->tipo_user == ''){
+
+        // }
 
         User::create($request->all());
         return $this->sendResponse();
@@ -104,8 +110,11 @@ class UserController extends Controller
             'username',
             'email',
             'medico_id',
+            'empleado_id',
             'status'
         )->with(['medico'=> function ($query){
+            $query->select('id', 'nombre','apellido_paterno','apellido_materno');
+        }])->with(['empleado'=> function ($query){
             $query->select('id', 'nombre','apellido_paterno','apellido_materno');
         }])->get();
    
@@ -114,7 +123,17 @@ class UserController extends Controller
             $btn .= '<a onclick="editarUser('.$row->id.', `'.$row->username.'`,`'.$row->email.'`,`'.$row->medico_id.'`)" class="btn btn-outline-info btn-sm" data-toggle="modal" data-target="#default"><i data-feather="edit"></i></a>';
             return $btn;
         })->addColumn('medico_id', function($row) {
-            return  $row->medico->nombre .' '. $row->medico->apellido_paterno .' '. $row->medico->apellido_materno;
+            if($row->medico){
+                return  $row->medico->nombre .' '. $row->medico->apellido_paterno .' '. $row->medico->apellido_materno;
+            }
+            return  $row->empleado->nombre .' '. $row->empleado->apellido_paterno .' '. $row->empleado->apellido_materno;
+            
+        })->addColumn('tipo_user', function($row) {
+            if($row->medico){
+                return  'Medico';
+            }
+            return  'Empleado';
+            
         })->addColumn('status', function($row) {
             return view('components.users.switch', ['data' => $row]);
         })->rawColumns(['accion'])->make();

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Medico;
+use App\Models\Employees;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -51,5 +52,10 @@ class User extends Authenticatable
     public function medico()
     {
         return $this->belongsTo(Medico::class, 'medico_id');
+    }
+
+    public function empleado()
+    {
+        return $this->belongsTo(Employees::class, 'empleado_id');
     }
 }
