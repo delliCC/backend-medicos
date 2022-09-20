@@ -173,4 +173,14 @@ Route::group(['middlaware' => 'auth'], function() {
         Route::put('/actualizar/{id}', [VacantesController::class, 'update'])->name('vacant.update');
         Route::get('/status/{id}/{status}', [VacantesController::class, 'changeStatus'])->name('vacant.status');
     });
+
+    Route::group(['prefix' => 'Cartera'], function () {
+        Route::get('/', [VacantesController::class, 'index'])->name('vacant.index');
+        Route::get('/listar', [VacantesController::class, 'listar']);
+        Route::get('/crear', [VacantesController::class, 'create'])->name('vacant.create');
+        Route::post('/guardar', [VacantesController::class, 'store'])->name('vacant.store');
+        Route::get('/{id}', [VacantesController::class, 'edit'])->name('vacant.edit');
+        Route::put('/actualizar/{id}', [VacantesController::class, 'update'])->name('vacant.update');
+        Route::get('/status/{id}/{status}', [VacantesController::class, 'changeStatus'])->name('vacant.status');
+    });
 });

@@ -122,17 +122,23 @@
       "badgeClass": "badge badge-pill badge-light-danger ml-auto mr-1",
       "submenu": [
         {
+          "url": "empleados",
+          "name": "Empleados",
+          "icon": "circle",
+          "slug": "empleados"
+        },
+        {
           "url": "vacantes",
           "name": "Vacantes",
-          "icon": "archive",
+          "icon": "circle",
           "slug": "vacantes"
         },
-      {
-        "url": "capacitacion",
-        "name": "Cartera",
-        "icon": "circle",
-        "slug": "capacitacion"
-      }
+        {
+          "url": "cartera",
+          "name": "Cartera",
+          "icon": "circle",
+          "slug": "cartera"
+        }
       ]
     }
   ]

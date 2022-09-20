@@ -15,6 +15,7 @@ class EmployeesSeeder extends Seeder
     public function run()
     {
         $empleado = Employees::create([
+            'chontalpa_empleado_id'=> '1270',
             'nombre' => 'Martin',
             'apellido_paterno' => 'Santibanez',
             'apellido_materno' => 'Cruz y Corro',

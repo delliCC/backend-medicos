@@ -13,7 +13,9 @@ class EmployeesController extends Controller
      */
     public function index()
     {
-        //
+        $pageConfigs = ['blankPage' => false];
+        $breadcrumbs = [ ['link' => "javascript:void(0)", 'name' => "index"]];
+        return view('/pages/reclutamiento/employees/index', ['pageConfigs' => $pageConfigs, 'breadcrumbs' => $breadcrumbs]);
     }
 
     /**
@@ -23,7 +25,11 @@ class EmployeesController extends Controller
      */
     public function create()
     {
-        //
+        $breadcrumbs = [
+            ['link'=>"empleados",'name'=>"Empleados"], ['name'=>"Crear"]
+        ];
+
+        return view('/pages/reclutamiento/employees/create', ['breadcrumbs' => $breadcrumbs]);
     }
 
     /**
