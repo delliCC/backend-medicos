@@ -17,6 +17,7 @@ class RhVacant extends Migration
             $table->id();
             $table->unsignedBigInteger('puesto_id');
             $table->unsignedBigInteger('sucursal_id');
+            $table->string('cantidad');
             $table->string('imagen_url');
             $table->text('requisitos');
             $table->text('funcion');

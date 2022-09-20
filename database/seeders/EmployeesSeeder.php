@@ -2,8 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\Employees;
+
 use Illuminate\Database\Seeder;
+use App\Models\Reclutamiento\Employees;
 
 class EmployeesSeeder extends Seeder
 {
@@ -15,7 +16,7 @@ class EmployeesSeeder extends Seeder
     public function run()
     {
         $empleado = Employees::create([
-            'chontalpa_empleado_id'=> '1270',
+            'numero_empleado_id'=> '1270',
             'nombre' => 'Martin',
             'apellido_paterno' => 'Santibanez',
             'apellido_materno' => 'Cruz y Corro',

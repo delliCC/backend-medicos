@@ -208,4 +208,15 @@ class MedicosController extends Controller
             return view('components.medicos.switch', ['data' => $row]);
         })->rawColumns(['accion'])->make();
     }
+
+    public function changeStatus($id, $status)
+    {
+        $datos = Medico::find($id);
+
+        $datos->status = $status == 'false' ? 0 : 1;
+
+        $datos->save();
+
+        return $this->sendResponse($datos);
+    }
 }

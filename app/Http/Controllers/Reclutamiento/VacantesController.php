@@ -109,7 +109,9 @@ class VacantesController extends Controller
     {
         $datos = Vacant::select(
             'id',
-            'puesto',
+            'puesto_id',
+            'sucursal_id',
+            'cantidad',
             'imagen_url',
             'lugar_trabajo',
             'requisitos',

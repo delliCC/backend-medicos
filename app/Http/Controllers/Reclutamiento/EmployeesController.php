@@ -1,16 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Reclutamiento;
 
+use DataTables;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Models\Reclutamiento\Employees;
 
 class EmployeesController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $pageConfigs = ['blankPage' => false];
@@ -62,7 +60,14 @@ class EmployeesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $breadcrumbs = [
+            ['link'=>"medicos", 'name'=>"Lista de Médicos"], ['name'=>"Editar"]
+        ];
+
+        $datos = Employees::find($id);
+     
+        return view('/pages/reclutamiento/employees//edit', ['breadcrumbs' => $breadcrumbs, 'datos' => $datos]);
+   
     }
 
     /**
@@ -86,5 +91,36 @@ class EmployeesController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    function listar()
+    {
+        $medicos = Employees::select(
+            'id',
+            'nombre',
+            'apellido_paterno',
+            'apellido_materno',
+            'correo',
+            'telefono',
+        )->get();
+       
+        return DataTables::of($medicos)->addColumn('accion', function($row){
+            $btn = '<div class="demo-inline-spacing">';
+            $btn .= '<a href="'.route("employees.edit", $row->id).'" class="btn btn-outline-info btn-sm"><i data-feather="edit"></i></a>';
+            return $btn;
+        })->addColumn('status', function($row) {
+            return view('components.medicos.switch', ['data' => $row]);
+        })->rawColumns(['accion'])->make();
+    }
+
+    public function changeStatus($id, $status)
+    {
+        $datos = Employees::find($id);
+
+        $datos->status = $status == 'false' ? 0 : 1;
+
+        $datos->save();
+
+        return $this->sendResponse($datos);
     }
 }

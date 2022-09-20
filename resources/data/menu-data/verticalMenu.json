@@ -118,7 +118,7 @@
       "name": "Reclutamiento",
       "icon": "award",
       "slug": "",
-      "badge": "2",
+      "badge": "5",
       "badgeClass": "badge badge-pill badge-light-danger ml-auto mr-1",
       "submenu": [
         {
@@ -126,6 +126,18 @@
           "name": "Empleados",
           "icon": "circle",
           "slug": "empleados"
+        },
+        {
+          "url": "puestos",
+          "name": "Puestos",
+          "icon": "circle",
+          "slug": "puestos"
+        },
+        {
+          "url": "sucursales",
+          "name": "Sucursales",
+          "icon": "circle",
+          "slug": "sucursales"
         },
         {
           "url": "vacantes",

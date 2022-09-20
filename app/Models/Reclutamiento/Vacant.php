@@ -14,7 +14,9 @@ class Vacant extends Model
     protected $fillable = [
         'id',
         'imagen_url',
-        'puesto',
+        'puesto_id',
+        'sucursal_id',
+        'cantidad',
         'requisitos',
         'funcion',
         'salario',

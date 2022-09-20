@@ -45,7 +45,7 @@
             carrot cake. Sesame snaps lemon drops candy marzipan donut brownie tootsie roll. Icing croissant bonbon
             biscuit gummi bears. Pudding candy canes sugar plum cookie chocolate cake powder croissant.
           </p>
-          @include('components/medicos/table')
+          @include('components/reclutamiento/employees/table')
         </div>
         <div class="tab-pane" id="profileIcon" aria-labelledby="profileIcon-tab" role="tabpanel">
           <p>

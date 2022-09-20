@@ -19,8 +19,6 @@ class RhPuestos extends Migration
             $table->text('funcion');
             $table->boolean('status')->default(true);
             $table->timestamps();
-
-            rh_puestos
         });
     }
 

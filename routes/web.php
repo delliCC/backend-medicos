@@ -10,12 +10,15 @@ use App\Http\Controllers\MedicosController;
 use App\Http\Controllers\StudiesController;
 use App\Http\Controllers\WebinarController;
 use App\Http\Controllers\TrainingController;
-use App\Http\Controllers\EmployeesController;
 use App\Http\Controllers\SpecialtyController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\TypeMethodController;
 use App\Http\Controllers\TypeSampleController;
+use App\Http\Controllers\Reclutamiento\WalletController;
+use App\Http\Controllers\Reclutamiento\PuestosController;
 use App\Http\Controllers\Reclutamiento\VacantesController;
+use App\Http\Controllers\Reclutamiento\EmployeesController;
+use App\Http\Controllers\Reclutamiento\SucursalesController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -142,6 +145,7 @@ Route::group(['middlaware' => 'auth'], function() {
         Route::get('/{id}', [MedicosController::class, 'edit'])->name('medicos.edit');
         Route::get('/history-webinar/{id}', [MedicosController::class, 'historyWebinar'])->name('medicos.historyWebinar');
         Route::put('/actualizar/{id}', [MedicosController::class, 'update'])->name('medicos.update');
+        Route::get('/status/{id}/{status}', [MedicosController::class, 'changeStatus'])->name('medicos.status');
     });
 
     Route::group(['prefix' => 'estudios'], function () {
@@ -154,14 +158,33 @@ Route::group(['middlaware' => 'auth'], function() {
         Route::get('/status/{id}/{status}', [StudiesController::class, 'changeStatus'])->name('studies.status');
     });
 
+    Route::group(['prefix' => 'sucursales'], function () {
+        Route::get('/', [SucursalesController::class, 'index'])->name('sucursales.index');
+        Route::get('/listar', [SucursalesController::class, 'listar']);
+        Route::get('/crear', [SucursalesController::class, 'create'])->name('sucursales.create');
+        Route::post('/guardar', [SucursalesController::class, 'store'])->name('sucursales.store');
+        Route::get('/{id}', [SucursalesController::class, 'edit'])->name('sucursales.edit');
+        Route::put('/actualizar/{id}', [SucursalesController::class, 'update'])->name('sucursales.update');
+        Route::get('/status/{id}/{status}', [SucursalesController::class, 'changeStatus'])->name('sucursales.status');
+    });
+
+    Route::group(['prefix' => 'puestos'], function () {
+        Route::get('/', [PuestosController::class, 'index'])->name('puestos.index');
+        Route::get('/listar', [PuestosController::class, 'listar']);
+        Route::post('/guardar', [PuestosController::class, 'store'])->name('puestos.store');
+        Route::get('/{id}', [PuestosController::class, 'edit'])->name('puestos.edit');
+        Route::put('/actualizar/{id}', [PuestosController::class, 'update'])->name('puestos.update');
+        Route::get('/status/{id}/{status}', [PuestosController::class, 'changeStatus'])->name('puestos.status');
+    });
+
     Route::group(['prefix' => 'empleados'], function () {
         Route::get('/', [EmployeesController::class, 'index'])->name('employees.index');
         Route::get('/listar', [EmployeesController::class, 'listar']);
         Route::get('/crear', [EmployeesController::class, 'create'])->name('employees.create');
         Route::post('/guardar', [EmployeesController::class, 'store'])->name('employees.store');
         Route::get('/{id}', [EmployeesController::class, 'edit'])->name('employees.edit');
-        Route::get('/history-webinar/{id}', [EmployeesController::class, 'historyWebinar'])->name('employees.historyWebinar');
         Route::put('/actualizar/{id}', [EmployeesController::class, 'update'])->name('employees.update');
+        Route::get('/status/{id}/{status}', [EmployeesController::class, 'changeStatus'])->name('employees.status');
     });
 
     Route::group(['prefix' => 'vacantes'], function () {
@@ -175,12 +198,12 @@ Route::group(['middlaware' => 'auth'], function() {
     });
 
     Route::group(['prefix' => 'Cartera'], function () {
-        Route::get('/', [VacantesController::class, 'index'])->name('vacant.index');
-        Route::get('/listar', [VacantesController::class, 'listar']);
-        Route::get('/crear', [VacantesController::class, 'create'])->name('vacant.create');
-        Route::post('/guardar', [VacantesController::class, 'store'])->name('vacant.store');
-        Route::get('/{id}', [VacantesController::class, 'edit'])->name('vacant.edit');
-        Route::put('/actualizar/{id}', [VacantesController::class, 'update'])->name('vacant.update');
-        Route::get('/status/{id}/{status}', [VacantesController::class, 'changeStatus'])->name('vacant.status');
+        Route::get('/', [WalletController::class, 'index'])->name('vacant.index');
+        Route::get('/listar', [WalletController::class, 'listar']);
+        Route::get('/crear', [WalletController::class, 'create'])->name('vacant.create');
+        Route::post('/guardar', [WalletController::class, 'store'])->name('vacant.store');
+        Route::get('/{id}', [WalletController::class, 'edit'])->name('vacant.edit');
+        Route::put('/actualizar/{id}', [WalletController::class, 'update'])->name('vacant.update');
+        Route::get('/status/{id}/{status}', [WalletController::class, 'changeStatus'])->name('vacant.status');
     });
 });

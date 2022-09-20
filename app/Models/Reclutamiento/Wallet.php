@@ -13,13 +13,6 @@ class Wallet extends Model
     protected $fillable = [
         'id',
         'vacante_id',
-        'requisitos',
-        'funcion',
-        'salario',
-        'prestaciones',
-        'horario',
-        'lugar_trabajo',
-        'reclutador_id',
         'status',
     ];
 }

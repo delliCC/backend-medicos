@@ -21,6 +21,8 @@ return [
   "Vacantes"=>"Vacantes",
   "Cartera"=>"Cartera",
   "Empleados"=>"Empleados",
+  "Puestos"=>"Puestos",
+  "Sucursales"=>"Sucursales",
   "Starter Kit"=>"Starter Kit",
   "Dashboards" => "Dashboards",
   "Analytics" => "Analytics",

@@ -10,7 +10,7 @@
           {
             extend: 'pdf',
             exportOptions: {
-              columns: [ 0, 1, 2, 3, 4]
+              columns: [ 0, 1, 2, 3, 4, 5, 6]
             }
           }
         ]
@@ -19,7 +19,9 @@
         configuracionesBasicasDatatable['serverSide'] = true
         configuracionesBasicasDatatable['ajax'] = "vacantes/listar"
         configuracionesBasicasDatatable['columns'] = [
-          { "data": "puesto" },
+          { "data": "puesto_id" },
+          { "data": "sucursal_id" },
+          { "data": "cantidad" },
           { "data": "imagen_url" },
           { "data": "lugar_trabajo" },
           { "data": "requisitos" },
