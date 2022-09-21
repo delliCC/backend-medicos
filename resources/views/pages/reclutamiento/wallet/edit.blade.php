@@ -1,19 +1,19 @@
 @extends('layouts/contentLayoutMaster')
 
-@section('title', 'Webinar')
+@section('title', 'Cartera')
 
 @section('content')
 <!-- Kick start -->
 <div class="card">
   <div class="card-header">
-    <h4 class="card-title">Editar Webinar</h4>
+    <h4 class="card-title">Editar Postulante</h4>
   </div>
   <div class="card-body">
     <div class="card-text">
-        <form class="mt-2" method="POST" action="{{ route('webinar.update', $datos->id) }}">
+        <form class="mt-2" method="POST" action="{{ route('wallet.update', $datos->id) }}">
             @csrf
             @method('PUT')
-            @include('components/webinar/form')
+            @include('components/reclutamiento/wallet/form')
         </form>
     </div>
   </div>

@@ -38,7 +38,22 @@ class EmployeesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'numero_empleado_id' => 'required',
+            'nombre' => 'required',
+            'apellido_paterno' => 'required',
+            'apellido_materno' => 'required',
+            'correo' => 'required|email',
+            'telefono' => 'required|min:10|numeric',
+            'direccion' => 'required',
+            'pais' => 'required',
+            'estado' => 'required',
+            'municipio' => 'required',
+        ]);
+
+        Employees::create($request->all());
+
+        return redirect()->route('employees.index')->with('success', 'Datos guardados correctamente.');
     }
 
     /**
@@ -61,12 +76,12 @@ class EmployeesController extends Controller
     public function edit($id)
     {
         $breadcrumbs = [
-            ['link'=>"medicos", 'name'=>"Lista de Médicos"], ['name'=>"Editar"]
+            ['link'=>"empleados", 'name'=>"Lista de Empleados"], ['name'=>"Editar"]
         ];
 
         $datos = Employees::find($id);
      
-        return view('/pages/reclutamiento/employees//edit', ['breadcrumbs' => $breadcrumbs, 'datos' => $datos]);
+        return view('/pages/reclutamiento/employees/edit', ['breadcrumbs' => $breadcrumbs, 'datos' => $datos]);
    
     }
 
@@ -79,7 +94,24 @@ class EmployeesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'numero_empleado_id' => 'required',
+            'nombre' => 'required',
+            'apellido_paterno' => 'required',
+            'apellido_materno' => 'required',
+            'correo' => 'required|email',
+            'telefono' => 'required|min:10|numeric',
+            'direccion' => 'required',
+            'pais' => 'required',
+            'estado' => 'required',
+            'municipio' => 'required',
+        ]);
+
+        $medico = Employees::find($id);
+
+        $medico->update($request->all());
+
+        return redirect()->route('employees.index')->with('success', 'Datos actualizados correctamente.');
     }
 
     /**
@@ -109,7 +141,7 @@ class EmployeesController extends Controller
             $btn .= '<a href="'.route("employees.edit", $row->id).'" class="btn btn-outline-info btn-sm"><i data-feather="edit"></i></a>';
             return $btn;
         })->addColumn('status', function($row) {
-            return view('components.medicos.switch', ['data' => $row]);
+            return view('components.reclutamiento.employees.switch', ['data' => $row]);
         })->rawColumns(['accion'])->make();
     }
 

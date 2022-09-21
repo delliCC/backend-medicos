@@ -2,8 +2,9 @@
 
 namespace App\Models\Reclutamiento;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Reclutamiento\Employees;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Vacant extends Model
 {
@@ -26,4 +27,9 @@ class Vacant extends Model
         'reclutador_id',
         'status',
     ];
+
+    public function empleado()
+    {
+        return $this->belongsTo(Employees::class, 'reclutador_id');
+    }
 }

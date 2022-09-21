@@ -22,19 +22,6 @@
       <a href="{{route('employees.create')}}" class="btn btn-outline-success"><i data-feather="plus"></i> Nuevo empleado</a>
     </div>
   </div>
-  <section id="multiple-column-form">
-    <div class="row">
-      <div class="col-12">
-        <div class="card">
-          <div class="card-body">
-            <form class="form">
-              @include('components/reclutamiento/employees/formBusqueda')
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
   <!-- Basic table -->
   <section id="basic-datatable">
     <div class="row">

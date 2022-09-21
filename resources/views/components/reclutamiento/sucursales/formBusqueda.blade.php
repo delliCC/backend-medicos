@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-md-6 col-12">
       <div class="mb-1">
-        <label class="form-label" for="city-column">Sucursal</label>
+        <label class="form-label" for="city-column">Estados</label>
         <input type="text" id="city-column" class="form-control" placeholder="City" name="city-column">
       </div>
     </div>

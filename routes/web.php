@@ -89,14 +89,6 @@ Route::group(['middlaware' => 'auth'], function() {
         Route::get('/status/{id}/{status}', [TypeMethodController::class, 'changeStatus'])->name('method.status');
     });
 
-    // Route::group(['prefix' => 'evaluacion'], function () {
-    //     Route::get('/', [TypeMethodController::class, 'index'])->name('evaluation.index');
-    //     Route::get('/listar', [TypeMethodController::class, 'listar']);
-    //     Route::post('/guardar', [TypeMethodController::class, 'store'])->name('evaluation.store');
-    //     Route::get('/{id}', [TypeMethodController::class, 'edit'])->name('evaluation.edit');
-    //     Route::put('/actualizar/{id}', [TypeMethodController::class, 'update'])->name('evaluation.update');
-    //     Route::get('/status/{id}/{status}', [TypeMethodController::class, 'changeStatus'])->name('evaluation.status');
-    // });
     
     Route::group(['prefix' => 'blog'], function () {
         Route::get('/', [BlogController::class, 'index'])->name('blog.index');
@@ -197,13 +189,12 @@ Route::group(['middlaware' => 'auth'], function() {
         Route::get('/status/{id}/{status}', [VacantesController::class, 'changeStatus'])->name('vacant.status');
     });
 
-    Route::group(['prefix' => 'Cartera'], function () {
-        Route::get('/', [WalletController::class, 'index'])->name('vacant.index');
+    Route::group(['prefix' => 'cartera'], function () {
+        Route::get('/', [WalletController::class, 'index'])->name('wallet.index');
         Route::get('/listar', [WalletController::class, 'listar']);
-        Route::get('/crear', [WalletController::class, 'create'])->name('vacant.create');
-        Route::post('/guardar', [WalletController::class, 'store'])->name('vacant.store');
-        Route::get('/{id}', [WalletController::class, 'edit'])->name('vacant.edit');
-        Route::put('/actualizar/{id}', [WalletController::class, 'update'])->name('vacant.update');
-        Route::get('/status/{id}/{status}', [WalletController::class, 'changeStatus'])->name('vacant.status');
+        Route::post('/guardar', [WalletController::class, 'store'])->name('wallet.store');
+        Route::get('/{id}', [WalletController::class, 'edit'])->name('wallet.edit');
+        Route::put('/actualizar/{id}', [WalletController::class, 'update'])->name('wallet.update');
+        Route::get('/status/{id}/{status}', [WalletController::class, 'changeStatus'])->name('wallet.status');
     });
 });

@@ -29,7 +29,7 @@ class VacantesController extends Controller
     public function create()
     {
         $breadcrumbs = [
-            ['link'=>"Vacantes",'name'=>"blog"], ['name'=>"Crear"]
+            ['link'=>"vacantes",'name'=>"Vacantes"], ['name'=>"Crear"]
         ];
 
         return view('/pages/reclutamiento/vacantes/create', ['breadcrumbs' => $breadcrumbs]);
@@ -79,7 +79,13 @@ class VacantesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $breadcrumbs = [
+            ['link'=>"vacantes", 'name'=>"Lista de vacantes"], ['name'=>"Editar"]
+        ];
+
+        $datos = Vacant::find($id);
+     
+        return view('/pages/reclutamiento/vacantes/edit', ['breadcrumbs' => $breadcrumbs, 'datos' => $datos]);
     }
 
     /**
@@ -91,7 +97,22 @@ class VacantesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'puesto' => 'required',
+            'requisitos' => 'required',
+            'funcion' => 'required',
+            'salario' => 'required',
+            'prestaciones' => 'required',
+            'horario' => 'required',
+            'lugar_trabajo' => 'required',
+            'reclutador_id' => 'required',
+        ]);
+
+        $medico = Vacant::find($id);
+
+        $medico->update($request->all());
+
+        return redirect()->route('employees.index')->with('success', 'Datos actualizados correctamente.');
     }
 
     /**

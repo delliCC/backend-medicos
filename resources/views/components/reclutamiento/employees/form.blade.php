@@ -8,7 +8,7 @@
     <div class="col-xl-4 col-md-6 col-12 mb-1">
         <fieldset class="form-group">
             <label for="numero_empleado_id">Número de empleado <i style="color: red">*</i></label>
-            <input type="text" value="{{ old('numero_empleado_id', isset($datos) ? $datos->numero_empleado_id : '') }}" class="form-control @error('numero_empleado_id') is-invalid @enderror" name="numero_empleado_id"  placeholder="Número de empleado">
+            <input type="number" value="{{ old('numero_empleado_id', isset($datos) ? $datos->numero_empleado_id : '') }}" class="form-control @error('numero_empleado_id') is-invalid @enderror" name="numero_empleado_id"  placeholder="Número de empleado">
             @error('numero_empleado_id')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
@@ -68,7 +68,7 @@
     <div class="col-xl-4 col-md-6 col-12 mb-1">
         <fieldset class="form-group">
             <label for="telefono">Teléfono <i style="color: red">*</i></label>
-            <input type="tel" value="{{ old('telefono', isset($datos) ? $datos->telefono : '') }}" class="form-control @error('telefono') is-invalid @enderror" name="telefono"  placeholder="Teléfono">
+            <input type="number" min="10" value="{{ old('telefono', isset($datos) ? $datos->telefono : '') }}" class="form-control @error('telefono') is-invalid @enderror" name="telefono"  placeholder="Teléfono">
             @error('telefono')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
@@ -86,7 +86,9 @@
     <div class="col-xl-4 col-md-6 col-12">
         <fieldset class="form-group">
             <label for="pais">País <i style="color: red">*</i></label>
-            <input type="text" value="{{ old('pais', isset($datos) ? $datos->pais : '') }}" class="form-control @error('pais') is-invalid @enderror" name="pais"  placeholder="País">
+            <select class="form-control" name="pais" id="pais">
+                <option value="mexico" >México</option>
+            </select>
             @error('pais')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
@@ -98,7 +100,15 @@
     <div class="col-xl-4 col-md-6 col-12">
         <fieldset class="form-group">
             <label for="estado">Estado <i style="color: red">*</i></label>
-            <input type="text" value="{{ old('estado', isset($datos) ? $datos->estado : '') }}" class="form-control @error('estado') is-invalid @enderror" name="estado"  placeholder="Estado">
+            {{--  <select class="form-control" name="estado" id="selectEstado" onchange="cargarMunicipio(this)">
+                <option value="" selected disabled> Selecciona una opción </option>
+                <option {{isset($datos) ? $datos->estado  ? 'selected' : '' : ''}}>{{$datos->estado }}</option>
+            </select>  --}}
+            <select class="form-control"  name="estado" id="selectEstado">
+                <option value="" selected disabled> Selecciona una opción </option>
+
+                <option value="{{$datos->estado}}" {{isset($datos) ? $datos->estado ? 'selected' : '' : ''}}>{{ $datos->estado}}</option>
+            </select>
             @error('estado')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
@@ -110,7 +120,9 @@
     <div class="col-xl-4 col-md-6 col-12">
         <fieldset class="form-group">
             <label for="municipio">Municipio <i style="color: red">*</i></label>
-            <input type="text" value="{{ old('municipio', isset($datos) ? $datos->municipio : '') }}" class="form-control @error('municipio') is-invalid @enderror" name="municipio"  placeholder="Municipio">
+            <select class="form-control" name="municipio" id="selectMunicipio">
+              <option value="" {{isset($datos) ? $datos->municipio  ? 'selected' : '' : ''}}>{{$datos->municipio }}</option>
+            </select>
             @error('municipio')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>

@@ -25,34 +25,39 @@
           { "data": "status" },
           { "data": "accion" }
         ]
-        $('#employees-table').DataTable(configuracionesBasicasDatatable);
+        $('#tableEmployees').DataTable(configuracionesBasicasDatatable);
       });
 
-      var settings = {
-        "url": "https://api.countrystatecity.in/v1/countries/IN/states/MH/cities",
-        "method": "GET",
-        "headers": {
-          "X-CSCAPI-KEY": "WHNBQUFjTzAwY01CRVhpbDNPQnl1OFBLWFZMczJxWWVzZTJGWG5TQQ=="
+      $.ajax({
+        method: "GET",
+        url: `{{ asset('js/scripts/estado_municipios.json') }}`,
+        beforeSend: function() {
+          console.log('loanding')
         },
-      };
-      
-      $.ajax(settings).done(function (response) {
-        console.log(response);
+        success: response => {
+         
+          response.forEach(function(estado) {
+            $('#selectEstado').append('<option value="'+estado.nombre+'">'+estado.nombre+'</option>');
+          });  
+        }
       });
 
-      {{--  function geocode(){
-        var location = '17.9697117-92.9208398'
-        axios.get('https://maps.googleapis.com/maps/api/geocode/json',{
-          params:{
-            address:location,
-            key:'AIzaSyCh1gZvUsD9ljetIt-i5jfTPtXhHB8uq7Y'
+      function cargarMunicipio(estado) {
+        var idEstado = document.getElementById("selectEstado").value;
+        $.ajax({
+          method: "GET",
+          url: `{{ asset('js/scripts/estado_municipios.json') }}`,
+          beforeSend: function() {
+            console.log('loanding')
+          },
+          success: response => {
+              var estado = response.filter(item => item.nombre == idEstado )
+              estado[0].municipios.forEach(function(municipio) {
+                $('#selectMunicipio').append('<option value="'+municipio+'">'+municipio+'</option>'); 
+              });  
           }
-        }).then(function(response){
-          console.log('response', response)
-        }).catch(function(error){
-          console.log('error',error)
-        })
-      }  --}}
+        });
+      }
 
       function changeStatus(event, id){
         event.preventDefault();

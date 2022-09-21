@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Reclutamiento;
 
-use App\Http\Controllers\Controller;
+use DataTables;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Models\Reclutamiento\Sucursales;
 
 class SucursalesController extends Controller
 {
@@ -41,7 +43,19 @@ class SucursalesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'sucursal' => 'required',
+            'correo' => 'required|email',
+            'telefono' => 'required|min:10|numeric',
+            'direccion' => 'required',
+            'pais' => 'required',
+            'estado' => 'required',
+            'municipio' => 'required',
+        ]);
+
+        Sucursales::create($request->all());
+
+        return redirect()->route('sucursales.index')->with('success', 'Datos guardados correctamente.');
     }
 
     /**
@@ -63,7 +77,13 @@ class SucursalesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $breadcrumbs = [
+            ['link'=>"empleados", 'name'=>"Lista de Empleados"], ['name'=>"Editar"]
+        ];
+
+        $datos = Sucursales::find($id);
+     
+        return view('/pages/reclutamiento/sucursales/edit', ['breadcrumbs' => $breadcrumbs, 'datos' => $datos]);
     }
 
     /**
@@ -75,7 +95,21 @@ class SucursalesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'sucursal' => 'required',
+            'correo' => 'required|email',
+            'telefono' => 'required|min:10|numeric',
+            'direccion' => 'required',
+            'pais' => 'required',
+            'estado' => 'required',
+            'municipio' => 'required',
+        ]);
+
+        $medico = Sucursales::find($id);
+
+        $medico->update($request->all());
+
+        return redirect()->route('sucursales.index')->with('success', 'Datos actualizados correctamente.');
     }
 
     /**
@@ -87,5 +121,39 @@ class SucursalesController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    function listar()
+    {
+        $medicos = Sucursales::select(
+            'id',
+            'sucursal',
+            'correo',
+            'telefono',
+            'direccion',
+            'pais',
+            'estado',
+            'municipio',
+            'status',
+        )->get();
+       
+        return DataTables::of($medicos)->addColumn('accion', function($row){
+            $btn = '<div class="demo-inline-spacing">';
+            $btn .= '<a href="'.route("sucursales.edit", $row->id).'" class="btn btn-outline-info btn-sm"><i data-feather="edit"></i></a>';
+            return $btn;
+        })->addColumn('status', function($row) {
+            return view('components.reclutamiento.sucursales.switch', ['data' => $row]);
+        })->rawColumns(['accion'])->make();
+    }
+
+    public function changeStatus($id, $status)
+    {
+        $datos = Sucursales::find($id);
+
+        $datos->status = $status == 'false' ? 0 : 1;
+
+        $datos->save();
+
+        return $this->sendResponse($datos);
     }
 }

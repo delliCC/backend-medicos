@@ -2,7 +2,7 @@
 <table class="datatables-basic table" id="webinar-table">
   <thead>
     <tr>
-      <th>Webinar</th>
+      <th>Nombre</th>
       <th>video</th>
       <th>Descripción</th>
       <th>estatus</th>

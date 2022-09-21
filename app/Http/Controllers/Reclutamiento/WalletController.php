@@ -14,7 +14,9 @@ class WalletController extends Controller
      */
     public function index()
     {
-        //
+        $pageConfigs = ['blankPage' => false];
+        $breadcrumbs = [ ['link' => "javascript:void(0)", 'name' => "index"]];
+        return view('/pages/reclutamiento/wallet/index', ['pageConfigs' => $pageConfigs, 'breadcrumbs' => $breadcrumbs]);
     }
 
     /**

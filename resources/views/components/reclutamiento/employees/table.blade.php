@@ -1,4 +1,4 @@
-<table class="datatables-basic table" id="employees-table">
+<table class="datatables-basic table" id="tableEmployees">
   <thead>
     <tr>
       <th>Nombre</th>

@@ -1,8 +1,8 @@
 @extends('layouts/contentLayoutMaster')
 
-@section('title', 'Webinar')
+@section('title', 'Cartera')
 
-@include('components/webinar/scripts')
+@include('components/reclutamiento/wallet/scripts')
 
 @section('content')
 <!-- Kick start -->
@@ -16,10 +16,7 @@
       @endif
     </div>
     <div class="col-9">
-      <h4 class="card-title text-left">Lista de Webinar</h4>
-    </div>
-    <div class="col-3 text-right">
-      <a href="{{route('webinar.create')}}" class="btn btn-outline-success"><i data-feather="plus"></i> Nuevo Webinar</a>
+      <h4 class="card-title text-left">Lista de postulantes en cartera</h4>
     </div>
   </div>
   <!-- Basic table -->
@@ -27,7 +24,7 @@
     <div class="row">
       <div class="col-12">
         <div class="card-body">
-          @include('components/webinar/table')
+          @include('components/reclutamiento/wallet/table')
         </div>
       </div>
     </div>

@@ -2,6 +2,8 @@
 
 @section('title', 'Empleados')
 
+@include('components/reclutamiento/employees/scripts')
+
 @section('content')
 <!-- Kick start -->
 <div class="card">

@@ -1,7 +1,8 @@
-<table class="datatables-basic table" id="employees-table">
+<table class="datatables-basic table" id="tableSucursal">
   <thead>
     <tr>
       <th>Nombre</th>
+      <th>Dirección</th>
       <th>Correo</th>
       <th>Teléfono</th>
       <th>Estatus</th>

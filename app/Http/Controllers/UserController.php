@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use DataTables;
 use App\Models\User;
 use App\Models\Medico;
-use App\Models\Employees;
 use Illuminate\Http\Request;
+use App\Models\Reclutamiento\Employees;
 
 class UserController extends Controller
 {

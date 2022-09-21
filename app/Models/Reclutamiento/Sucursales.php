@@ -9,7 +9,7 @@ class Sucursales extends Model
 {
     use HasFactory;
 
-    protected $table = 'rh_vacant';
+    protected $table = 'rh_sucursales';
     
     protected $fillable = [
         'id',
