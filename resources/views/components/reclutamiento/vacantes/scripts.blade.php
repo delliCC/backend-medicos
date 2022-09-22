@@ -28,7 +28,7 @@
           { "data": "status" },
           { "data": "accion" }
         ]
-        $('#vacantes-table').DataTable(configuracionesBasicasDatatable);
+        $('#tableVacantes').DataTable(configuracionesBasicasDatatable);
       });
  
       $('#formVacantes').submit(event => {

@@ -1,5 +1,5 @@
 
-<table class="datatables-basic table" id="vacantes-table">
+<table class="datatables-basic table" id="tableVacantes">
   <thead>
     <tr>
       <th>Puesto</th>

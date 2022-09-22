@@ -146,10 +146,10 @@
           "slug": "vacantes"
         },
         {
-          "url": "cartera",
-          "name": "Cartera",
+          "url": "postulantes",
+          "name": "Postulantes",
           "icon": "circle",
-          "slug": "cartera"
+          "slug": "postulantes"
         }
       ]
     }

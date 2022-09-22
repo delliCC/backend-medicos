@@ -23,6 +23,7 @@ return [
   "Empleados"=>"Empleados",
   "Puestos"=>"Puestos",
   "Sucursales"=>"Sucursales",
+  "Postulantes"=>"Postulantes",
   "Starter Kit"=>"Starter Kit",
   "Dashboards" => "Dashboards",
   "Analytics" => "Analytics",

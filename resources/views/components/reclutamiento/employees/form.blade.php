@@ -120,9 +120,11 @@
     <div class="col-xl-4 col-md-6 col-12">
         <fieldset class="form-group">
             <label for="municipio">Municipio <i style="color: red">*</i></label>
-            <select class="form-control" name="municipio" id="selectMunicipio">
+            <input type="text" value="{{ old('municipio', isset($datos) ? $datos->municipio : '') }}" class="form-control @error('municipio') is-invalid @enderror" name="municipio"  placeholder="Municipio">
+
+            {{--  <select class="form-control" name="municipio" id="selectMunicipio">
               <option value="" {{isset($datos) ? $datos->municipio  ? 'selected' : '' : ''}}>{{$datos->municipio }}</option>
-            </select>
+            </select>  --}}
             @error('municipio')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>

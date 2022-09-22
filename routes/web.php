@@ -14,10 +14,10 @@ use App\Http\Controllers\SpecialtyController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\TypeMethodController;
 use App\Http\Controllers\TypeSampleController;
-use App\Http\Controllers\Reclutamiento\WalletController;
 use App\Http\Controllers\Reclutamiento\PuestosController;
 use App\Http\Controllers\Reclutamiento\VacantesController;
 use App\Http\Controllers\Reclutamiento\EmployeesController;
+use App\Http\Controllers\Reclutamiento\PostulantController;
 use App\Http\Controllers\Reclutamiento\SucursalesController;
 /*
 |--------------------------------------------------------------------------
@@ -189,12 +189,12 @@ Route::group(['middlaware' => 'auth'], function() {
         Route::get('/status/{id}/{status}', [VacantesController::class, 'changeStatus'])->name('vacant.status');
     });
 
-    Route::group(['prefix' => 'cartera'], function () {
-        Route::get('/', [WalletController::class, 'index'])->name('wallet.index');
-        Route::get('/listar', [WalletController::class, 'listar']);
-        Route::post('/guardar', [WalletController::class, 'store'])->name('wallet.store');
-        Route::get('/{id}', [WalletController::class, 'edit'])->name('wallet.edit');
-        Route::put('/actualizar/{id}', [WalletController::class, 'update'])->name('wallet.update');
-        Route::get('/status/{id}/{status}', [WalletController::class, 'changeStatus'])->name('wallet.status');
+    Route::group(['prefix' => 'postulantes'], function () {
+        Route::get('/', [PostulantController::class, 'index'])->name('postulant.index');
+        Route::get('/listar', [PostulantController::class, 'listar']);
+        Route::post('/guardar', [PostulantController::class, 'store'])->name('postulant.store');
+        Route::get('/{id}', [PostulantController::class, 'edit'])->name('postulant.edit');
+        Route::put('/actualizar/{id}', [PostulantController::class, 'update'])->name('postulant.update');
+        Route::get('/status/{id}/{status}', [PostulantController::class, 'changeStatus'])->name('postulant.status');
     });
 });
