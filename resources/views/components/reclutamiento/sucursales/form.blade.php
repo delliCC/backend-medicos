@@ -62,7 +62,15 @@
     <div class="col-xl-4 col-md-6 col-12">
         <fieldset class="form-group">
             <label for="estado">Estado <i style="color: red">*</i></label>
-            <input type="text" value="{{ old('estado', isset($datos) ? $datos->estado : '') }}" class="form-control @error('estado') is-invalid @enderror" name="estado"  placeholder="Estado">
+            {{--  <select class="form-control" name="estado" id="selectEstado" onchange="cargarMunicipio(this)">
+                <option value="" selected disabled> Selecciona una opción </option>
+                <option {{isset($datos) ? $datos->estado  ? 'selected' : '' : ''}}>{{$datos->estado }}</option>
+            </select>  --}}
+            <select class="form-control"  name="estado" id="selectEstado">
+                <option value="" selected disabled> Selecciona una opción </option>
+
+                <option value="{{isset($datos) ? $datos->estado ? 'selected' : '' : ''}}" >{{ $datos->estado}}</option>
+            </select>
             @error('estado')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
@@ -75,6 +83,10 @@
         <fieldset class="form-group">
             <label for="municipio">Municipio <i style="color: red">*</i></label>
             <input type="text" value="{{ old('municipio', isset($datos) ? $datos->municipio : '') }}" class="form-control @error('municipio') is-invalid @enderror" name="municipio"  placeholder="Municipio">
+
+            {{--  <select class="form-control" name="municipio" id="selectMunicipio">
+              <option value="" {{isset($datos) ? $datos->municipio  ? 'selected' : '' : ''}}>{{$datos->municipio }}</option>
+            </select>  --}}
             @error('municipio')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>

@@ -29,7 +29,36 @@
         $('#tableSucursal').DataTable(configuracionesBasicasDatatable);
       });
 
+      $.ajax({
+        method: "GET",
+        url: `{{ asset('js/scripts/estado_municipios.json') }}`,
+        beforeSend: function() {
+          console.log('loanding')
+        },
+        success: response => {
+         
+          response.forEach(function(estado) {
+            $('#selectEstado').append('<option value="'+estado.nombre+'">'+estado.nombre+'</option>');
+          });  
+        }
+      });
 
+      function cargarMunicipio(estado) {
+        var idEstado = document.getElementById("selectEstado").value;
+        $.ajax({
+          method: "GET",
+          url: `{{ asset('js/scripts/estado_municipios.json') }}`,
+          beforeSend: function() {
+            console.log('loanding')
+          },
+          success: response => {
+              var estado = response.filter(item => item.nombre == idEstado )
+              estado[0].municipios.forEach(function(municipio) {
+                $('#selectMunicipio').append('<option value="'+municipio+'">'+municipio+'</option>'); 
+              });  
+          }
+        });
+      }
 
       function changeStatus(event, id){
         event.preventDefault();

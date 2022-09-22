@@ -97,8 +97,10 @@ class PostulantController extends Controller
             'fecha_postulacion',
             'estado_postulante',
             'status'
-        )->get();
-       
+        )->with(['vacantes'=> function ($query){
+            $query->select('id', 'puesto_id','sucursal_id', 'reclutador_id');
+        }])->get();
+
         return DataTables::of($datos)->addColumn('accion', function($row){
             $btn = '<div class="demo-inline-spacing">';
             $btn .= '<a href="'.route("postulant.edit", $row->id).'" class="btn btn-outline-info btn-sm"><i data-feather="edit"></i></a>';

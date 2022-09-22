@@ -2,8 +2,9 @@
 
 namespace App\Models\Reclutamiento;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Reclutamiento\Vacant;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Postulant extends Model
 {
@@ -148,4 +149,9 @@ class Postulant extends Model
         'estado_postulante',
         'status'
     ];
+
+    public function vacantes()
+    {
+        return $this->belongsTo(Vacant::class, 'vacante_id');
+    }
 }
