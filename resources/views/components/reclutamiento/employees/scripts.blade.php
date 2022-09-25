@@ -28,6 +28,7 @@
         $('#tableEmployees').DataTable(configuracionesBasicasDatatable);
       });
 
+      const estadoDB = "{{!empty($datos) ? $datos->estado : ''}}"
       $.ajax({
         method: "GET",
         url: `{{ asset('js/scripts/estado_municipios.json') }}`,
@@ -35,15 +36,23 @@
           console.log('loanding')
         },
         success: response => {
-         
           response.forEach(function(estado) {
-            $('#selectEstado').append('<option value="'+estado.nombre+'">'+estado.nombre+'</option>');
+            let selected = estadoDB == estado.nombre ? 'selected' : undefined;
+            $('#selectEstado').append('<option value="'+estado.nombre+'" '+selected+'>'+estado.nombre+'</option>');
           });  
         }
       });
 
-      function cargarMunicipio(estado) {
-        var idEstado = document.getElementById("selectEstado").value;
+      if(estadoDB) {
+        setTimeout(() => {
+          cargarMunicipio();
+        }, 1000);
+      }
+
+      const municipioDB = "{{!empty($datos) ? $datos->municipio : ''}}"
+      function cargarMunicipio() {
+        var estadoSelected = document.getElementById("selectEstado").value;
+
         $.ajax({
           method: "GET",
           url: `{{ asset('js/scripts/estado_municipios.json') }}`,
@@ -51,10 +60,19 @@
             console.log('loanding')
           },
           success: response => {
-              var estado = response.filter(item => item.nombre == idEstado )
-              estado[0].municipios.forEach(function(municipio) {
-                $('#selectMunicipio').append('<option value="'+municipio+'">'+municipio+'</option>'); 
-              });  
+            var estadoFind = response.find(item => item.nombre == estadoSelected)
+
+            $('#select2-municipios').empty();
+            $('.select2-municipios').wrap('<div class="position-relative"></div>').select2({
+              dropdownAutoWidth: true,
+              dropdownParent: $('.select2-municipios').parent(),
+              width: '100%',
+            });
+            $('#select2-municipios').append('<option value="">Selecciona una opción</option>');
+            estadoFind.municipios.forEach(function(municipio) {
+              let selected = municipioDB == municipio ? 'selected' : undefined;
+              $('#select2-municipios').append('<option value="'+municipio+'" '+selected+'>'+municipio+'</option>');
+            });  
           }
         });
       }
