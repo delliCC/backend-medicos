@@ -69,7 +69,7 @@
             <select class="form-control"  name="estado" id="selectEstado">
                 <option value="" selected disabled> Selecciona una opción </option>
 
-                <option value="{{isset($datos) ? $datos->estado ? 'selected' : '' : ''}}" >{{ $datos->estado}}</option>
+                <option {{ old('estado', isset($datos) ? $datos->estado : '') }} >{{ $datos->estado}}</option>
             </select>
             @error('estado')
             <span class="invalid-feedback" role="alert">
