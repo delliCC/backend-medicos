@@ -6,6 +6,9 @@ use DataTables;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Reclutamiento\Vacant;
+use App\Models\Reclutamiento\Puestos;
+use App\Models\Reclutamiento\Employees;
+use App\Models\Reclutamiento\Sucursales;
 
 class VacantesController extends Controller
 {
@@ -28,11 +31,14 @@ class VacantesController extends Controller
      */
     public function create()
     {
+        $sucursales = Sucursales::select('id','sucursal','status')->where('status',1)->get();
+        $empleados = Employees::select('id','nombre','status')->where('status',1)->get();
+        $puestos = Puestos::select('id','puesto','status')->where('status',1)->get();
         $breadcrumbs = [
             ['link'=>"vacantes",'name'=>"Vacantes"], ['name'=>"Crear"]
         ];
 
-        return view('/pages/reclutamiento/vacantes/create', ['breadcrumbs' => $breadcrumbs]);
+        return view('/pages/reclutamiento/vacantes/create', ['breadcrumbs' => $breadcrumbs], compact('sucursales', 'empleados','puestos'));
     }
 
     /**
@@ -43,18 +49,22 @@ class VacantesController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'puesto' => 'required',
-            'requisitos' => 'required',
-            'funcion' => 'required',
-            'salario' => 'required',
-            'prestaciones' => 'required',
-            'horario' => 'required',
-            'lugar_trabajo' => 'required',
-            'reclutador_id' => 'required',
-        ]);
+        // $this->validate($request, [
+        //     'puesto' => 'required',
+        //     'requisitos' => 'required',
+        //     'funcion' => 'required',
+        //     'salario' => 'required',
+        //     'prestaciones' => 'required',
+        //     'horario' => 'required',
+        //     'lugar_trabajo' => 'required',
+        //     'reclutador_id' => 'required',
+        // ]);
+            // return $request;
+        $fileBase64 = base64_encode(file_get_contents($request->file('imagen')));
+        $fileName = time();
 
-       
+        return $this->uploadS3Base64("{$fileName}.jpg", $fileBase64, 'vacantes/');
+
         $datos = Vacant::create($request->all());
 
         return $this->sendResponse();

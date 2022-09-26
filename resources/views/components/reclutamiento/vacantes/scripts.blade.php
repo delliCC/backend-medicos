@@ -31,43 +31,27 @@
         $('#tableVacantes').DataTable(configuracionesBasicasDatatable);
       });
  
-      $('#formVacantes').submit(event => {
-        return ;
+      $('#formVacantes').on('submit', event => {
+        $('#formVacantes').on('submit', event => {
         event.preventDefault();
-        console.log('test')
-       
-        let headers = {
-          Authorization: "token",
-         // 'Content-Type':'multipart/form-data'
-        };
- 
-        var inputFile = document.getElementById("input-imagen");
-    
-        var formData = new FormData();
 
-        formData.append('puesto', $('#input-puesto').val());
-        formData.append('requisitos', $('#input-requisitos').val());
-        formData.append('funcion', $('#input-funcion').val());
-        formData.append('salario', $('#input-salario').val());
-        formData.append('prestaciones', $('#input-prestaciones').val());
+        let formData = new FormData();
+        formData.append('puesto_id', $('#puesto_id').val());
+        formData.append('sucursal_id', $('#sucursal_id').val());
+        formData.append('cantidad', $('#cantidad').val());
+        formData.append('requisitos', $('#requisitos').val());
+        formData.append('funcion', $('#funcion').val());
+        formData.append('salario', $('#salario').val());
+        formData.append('prestaciones', $('#prestaciones').val());
         formData.append('horario', $('#horario').val());
         formData.append('lugar_trabajo', $('#lugar_trabajo').val());
-        formData.append('reclutador_id', $('#reclutador_id').val());
-
-        for(var a=0; a<inputFile.files.length; a++){
-          var imagen = inputFile.files[a]
-          console.log(imagen)
-          formData.append('imagen[]', imagen);
-        }
+        formData.append('imagen', $('#input-imagen')[0].files[0]);
        
         $.ajax({
-            url:'/vacantes/guardar',
-            method:'POST',
-            enctype: 'multipart/form-data',
+            url: `${$('#formVacantes').attr('action')}?${$('#formVacantes').serialize()}`,
+            method: 'POST',
             data: formData,
-            headers: headers,
             processData: false,
-            contentType: false,
             beforeSend: xhr => {
              
            }
@@ -81,13 +65,13 @@
                 },
                 buttonsStyling: false
               });
-              location.reload()
+              // location.reload()
          }).fail(function (data) {
           console.log(data)
            alert(data.responseJSON.errors)
          });
-
-      });  
+        });
+      });
 
 
       function editarEspecilidad(id, nombre) {
