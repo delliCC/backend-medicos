@@ -2,7 +2,6 @@
   <thead>
     <tr>
       <th>Puesto</th>
-      <th>Función</th>
       <th>estatus</th>
       <th>Acción</th>
     </tr>

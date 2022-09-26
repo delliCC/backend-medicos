@@ -30,6 +30,19 @@
         $('#estudios-table').DataTable(configuracionesBasicasDatatable);
       });
 
+      const muestraDB = "{{!empty($datos) ? $datos->tipoMuestra : ''}}"
+      console.log(muestraDB)
+      $('#selectMuestra').select2({
+        dropdownAutoWidth: true,
+        dropdownParent: $('#selectMuestra').parent(),
+        width: '100%',
+      });
+
+      // let selected = muestraDB == estado.nombre ? 'selected' : undefined;
+      // $('#selectMuestra').append('<option value="'+estadoDB.nombre+'" '+selected+'>'+estadoDB.nombre+'</option>');
+
+  
+
       $('#form-studie').submit(event => {
         event.preventDefault();
        

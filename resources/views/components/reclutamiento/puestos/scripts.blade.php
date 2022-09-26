@@ -10,7 +10,7 @@
           {
             extend: 'pdf',
             exportOptions: {
-              columns: [ 0, 1, 2 ]
+              columns: [ 0, 1]
             }
           }
         ]
@@ -20,7 +20,6 @@
         configuracionesBasicasDatatable['ajax'] = "puestos/listar"
         configuracionesBasicasDatatable['columns'] = [
           { "data": "puesto" },
-          { "data": "funcion" },
           { "data": "status" },
           { "data": "accion" }
         ]
@@ -38,7 +37,6 @@
           data: {
             '_token': "{{ csrf_token() }}",
             'puesto': event.target['inputPuesto'].value,
-            'funcion': event.target['inputFuncion'].value
           },
           beforeSend: xhr => {
             
@@ -64,10 +62,9 @@
         event.preventDefault();
       });
 
-      function editarPuesto(id, puesto, funcion) {
+      function editarPuesto(id, puesto) {
         $('#idPuesto').val(id);
         $('#inputPuesto').val(puesto);
-        $('#inputFuncion').val(funcion);
       }
 
       function changeStatus(event, id){

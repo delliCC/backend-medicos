@@ -41,7 +41,6 @@ class PuestosController extends Controller
     {
         $this->validate($request, [
             'puesto'=> 'required|string|unique:rh_puestos,puesto',
-            'puesto'=> 'required',
         ]);
 
         Puestos::create($request->all());
@@ -98,12 +97,11 @@ class PuestosController extends Controller
         $datos = Puestos::select(
             'id',
             'puesto',
-            'funcion',
             'status'
         )->get();
         return DataTables::of($datos)->addColumn('accion', function($row){
             $btn = '<div class="demo-inline-spacing">';
-            $btn .= '<a onclick="editarPuesto('.$row->id.', `'.$row->puesto.'`,`'.$row->funcion.'`)" class="btn btn-outline-info btn-sm" data-toggle="modal" data-target="#default"><i data-feather="edit"></i></a>';            return $btn;
+            $btn .= '<a onclick="editarPuesto('.$row->id.', `'.$row->puesto.'`)" class="btn btn-outline-info btn-sm" data-toggle="modal" data-target="#default"><i data-feather="edit"></i></a>';            return $btn;
         })->addColumn('status', function($row) {
             return view('components.reclutamiento.puestos.switch', ['data' => $row]);
         })->rawColumns(['accion'])->make();

@@ -31,8 +31,10 @@
     <div class="col-xl-6 col-md-6 col-12 mb-1">
         <fieldset class="form-group">
             <label for="tipo_muestra">Tipo de Muestra</label>
-            <select class="form-control" id="normalMultiSelect" multiple="multiple">
-                <option selected="selected">Square</option>
+
+            <select class="form-control" id="selectMuestra" multiple="multiple">
+                <option value="">Selecciona una opción</option>
+                {{-- <option selected="selected">Square</option>
                 <option>Rectangle</option>
                 <option selected="selected">Rombo</option>
                 <option>Romboid</option>
@@ -41,7 +43,8 @@
                 <option selected="selected">Polygon</option>
                 <option>Regular polygon</option>
                 <option>Circumference</option>
-                <option>Circle</option>
+                <option>Circle</option> --}}
+          
               </select>
             {{--  <select class="form-control"  class="form-control" name="muestra_id" id="select-muestra">
                 <option value="" selected disabled> Selecciona una opción </option>

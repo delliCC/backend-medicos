@@ -16,7 +16,6 @@ class RhPuestos extends Migration
         Schema::create('rh_puestos', function (Blueprint $table) {
             $table->id();
             $table->string('puesto');
-            $table->text('funcion');
             $table->boolean('status')->default(true);
             $table->timestamps();
         });

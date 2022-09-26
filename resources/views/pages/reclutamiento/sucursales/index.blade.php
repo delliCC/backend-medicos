@@ -22,7 +22,7 @@
       <a href="{{route('sucursales.create')}}" class="btn btn-outline-success"><i data-feather="plus"></i> Nueva sucursal</a>
     </div>
   </div>
-  <section id="multiple-column-form">
+  {{--  <section id="multiple-column-form">
     <div class="row">
       <div class="col-12">
         <div class="card">
@@ -34,7 +34,7 @@
         </div>
       </div>
     </div>
-  </section>
+  </section>  --}}
   <!-- Basic table -->
   <section id="basic-datatable">
     <div class="row">

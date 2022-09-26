@@ -23,7 +23,6 @@ class Vacant extends Model
         'salario',
         'prestaciones',
         'horario',
-        'lugar_trabajo',
         'reclutador_id',
         'status',
     ];

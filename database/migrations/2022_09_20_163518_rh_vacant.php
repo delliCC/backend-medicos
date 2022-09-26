@@ -24,9 +24,8 @@ class RhVacant extends Migration
             $table->string('salario');
             $table->text('prestaciones');
             $table->string('horario');
-            $table->string('lugar_trabajo');
-            $table->boolean('status')->default(true);
             $table->unsignedBigInteger('reclutador_id');
+            $table->boolean('status')->default(true);
             $table->timestamps();
 
             $table->foreign('puesto_id')->references('id')->on('rh_puestos');

@@ -7,7 +7,7 @@
             <span aria-hidden="true">&times;</span>
             </button>
         </div>
-        <form class="mt-2" method="POST"  id="formPuesto">
+        <form class="mt-2" method="POST" autocomplete="off" id="formPuesto">
           @csrf
           @include('components/reclutamiento/puestos/form')
         </form>

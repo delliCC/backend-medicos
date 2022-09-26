@@ -50,7 +50,9 @@
     <div class="col-xl-4 col-md-6 col-12">
         <fieldset class="form-group">
             <label for="pais">País <i style="color: red">*</i></label>
-            <input type="text" value="{{ old('pais', isset($datos) ? $datos->pais : '') }}" class="form-control @error('pais') is-invalid @enderror" name="pais"  placeholder="País">
+            <select class="form-control" name="pais" id="pais">
+                <option value="mexico" >México</option>
+            </select>
             @error('pais')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
@@ -62,14 +64,8 @@
     <div class="col-xl-4 col-md-6 col-12">
         <fieldset class="form-group">
             <label for="estado">Estado <i style="color: red">*</i></label>
-            {{--  <select class="form-control" name="estado" id="selectEstado" onchange="cargarMunicipio(this)">
-                <option value="" selected disabled> Selecciona una opción </option>
-                <option {{isset($datos) ? $datos->estado  ? 'selected' : '' : ''}}>{{$datos->estado }}</option>
-            </select>  --}}
-            <select class="form-control"  name="estado" id="selectEstado">
-                <option value="" selected disabled> Selecciona una opción </option>
-
-                <option {{ old('estado', isset($datos) ? $datos->estado : '') }} >{{ $datos->estado}}</option>
+            <select class="form-control"  name="estado" id="selectEstado" onchange="cargarMunicipio()">
+                <option value=""> Selecciona una opción </option>
             </select>
             @error('estado')
             <span class="invalid-feedback" role="alert">
@@ -82,11 +78,11 @@
     <div class="col-xl-4 col-md-6 col-12">
         <fieldset class="form-group">
             <label for="municipio">Municipio <i style="color: red">*</i></label>
-            <input type="text" value="{{ old('municipio', isset($datos) ? $datos->municipio : '') }}" class="form-control @error('municipio') is-invalid @enderror" name="municipio"  placeholder="Municipio">
-
-            {{--  <select class="form-control" name="municipio" id="selectMunicipio">
-              <option value="" {{isset($datos) ? $datos->municipio  ? 'selected' : '' : ''}}>{{$datos->municipio }}</option>
-            </select>  --}}
+            <div class="form-group">
+                <select class="select2-municipios form-control" name="municipio" id="select2-municipios">
+                    <option value="">Selecciona una opción</option>
+                </select>
+            </div>
             @error('municipio')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
@@ -98,9 +94,7 @@
     <div class="col-xl-12 col-md-12 col-12">
         <fieldset class="form-group">
             <label for="direccion">Dirección completa <i style="color: red">*</i></label>
-            <textarea class="form-control @error('direccion') is-invalid @enderror" name="direccion"  placeholder="Dirección">
-                {{ isset($datos) ? $datos->direccion : '' }}
-            </textarea>
+            <textarea class="form-control @error('direccion') is-invalid @enderror" name="direccion"  placeholder="Dirección">{{ isset($datos) ? $datos->direccion : '' }}</textarea>
             @error('direccion')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
