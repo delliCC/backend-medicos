@@ -10,7 +10,7 @@
           {
             extend: 'pdf',
             exportOptions: {
-              columns: [ 0, 1, 2, 3, 4, 5, 6]
+              columns: [ 0, 1, 2, 3, 4,5]
             }
           }
         ]
@@ -23,8 +23,7 @@
           { "data": "sucursal_id" },
           { "data": "cantidad" },
           { "data": "imagen_url" },
-          { "data": "lugar_trabajo" },
-          { "data": "requisitos" },
+          { "data": "reclutador_id" },
           { "data": "status" },
           { "data": "accion" }
         ]
@@ -44,7 +43,6 @@
         formData.append('salario', $('#salario').val());
         formData.append('prestaciones', $('#prestaciones').val());
         formData.append('horario', $('#horario').val());
-        formData.append('lugar_trabajo', $('#lugar_trabajo').val());
         formData.append('imagen', $('#input-imagen')[0].files[0]);
        
         $.ajax({
@@ -65,10 +63,9 @@
                 },
                 buttonsStyling: false
               });
-              // location.reload()
+              //location.reload()
          }).fail(function (data) {
           console.log(data)
-           alert(data.responseJSON.errors)
          });
         });
       });

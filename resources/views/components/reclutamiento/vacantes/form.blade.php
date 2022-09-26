@@ -7,11 +7,11 @@
 
   <div class="col-4 mb-1">
     <fieldset class="form-group">
-        <label for="medico_id">Puesto</label>
+        <label for="puesto_id">Puesto</label>
         <select class="form-control" class="form-control" id="puesto_id" name="puesto_id">
             <option value="" selected disabled> Selecciona una opción </option>
             @foreach ($puestos as $puesto)
-                <option {{isset($datos) ? $puesto->id == $puesto->puesto_id ? 'selected' : '' : ''}}>
+                <option value="{{$puesto->id}}" {{isset($datos) ? $puesto->id == $datos->puesto_id ? 'selected' : '' : ''}}>
                     {{ $puesto->puesto }}
                 </option>
             @endforeach
@@ -27,16 +27,16 @@
 
   <div class="col-4 mb-1">
     <fieldset class="form-group">
-        <label for="medico_id">Sucursal</label>
+        <label for="sucursal_id">Sucursal</label>
         <select class="form-control" class="form-control" id="sucursal_id" name="sucursal_id">
             <option value="" selected disabled> Selecciona una opción </option>
             @foreach ($sucursales as $sucursal)
-                <option {{isset($datos) ? $sucursal->id == $sucursal->sucursal_id ? 'selected' : '' : ''}}>
+                <option value="{{$sucursal->id}}" {{isset($datos) ? $sucursal->id == $datos->sucursal_id ? 'selected' : '' : ''}}>
                     {{ $sucursal->sucursal }}
                 </option>
             @endforeach
         </select>
-        @error('medico_id')
+        @error('sucursal_id')
         <span class="invalid-feedback" role="alert">
             <strong>{{ $message }}</strong>
         </span>
@@ -47,7 +47,7 @@
 <div class="col-4 mb-1">
     <fieldset class="form-group">
         <label for="cantidad">Cantidad</label>
-        <input type="number" id="cantidad" value="{{ old('cantidad', isset($datos) ? $datos->cantidad : '') }}" class="form-control @error('horario') is-invalid @enderror" name="horario"  placeholder="horario">
+        <input type="number" id="cantidad" value="{{ old('cantidad', isset($datos) ? $datos->cantidad : '') }}" class="form-control @error('cantidad') is-invalid @enderror" name="cantidad"  placeholder="cantidad">
         @error('cantidad')
         <span class="invalid-feedback" role="alert">
             <strong>{{ $message }}</strong>
@@ -86,7 +86,7 @@
         <select class="form-control" class="form-control" id="reclutador_id" name="reclutador_id">
             <option value="" selected disabled> Selecciona una opción </option>
             @foreach ($empleados as $reclutador)
-                <option {{isset($datos) ? $reclutador->id == $reclutador->reclutador_id ? 'selected' : '' : ''}}>
+                <option value="{{$reclutador->id}}"  {{isset($datos) ? $reclutador->id == $reclutador->reclutador_id ? 'selected' : '' : ''}}>
                     {{ $reclutador->nombre }}
                 </option>
             @endforeach
@@ -99,7 +99,7 @@
     </fieldset>
 </div>
 
-  <div class="col-12 mb-2">
+  {{--  <div class="col-12 mb-2">
     <fieldset class="form-group">
       <label for="input-imagen">Imagen</label>
       <small class="text-muted"> El tamaño máximo de archivo es de 1M.</small>
@@ -109,6 +109,36 @@
           <span class="d-block form-file-text" style="pointer-events: none;"></span></label>
       </div>
     </fieldset>
+  </div>  --}}
+  <div class="col-12 mb-2">
+    <div class="border rounded p-2">
+      <h4 class="mb-1">Imagen</h4>
+      <div class="media flex-column flex-md-row">
+        <img
+          src="{{asset('images/slider/03.jpg')}}"
+          id="blog-feature-image"
+          class="rounded mr-2 mb-1 mb-md-0"
+          width="170"
+          height="110"
+          alt="Blog Featured Image"
+        />
+        <div class="media-body">
+          {{--  <h5 class="mb-0">Main image:</h5>  --}}
+          <small class="text-muted"> El tamaño máximo de archivo es de 1M.</small>
+          <p class="my-50">
+            <a href="javascript:void(0);" id="blog-image-text">C:\fakepath\banner.jpg</a>
+          </p>
+          <div class="d-inline-block">
+            <div class="form-group mb-0">
+              <div class="custom-file">
+                <input type="file" class="custom-file-input" id="input-imagen" accept="image/*" />
+                <label class="custom-file-label" for="input-imagen">Choose file</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div class="col-xl-6 col-md-12 col-12">

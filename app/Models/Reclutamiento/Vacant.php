@@ -2,8 +2,10 @@
 
 namespace App\Models\Reclutamiento;
 
+use App\Models\Reclutamiento\Puestos;
 use App\Models\Reclutamiento\Employees;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Reclutamiento\Sucursales;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Vacant extends Model
@@ -30,5 +32,15 @@ class Vacant extends Model
     public function empleado()
     {
         return $this->belongsTo(Employees::class, 'reclutador_id');
+    }
+
+    public function puesto()
+    {
+        return $this->belongsTo(Puestos::class, 'puesto_id');
+    }
+
+    public function sucursal()
+    {
+        return $this->belongsTo(Sucursales::class, 'sucursal_id');
     }
 }

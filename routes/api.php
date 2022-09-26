@@ -7,6 +7,7 @@ use App\Http\Controllers\API\LoginController;
 use App\Http\Controllers\API\StudiesController;
 use App\Http\Controllers\API\TrainigController;
 use App\Http\Controllers\API\WebinarController;
+use App\Http\Controllers\API\VacantesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +34,15 @@ Route::group(['prefix' => 'webinar'], function () {
 Route::group(['prefix' => 'training'], function () {
     Route::get('/', [TrainigController::class, 'index']);
 });
+
+Route::group(['prefix' => 'training'], function () {
+    Route::get('/', [TrainigController::class, 'index']);
+});
+// ********************************* Vacantes *************************************
+Route::group(['prefix' => 'vacantes'], function () {
+    Route::get('/', [VacantesController::class, 'vacantes']);
+});
+// ********************************************************************************
 
 Route::post('/login', [LoginController::class, 'login']);
 Route::group(['middleware' => 'auth:api'], function() {

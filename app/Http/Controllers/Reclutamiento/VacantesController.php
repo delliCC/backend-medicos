@@ -65,11 +65,22 @@ class VacantesController extends Controller
         $fileBase64 = base64_encode(file_get_contents($request->file('imagen')));
         $fileName = time();
 
-        $this->uploadS3Base64("{$fileName}.jpg", $fileBase64, 'vacantes/');
+        $imagen = $this->uploadS3Base64("{$fileName}.jpg", $fileBase64, 'vacantes/');
 
-        $datos = Vacant::create($request->all());
+        $datos = Vacant::create([
+            'puesto_id'=> $request->puesto_id,
+            'sucursal_id'=> $request->sucursal_id,
+            'cantidad'=> $request->cantidad,
+            'requisitos'=> $request->requisitos,
+            'funcion'=> $request->funcion,
+            'salario'=> $request->salario,
+            'prestaciones'=> $request->prestaciones, 
+            'horario'=> $request->horario,
+            'reclutador_id'=> $request->reclutador_id,
+            'imagen_url'=>$imagen['url']
+        ]);
 
-        return $this->sendResponse();
+        return redirect()->route('vacant.index')->with('success', 'Datos guardados correctamente.');
     }
 
     /**
@@ -94,10 +105,20 @@ class VacantesController extends Controller
         $breadcrumbs = [
             ['link'=>"vacantes", 'name'=>"Lista de vacantes"], ['name'=>"Editar"]
         ];
+        $sucursales = Sucursales::select('id','sucursal','status')->where('status',1)->get();
+        $empleados = Employees::select('id','nombre','status')->where('status',1)->get();
+        $puestos = Puestos::select('id','puesto','status')->where('status',1)->get();
 
-        $datos = Vacant::find($id);
-     
-        return view('/pages/reclutamiento/vacantes/edit', ['breadcrumbs' => $breadcrumbs, 'datos' => $datos]);
+        $datos = Vacant::with(['empleado'=> function ($query){
+            $query->select('id', 'nombre','apellido_paterno', 'apellido_materno');
+        }])->with(['puesto'=> function ($query){
+            $query->select('id', 'puesto');
+        }])->with(['sucursal'=> function ($query){
+            $query->select('id', 'sucursal');
+        }])->find($id);
+        
+        // return $datos->puesto->puesto;
+        return view('/pages/reclutamiento/vacantes/edit', ['breadcrumbs' => $breadcrumbs, 'datos' => $datos], compact('sucursales', 'empleados','puestos'));
     }
 
     /**
@@ -151,12 +172,27 @@ class VacantesController extends Controller
             'cantidad',
             'imagen_url',
             'requisitos',
+            'reclutador_id',
             'status'
-        )->get();
+        )->with(['empleado'=> function ($query){
+            $query->select('id', 'nombre','apellido_paterno', 'apellido_materno');
+        }])->with(['puesto'=> function ($query){
+            $query->select('id', 'puesto');
+        }])->with(['sucursal'=> function ($query){
+            $query->select('id', 'sucursal');
+        }])->get();
+
         return DataTables::of($datos)->addColumn('accion', function($row){
             $btn = '<div class="demo-inline-spacing">';
-            $btn .= '<a href="'.route("vacant.edit", $row->id).'" class="btn btn-outline-info btn-sm" data-toggle="modal" data-target="#default"><i data-feather="edit"></i></a>';
+            $btn .= '<a href="'.route("vacant.edit", $row->id).'" class="btn btn-outline-info btn-sm"><i data-feather="edit"></i></a>';
             return $btn;
+        })->addColumn('puesto_id', function($row) {
+            return $row->puesto->puesto ;
+        })->addColumn('sucursal_id', function($row) {
+            return $row->sucursal->sucursal ;
+        })->addColumn('reclutador_id', function($row) {
+            return  $row->empleado->nombre .' '. $row->empleado->apellido_paterno .' '. $row->empleado->apellido_materno;
+           
         })->addColumn('status', function($row) {
             return view('components.reclutamiento.vacantes.switch', ['data' => $row]);
         })->rawColumns(['accion'])->make();

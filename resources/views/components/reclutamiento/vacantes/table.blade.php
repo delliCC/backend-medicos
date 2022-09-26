@@ -6,8 +6,7 @@
       <th>Sucursal</th>
       <th>Cantidad</th>
       <th>Imagen</th>
-      <th>Lugar de trabajo</th>
-      <th>Requisitos</th>
+      <th>Reclutador</th>
       <th>estatus</th>
       <th>Acción</th>
     </tr>
