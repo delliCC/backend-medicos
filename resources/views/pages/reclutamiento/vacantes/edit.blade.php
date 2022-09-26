@@ -8,7 +8,7 @@
 <!-- Kick start -->
 <div class="card">
   <div class="card-header">
-    <h4 class="card-title">Editar Webinar</h4>
+    <h4 class="card-title">Editar Vacantes</h4>
   </div>
   <div class="card-body">
     <div class="card-text">

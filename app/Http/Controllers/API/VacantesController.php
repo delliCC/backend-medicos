@@ -13,7 +13,7 @@ class VacantesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
         $datos = Vacant::select(
             'id',
@@ -28,7 +28,13 @@ class VacantesController extends Controller
             'horario',
             'reclutador_id',
             'status',
-        )->get();
+        )->where('sucursal_id',$id)->where('status',1)->with(['empleado'=> function ($query){
+            $query->select('id', 'nombre','apellido_paterno', 'apellido_materno');
+        }])->with(['puesto'=> function ($query){
+            $query->select('id', 'puesto');
+        }])->with(['sucursal'=> function ($query){
+            $query->select('id', 'sucursal');
+        }])->get();
 
         $array = json_decode($datos, true);
         return $this->sendResponse($array, 'Lista de Vacantes', 200);

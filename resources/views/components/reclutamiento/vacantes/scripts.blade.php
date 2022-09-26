@@ -29,6 +29,12 @@
         ]
         $('#tableVacantes').DataTable(configuracionesBasicasDatatable);
       });
+
+      $('#sucursal_id').select2({
+        dropdownAutoWidth: true,
+        dropdownParent: $('#sucursal_id').parent(),
+        width: '100%',
+      });
  
       $('#formVacantes').on('submit', event => {
         $('#formVacantes').on('submit', event => {
@@ -36,7 +42,7 @@
 
         let formData = new FormData();
         formData.append('puesto_id', $('#puesto_id').val());
-        formData.append('sucursal_id', $('#sucursal_id').val());
+        formData.append('sucursal_id[]', $('#sucursal_id').val());
         formData.append('cantidad', $('#cantidad').val());
         formData.append('requisitos', $('#requisitos').val());
         formData.append('funcion', $('#funcion').val());

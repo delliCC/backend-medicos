@@ -28,8 +28,8 @@
   <div class="col-4 mb-1">
     <fieldset class="form-group">
         <label for="sucursal_id">Sucursal</label>
-        <select class="form-control" class="form-control" id="sucursal_id" name="sucursal_id">
-            <option value="" selected disabled> Selecciona una opción </option>
+        <select class="form-control" class="form-control" id="sucursal_id" name="sucursal_id[]" multiple>
+            {{--  <option value="" selected disabled> Selecciona una opción </option>  --}}
             @foreach ($sucursales as $sucursal)
                 <option value="{{$sucursal->id}}" {{isset($datos) ? $sucursal->id == $datos->sucursal_id ? 'selected' : '' : ''}}>
                     {{ $sucursal->sucursal }}
@@ -99,7 +99,7 @@
     </fieldset>
 </div>
 
-  {{--  <div class="col-12 mb-2">
+  <div class="col-12 mb-2">
     <fieldset class="form-group">
       <label for="input-imagen">Imagen</label>
       <small class="text-muted"> El tamaño máximo de archivo es de 1M.</small>
@@ -109,8 +109,8 @@
           <span class="d-block form-file-text" style="pointer-events: none;"></span></label>
       </div>
     </fieldset>
-  </div>  --}}
-  <div class="col-12 mb-2">
+  </div> 
+  {{--  <div class="col-12 mb-2">
     <div class="border rounded p-2">
       <h4 class="mb-1">Imagen</h4>
       <div class="media flex-column flex-md-row">
@@ -123,7 +123,7 @@
           alt="Blog Featured Image"
         />
         <div class="media-body">
-          {{--  <h5 class="mb-0">Main image:</h5>  --}}
+            <h5 class="mb-0">Main image:</h5>  
           <small class="text-muted"> El tamaño máximo de archivo es de 1M.</small>
           <p class="my-50">
             <a href="javascript:void(0);" id="blog-image-text">C:\fakepath\banner.jpg</a>
@@ -139,7 +139,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div>  --}}
 
   <div class="col-xl-6 col-md-12 col-12">
     <fieldset class="form-group">

@@ -2,8 +2,9 @@
 
 namespace App\Models\Reclutamiento;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Reclutamiento\Vacant;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Sucursales extends Model
 {
@@ -22,4 +23,10 @@ class Sucursales extends Model
         'municipio',
         'status',
     ];
+
+    public function vacantes()
+    {
+        return $this->hasMany(Vacant::class, 'sucursal_id','id');
+    }
+
 }

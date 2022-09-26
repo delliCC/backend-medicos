@@ -8,6 +8,7 @@ use App\Http\Controllers\API\StudiesController;
 use App\Http\Controllers\API\TrainigController;
 use App\Http\Controllers\API\WebinarController;
 use App\Http\Controllers\API\VacantesController;
+use App\Http\Controllers\API\SucursalesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +24,18 @@ use App\Http\Controllers\API\VacantesController;
 // Route::middleware('auth:api')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
+
+// ********************************* Vacantes *************************************
+Route::group(['prefix' => 'sucursales'], function () {
+    Route::get('/', [SucursalesController::class, 'index']);
+});
+
+Route::group(['prefix' => 'obtener-vacantes'], function () {
+    Route::get('/{id}', [VacantesController::class, 'index']);
+});
+
+// ********************************************************************************
+
 Route::group(['prefix' => 'estudios'], function () {
     Route::get('/', [StudiesController::class, 'index']);
 });
@@ -38,11 +51,6 @@ Route::group(['prefix' => 'training'], function () {
 Route::group(['prefix' => 'training'], function () {
     Route::get('/', [TrainigController::class, 'index']);
 });
-// ********************************* Vacantes *************************************
-Route::group(['prefix' => 'vacantes'], function () {
-    Route::get('/', [VacantesController::class, 'vacantes']);
-});
-// ********************************************************************************
 
 Route::post('/login', [LoginController::class, 'login']);
 Route::group(['middleware' => 'auth:api'], function() {

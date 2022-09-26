@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Reclutamiento;
 
+use DB;
 use DataTables;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -49,37 +50,53 @@ class VacantesController extends Controller
      */
     public function store(Request $request)
     {
-        // $this->validate($request, [
-        //     'puesto_id' => 'required',
-        //     'sucursal_id' => 'required',
-        //     'cantidad' => 'required',
-        //     'requisitos' => 'required',
-        //     'funcion' => 'required',
-        //     'salario' => 'required',
-        //     'prestaciones' => 'required',
-        //     'horario' => 'required',
-        //     'reclutador_id' => 'required',
-        //     // 'imagen'=>'required|image',
-        // ]);
-
+        $this->validate($request, [
+            'puesto_id' => 'required',
+            'sucursal_id' => 'required',
+            'cantidad' => 'required',
+            'requisitos' => 'required',
+            'funcion' => 'required',
+            'salario' => 'required',
+            'prestaciones' => 'required',
+            'horario' => 'required',
+            'reclutador_id' => 'required',
+            // 'imagen'=>'required|image',
+        ]);
+    // return $request->all();
         $fileBase64 = base64_encode(file_get_contents($request->file('imagen')));
         $fileName = time();
 
         $imagen = $this->uploadS3Base64("{$fileName}.jpg", $fileBase64, 'vacantes/');
+        // DB::beginTransaction();
 
-        $datos = Vacant::create([
-            'puesto_id'=> $request->puesto_id,
-            'sucursal_id'=> $request->sucursal_id,
-            'cantidad'=> $request->cantidad,
-            'requisitos'=> $request->requisitos,
-            'funcion'=> $request->funcion,
-            'salario'=> $request->salario,
-            'prestaciones'=> $request->prestaciones, 
-            'horario'=> $request->horario,
-            'reclutador_id'=> $request->reclutador_id,
-            'imagen_url'=>$imagen['url']
-        ]);
+        foreach($request->sucursal_id as $sucursal_id){
+            $verificar = Vacant::select("*")->where('sucursal_id',$sucursal_id)
+            ->where('puesto_id',$request->puesto_id)->where("status",1)->get();
+    
+            if (count($verificar) > 0){
+                return redirect()->route('vacant.index')->with('success', 'Este registro capturado ya existe.',[],400);
+                // return redirect()->route('vacant.index')->json([
+                //     'message' => 'Este registro capturado ya existe.'
+                // ], 404);
+                // return $this->forbiddenResponse('Este registro capturado ya existe.', [], 400);
+            }
+            $datos = Vacant::create([
+                'puesto_id'=> $request->puesto_id,
+                'sucursal_id'=> $sucursal_id,
+                'cantidad'=> $request->cantidad,
+                'requisitos'=> $request->requisitos,
+                'funcion'=> $request->funcion,
+                'salario'=> $request->salario,
+                'prestaciones'=> $request->prestaciones, 
+                'horario'=> $request->horario,
+                'reclutador_id'=> $request->reclutador_id,
+                'imagen_url'=>$imagen['url']
+            ]);
+    
+        }
 
+        // DB::commit();
+        
         return redirect()->route('vacant.index')->with('success', 'Datos guardados correctamente.');
     }
 
@@ -146,10 +163,33 @@ class VacantesController extends Controller
         $fileBase64 = base64_encode(file_get_contents($request->file('imagen')));
         $fileName = time();
 
-        return $this->uploadS3Base64("{$fileName}.jpg", $fileBase64, 'vacantes/');
+        $imagen = $this->uploadS3Base64("{$fileName}.jpg", $fileBase64, 'vacantes/');
+        // DB::beginTransaction();
 
-        $datos = Vacant::create($request->all());
-        return $this->sendResponse();
+        foreach($request->sucursal_id as $sucursal_id){
+            $verificar = Vacant::select("*")->where('sucursal_id',$sucursal_id)->where('puesto_id',$request->puesto_id)->where("status",1)->get();
+    
+            if (count($verificar) > 0){
+                return redirect()->route('vacant.index')->with('success', 'Este registro capturado ya existe.',[],400);
+            }
+            // $datos = Vacant::update([
+            //     'puesto_id'=> $request->puesto_id,
+            //     'sucursal_id'=> $sucursal_id,
+            //     'cantidad'=> $request->cantidad,
+            //     'requisitos'=> $request->requisitos,
+            //     'funcion'=> $request->funcion,
+            //     'salario'=> $request->salario,
+            //     'prestaciones'=> $request->prestaciones, 
+            //     'horario'=> $request->horario,
+            //     'reclutador_id'=> $request->reclutador_id,
+            //     'imagen_url'=>$imagen['url']
+            // ]);
+    
+        }
+
+        // DB::commit();
+        
+        return redirect()->route('vacant.index')->with('success', 'Datos guardados correctamente.');
     }
 
     /**
