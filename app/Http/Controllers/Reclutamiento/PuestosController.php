@@ -78,7 +78,14 @@ class PuestosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'puesto'=> 'required|string|unique:rh_puestos,puesto',
+        ]);
+        $datos =Puestos::find($id);
+        $datos->update([
+            'puesto'=>$request->puesto
+        ]);
+        return $this->sendResponse();
     }
 
     /**

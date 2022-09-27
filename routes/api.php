@@ -8,6 +8,7 @@ use App\Http\Controllers\API\StudiesController;
 use App\Http\Controllers\API\TrainigController;
 use App\Http\Controllers\API\WebinarController;
 use App\Http\Controllers\API\VacantesController;
+use App\Http\Controllers\API\PostulanteController;
 use App\Http\Controllers\API\SucursalesController;
 
 /*
@@ -30,10 +31,18 @@ Route::group(['prefix' => 'sucursales'], function () {
     Route::get('/', [SucursalesController::class, 'index']);
 });
 
-Route::group(['prefix' => 'obtener-vacantes'], function () {
+
+Route::group(['prefix' => 'vacantes'], function () {
     Route::get('/{id}', [VacantesController::class, 'index']);
 });
 
+Route::group(['prefix' => 'obtener-vacante'], function () {
+    Route::get('/{id}', [PostulanteController::class, 'index']);
+});
+
+Route::group(['prefix' => 'estados'], function () {
+    Route::get('/{id}', [VacantesController::class, 'index']);
+});
 // ********************************************************************************
 
 Route::group(['prefix' => 'estudios'], function () {

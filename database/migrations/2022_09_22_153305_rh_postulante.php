@@ -21,8 +21,8 @@ class RhPostulante extends Migration
             $table->string('nombre');
             $table->string('apellido_paterno');
             $table->string('apellido_materno');
-            $table->string('sexo');
-            $table->bigInteger('edad');
+            $table->enum('sexo',['femenino','masculino']);
+            $table->integer('edad');
             $table->string('lugarNacimiento');
             $table->string('fechaNacimiento');
             $table->string('curp');
@@ -31,7 +31,7 @@ class RhPostulante extends Migration
             $table->string('licencia_conducir');
             $table->string('cartilla');
             $table->string('correo');
-            $table->bigInteger('phone');
+            $table->string('phone');
 
             $table->text('calle');
             $table->string('numeroCasa');
@@ -42,23 +42,23 @@ class RhPostulante extends Migration
             $table->string('municipio');
             $table->string('codigoPostal');
             
-            $table->string('nombrePadre');
-            $table->string('ocupacionPadre');
-            $table->bigInteger('edadPadre');
-            $table->string('phonePadre');
-            $table->text('domicilioPadre');
+            // $table->string('nombrePadre');
+            // $table->string('ocupacionPadre');
+            // $table->bigInteger('edadPadre');
+            // $table->string('phonePadre');
+            // $table->text('domicilioPadre');
 
-            $table->string('nombreMadre');
-            $table->string('ocupacionMadre');
-            $table->bigInteger('edadMadre');
-            $table->string('phoneMadre');
-            $table->text('domicilioMadre');
+            // $table->string('nombreMadre');
+            // $table->string('ocupacionMadre');
+            // $table->bigInteger('edadMadre');
+            // $table->string('phoneMadre');
+            // $table->text('domicilioMadre');
 
-            $table->string('nombreEsposo');
-            $table->string('ocupacionEsposo');
-            $table->bigInteger('edadEsposo');
-            $table->string('phoneEsposo');
-            $table->text('domicilioEsposo');
+            // $table->string('nombreEsposo');
+            // $table->string('ocupacionEsposo');
+            // $table->bigInteger('edadEsposo');
+            // $table->string('phoneEsposo');
+            // $table->text('domicilioEsposo');
 
             // $table->string('ultimoGradoEstudios');
             // $table->string('institucion');

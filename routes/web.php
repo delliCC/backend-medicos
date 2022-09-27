@@ -194,6 +194,7 @@ Route::group(['middlaware' => 'auth'], function() {
         Route::get('/listar', [PostulantController::class, 'listar']);
         Route::post('/guardar', [PostulantController::class, 'store'])->name('postulant.store');
         Route::get('/{id}', [PostulantController::class, 'edit'])->name('postulant.edit');
+        Route::get('/{id}', [PostulantController::class, 'solicitud'])->name('postulant.solicitud');
         Route::put('/actualizar/{id}', [PostulantController::class, 'update'])->name('postulant.update');
         Route::get('/status/{id}/{status}', [PostulantController::class, 'changeStatus'])->name('postulant.status');
     });

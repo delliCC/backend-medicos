@@ -88,6 +88,11 @@ class PostulantController extends Controller
         //
     }
 
+    public function solicitud($id)
+    {
+        //
+    }
+
     function listar()
     {
         $datos = Postulant::select(
@@ -104,7 +109,10 @@ class PostulantController extends Controller
         return DataTables::of($datos)->addColumn('accion', function($row){
             $btn = '<div class="demo-inline-spacing">';
             $btn .= '<a href="'.route("postulant.edit", $row->id).'" class="btn btn-outline-info btn-sm"><i data-feather="edit"></i></a>';
+            //$btn .= '<a href="'.route("postulant.solicitud", $row->id).'" class="btn btn-outline-info btn-sm"><i data-feather="file"></i></a>';
             return $btn;
+        })->addColumn('estado_postulante', function($row) {
+            return $row->estado_postulante;
         })->addColumn('status', function($row) {
             return view('components.reclutamiento.postulant.switch', ['data' => $row]);
         })->rawColumns(['accion'])->make();
