@@ -24,12 +24,12 @@ class RhPostulante extends Migration
             $table->enum('sexo',['femenino','masculino']);
             $table->integer('edad');
             $table->string('lugar_nacimiento');
-            $table->string('fecha_nacimiento');
+            $table->date('fecha_nacimiento');
             $table->string('curp');
             $table->string('rfc');
             $table->string('numero_social');
-            $table->string('licencia_conducir');
-            $table->string('cartilla');
+            $table->enum('licencia_conducir',['si','no']);
+            $table->string('cartilla')->nullable();
             $table->string('correo');
             $table->string('telefono');
             $table->enum('vive_con',['padres','familia','parientes','solo']);
@@ -46,15 +46,15 @@ class RhPostulante extends Migration
             $table->string('ultimo_grado_estudios');
             $table->string('institucion');
             $table->string('especialidad');
-            $table->string('certificado');
+            $table->enum('certificado',['si','no'])->default('no');
             $table->enum('titulo',['si','no'])->default('no');
             $table->enum('cedula',['si','no'])->default('no');
             $table->enum('trunco',['si','no'])->default('no');
             $table->enum('estudia_actualmente',['si','no'])->default('no');
-            $table->string('institucion_actual');
-            $table->string('carrera_actual');
-            $table->string('semestre_actual');
-            $table->string('horario_actual');
+            $table->string('institucion_actual')->nullable();
+            $table->string('carrera_actual')->nullable();
+            $table->string('semestre_actual')->nullable();
+            $table->string('horario_actual')->nullable();
 
             $table->string('idiomas');
             $table->text('maquina_software');

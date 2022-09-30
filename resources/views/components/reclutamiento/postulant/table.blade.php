@@ -2,11 +2,12 @@
 <table class="datatables-basic table" id="tablePostulante">
   <thead>
     <tr>
-      <th>Nombre</th>
       <th>Vacante</th>
-      <th>Fecha de POstulación</th>
+      <th>Sucursal</th>
+      <th>Nombre</th>
+      <th>Reclutador</th>
+      <th>Fecha de Postulación</th>
       <th>Estado</th>
-      <th>estatus</th>
       <th>Acción</th>
     </tr>
   </thead>

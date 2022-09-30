@@ -97,7 +97,7 @@
         </span>
         @enderror
     </fieldset>
-</div>
+  </div>
 
   <div class="col-12 mb-2">
     <fieldset class="form-group">

@@ -24,6 +24,9 @@
     <div class="row">
       <div class="col-12">
         <div class="card-body">
+          <form class="form">
+            @include('components/reclutamiento/postulant/formBusqueda')
+          </form>
           @include('components/reclutamiento/postulant/table')
         </div>
       </div>

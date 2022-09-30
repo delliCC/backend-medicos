@@ -17,7 +17,7 @@ class RhSeleccionados extends Migration
             $table->id();
             $table->unsignedBigInteger('vacante_id');
             $table->unsignedBigInteger('postulante_id');
-            $table->enum('estado',['postulante','cartera']);
+            $table->enum('estado_postulante',['postulante','seleccionado','cartera'])->default('postulante');
             $table->boolean('status')->default(true);
             $table->timestamps();
             

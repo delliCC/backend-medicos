@@ -34,4 +34,9 @@ class PostulanteController extends Controller
         $array = json_decode($datos, true);
         return $this->sendResponse($array, 'Lista de Vacantes', 200);
     }
+
+    public function guardar(Request $request)
+    {
+        return $request->all();
+    }
 }

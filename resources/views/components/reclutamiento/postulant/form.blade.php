@@ -175,7 +175,7 @@
   </div>
 
   <div class="col-xl-12 col-md-12 col-12">
-      <a href="{{ route('webinar.index') }}" class="btn btn-outline-warning"><i data-feather="slash"></i> Cancelar</a>
+      <a href="{{ route('postulant.index') }}" class="btn btn-outline-warning"><i data-feather="slash"></i> Cancelar</a>
       <button type="submit" class="btn btn-success"><i data-feather="save"></i> Guardar</button>
   </div>
 </div>

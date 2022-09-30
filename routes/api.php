@@ -36,7 +36,8 @@ Route::group(['prefix' => 'vacantes'], function () {
     Route::get('/{id}', [VacantesController::class, 'index']);
 });
 
-Route::group(['prefix' => 'obtener-vacante'], function () {
+Route::group(['prefix' => 'postulante'], function () {
+    Route::post('/{id}', [PostulanteController::class, 'guardar']);
     Route::get('/{id}', [PostulanteController::class, 'index']);
 });
 

@@ -192,10 +192,12 @@ Route::group(['middlaware' => 'auth'], function() {
     Route::group(['prefix' => 'postulantes'], function () {
         Route::get('/', [PostulantController::class, 'index'])->name('postulant.index');
         Route::get('/listar', [PostulantController::class, 'listar']);
-        Route::post('/guardar', [PostulantController::class, 'store'])->name('postulant.store');
         Route::get('/{id}', [PostulantController::class, 'edit'])->name('postulant.edit');
         Route::get('/{id}', [PostulantController::class, 'solicitud'])->name('postulant.solicitud');
         Route::put('/actualizar/{id}', [PostulantController::class, 'update'])->name('postulant.update');
-        Route::get('/status/{id}/{status}', [PostulantController::class, 'changeStatus'])->name('postulant.status');
+        Route::get('/estado/{id}/{estado}', [PostulantController::class, 'changeEstado'])->name('postulant.estado');
+        Route::get('/{id}', [PostulantController::class, 'destroy'])->name('postulant.destroy');
+
+
     });
 });

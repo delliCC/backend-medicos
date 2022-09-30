@@ -226,6 +226,8 @@ class VacantesController extends Controller
             $btn = '<div class="demo-inline-spacing">';
             $btn .= '<a href="'.route("vacant.edit", $row->id).'" class="btn btn-outline-info btn-sm"><i data-feather="edit"></i></a>';
             return $btn;
+        })->addColumn('imagen_url', function($row) {
+            return view('components.reclutamiento.vacantes.imagen', ['data' => $row]);
         })->addColumn('puesto_id', function($row) {
             return $row->puesto->puesto ;
         })->addColumn('sucursal_id', function($row) {

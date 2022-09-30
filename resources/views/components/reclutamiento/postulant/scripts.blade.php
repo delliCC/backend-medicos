@@ -10,7 +10,7 @@
           {
             extend: 'pdf',
             exportOptions: {
-              columns: [ 0, 1, 2, 3, 4]
+              columns: [ 0, 1, 2, 3, 4, 5]
             }
           }
         ]
@@ -19,16 +19,65 @@
         configuracionesBasicasDatatable['serverSide'] = true
         configuracionesBasicasDatatable['ajax'] = "postulantes/listar"
         configuracionesBasicasDatatable['columns'] = [
-          { "data": "nombre" },
           { "data": "vacante_id" },
+          { "data": "sucursal_id" },
+          { "data": "nombre" },
+          { "data": "reclutador_id" },
           { "data": "fecha_postulacion" },
           { "data": "estado_postulante" },
-          { "data": "status" },
           { "data": "accion" }
         ]
         $('#tablePostulante').DataTable(configuracionesBasicasDatatable);
       });
- 
+      
+      function changeEstado(id, status){
+        var estado = document.getElementById("valor").value;
+
+          Swal.fire({
+            title: 'Cambiar Estado del postulante',
+            text: "¿Estas seguro desea cambiar el estado?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Si!',
+            customClass: {
+              confirmButton: 'btn btn-primary',
+              cancelButton: 'btn btn-outline-danger ml-1'
+            },
+            buttonsStyling: false
+          }).then(function (result) {
+            if (result.value){
+              $.ajax({
+                method: "GET",
+                url: `/postulantes/estado/${id}/${estado}`,
+                beforeSend: function() {
+                  console.log('loanding')
+                },
+                success: response => {
+            
+                  Swal.fire({
+                    icon: 'success',
+                    title: response.message,
+                    text: '',
+                    customClass: {
+                      confirmButton: 'btn btn-success'
+                    }
+                  });
+                    console.log(response)
+                }
+              });
+              
+            }else if (result.dismiss === Swal.DismissReason.cancel) {
+              Swal.fire({
+                title: 'Cancelado',
+                text: 'Revisa tus datos :)',
+                icon: 'error',
+                customClass: {
+                  confirmButton: 'btn btn-success'
+                }
+              });
+            }
+          });
+      }
 
       function changeStatus(event, id){
         event.preventDefault();
@@ -49,7 +98,7 @@
             if (result.value){
               $.ajax({
                 method: "GET",
-                url: `/webinar/status/${id}/${checked}`,
+                url: `/postulantes/status/${id}/${checked}`,
                 beforeSend: function() {
                   console.log('loanding')
                 },

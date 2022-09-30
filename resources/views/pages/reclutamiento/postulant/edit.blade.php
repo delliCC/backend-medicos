@@ -2,6 +2,8 @@
 
 @section('title', 'Postulante')
 
+{{--  @include('components/reclutamiento/postulant/scripts')  --}}
+
 @section('content')
 <!-- Kick start -->
 <div class="card">

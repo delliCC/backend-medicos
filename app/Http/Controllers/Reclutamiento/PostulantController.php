@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Reclutamiento;
 use DataTables;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Reclutamiento\Employees;
 use App\Models\Reclutamiento\Postulant;
 
 class PostulantController extends Controller
@@ -16,9 +17,10 @@ class PostulantController extends Controller
      */
     public function index()
     {
+        $empleados = Employees::select('id','nombre', 'apellido_paterno', 'apellido_materno','status')->where('status',1)->get();
         $pageConfigs = ['blankPage' => false];
         $breadcrumbs = [ ['link' => "javascript:void(0)", 'name' => "index"]];
-        return view('/pages/reclutamiento/postulant/index', ['pageConfigs' => $pageConfigs, 'breadcrumbs' => $breadcrumbs]);
+        return view('/pages/reclutamiento/postulant/index', ['pageConfigs' => $pageConfigs, 'breadcrumbs' => $breadcrumbs], compact('empleados'));
 
     }
 
@@ -85,7 +87,9 @@ class PostulantController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $datos = Postulant::find($id);
+        $datos->delete();
+        return $this->sendResponse($datos);
     }
 
     public function solicitud($id)
@@ -97,24 +101,50 @@ class PostulantController extends Controller
     {
         $datos = Postulant::select(
             'id',
-            'nombre',
             'vacante_id',
+            'nombre',
+            'apellido_paterno',
+            'apellido_materno',
             'fecha_postulacion',
             'estado_postulante',
             'status'
         )->with(['vacantes'=> function ($query){
-            $query->select('id', 'puesto_id','sucursal_id', 'reclutador_id');
+            $query->select('id', 'puesto_id','sucursal_id', 'reclutador_id')->with(['puesto'=> function ($query){
+                $query->select('id', 'puesto');
+            }])->with(['sucursal'=> function ($query){
+                $query->select('id', 'sucursal');
+            }])->with(['empleado'=> function ($query){
+                $query->select('id', 'nombre','apellido_paterno','apellido_materno');
+            }]);
         }])->get();
 
         return DataTables::of($datos)->addColumn('accion', function($row){
             $btn = '<div class="demo-inline-spacing">';
-            $btn .= '<a href="'.route("postulant.edit", $row->id).'" class="btn btn-outline-info btn-sm"><i data-feather="edit"></i></a>';
-            //$btn .= '<a href="'.route("postulant.solicitud", $row->id).'" class="btn btn-outline-info btn-sm"><i data-feather="file"></i></a>';
+            // $btn .= '<a href="'.route("postulant.edit", $row->id).'" class="btn btn-outline-info btn-sm"><i data-feather="edit"></i></a>';
+            if(!$row->estado_postulante === "seleccionado"){
+                $btn .= '<a href="'.route("postulant.destroy", $row->id).'" class="btn btn-outline-info btn-sm"><i data-feather="trash"></i></a>';
+            }
             return $btn;
+        })->addColumn('vacante_id', function($row) {
+            return $row->vacantes->puesto->puesto;
+        })->addColumn('sucursal_id', function($row) {
+            return $row->vacantes->sucursal->sucursal;
+        })->addColumn('nombre', function($row) {
+            return $row->nombre .' '. $row->apellido_paterno .' '. $row->apellido_materno;
         })->addColumn('estado_postulante', function($row) {
-            return $row->estado_postulante;
-        })->addColumn('status', function($row) {
-            return view('components.reclutamiento.postulant.switch', ['data' => $row]);
+            return view('components.reclutamiento.postulant.select', ['data' => $row]);
+        })->addColumn('reclutador_id', function($row) {
+            return $row->vacantes->empleado->nombre .' '. $row->vacantes->empleado->apellido_paterno .' '. $row->vacantes->empleado->apellido_materno;
         })->rawColumns(['accion'])->make();
+    }
+
+    public function changeEstado($id, $estado)
+    {
+        $datos = Postulant::findOrFail($id);
+
+        $datos->update([
+            'estado_postulante'=>$estado
+        ]);
+        return $this->sendResponse($datos);
     }
 }
