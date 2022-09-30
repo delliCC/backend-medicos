@@ -193,11 +193,10 @@ Route::group(['middlaware' => 'auth'], function() {
         Route::get('/', [PostulantController::class, 'index'])->name('postulant.index');
         Route::get('/listar', [PostulantController::class, 'listar']);
         Route::get('/{id}', [PostulantController::class, 'edit'])->name('postulant.edit');
-        Route::get('/{id}', [PostulantController::class, 'solicitud'])->name('postulant.solicitud');
+        Route::get('/solicitud/{id}', [PostulantController::class, 'solicitud'])->name('postulant.solicitud');
         Route::put('/actualizar/{id}', [PostulantController::class, 'update'])->name('postulant.update');
         Route::get('/estado/{id}/{estado}', [PostulantController::class, 'changeEstado'])->name('postulant.estado');
-        Route::get('/{id}', [PostulantController::class, 'destroy'])->name('postulant.destroy');
-
+        Route::get('/eliminar/{id}', [PostulantController::class, 'destroy'])->name('postulant.destroy');
 
     });
 });

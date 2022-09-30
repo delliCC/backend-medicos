@@ -17,7 +17,7 @@ class RhPostulante extends Migration
             $table->id();
             $table->unsignedBigInteger('vacante_id');
             $table->date('fecha_postulacion');
-            $table->string('sueldoPretendido');
+            $table->string('sueldo_pretendido');
             $table->string('nombre');
             $table->string('apellido_paterno');
             $table->string('apellido_materno');

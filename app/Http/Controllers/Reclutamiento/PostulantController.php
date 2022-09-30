@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Reclutamiento;
 
+use PDF;
 use DataTables;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -93,8 +94,19 @@ class PostulantController extends Controller
     }
 
     public function solicitud($id)
-    {
-        //
+    {       
+        $datos = Postulant::with(['vacantes'=> function ($query){
+            $query->select('id', 'puesto_id','sucursal_id', 'reclutador_id')->with(['puesto'=> function ($query){
+                $query->select('id', 'puesto');
+            }])->with(['sucursal'=> function ($query){
+                $query->select('id', 'sucursal');
+            }])->with(['empleado'=> function ($query){
+                $query->select('id', 'nombre','apellido_paterno','apellido_materno');
+            }]);
+        }])->find($id);
+        $pdf = PDF::loadView('components.reclutamiento.postulant.solicitud', compact('datos'));
+        return $pdf->stream($datos->nombre);
+            // return $pdf->download('solicitud_empleo.pdf');
     }
 
     function listar()
@@ -120,8 +132,11 @@ class PostulantController extends Controller
 
         return DataTables::of($datos)->addColumn('accion', function($row){
             $btn = '<div class="demo-inline-spacing">';
-            // $btn .= '<a href="'.route("postulant.edit", $row->id).'" class="btn btn-outline-info btn-sm"><i data-feather="edit"></i></a>';
-            if(!$row->estado_postulante === "seleccionado"){
+            // $pdf = \PDF::loadView('components.reclutamiento.postulant.solicitud');
+            // return $pdf->download('solicitud_empleo.pdf');
+            $btn .= '<a href="'.route("postulant.solicitud", $row->id).'" class="btn btn-outline-info btn-sm" target="_blank"><i data-feather="file"></i></a>';
+            $btn .= '<a href="'.route("postulant.edit", $row->id).'" class="btn btn-outline-info btn-sm"><i data-feather="edit"></i></a>';
+            if($row->estado_postulante != "seleccionado"){
                 $btn .= '<a href="'.route("postulant.destroy", $row->id).'" class="btn btn-outline-info btn-sm"><i data-feather="trash"></i></a>';
             }
             return $btn;
