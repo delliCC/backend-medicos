@@ -199,26 +199,41 @@
     <h1 class="text-center m-0 p-0">Solicitud de empleo</h1>
 </div>
 <div class="add-detail mt-10">
-    <table width="100%">
+    <table width="100%" style="border: hidden"  >
         <tr>
-            <td valign="top"><img src="https://via.placeholder.com/150" alt="" width="150"/></td>
-            <td>
+            <td valign="top" width="40%"><img src="https://via.placeholder.com/150" alt="" /></td>
+            <td width="60%">
                 <div class="table-section bill-tbl w-100 mt-10">
-                    <table class="table w-100 mt-10">
+                    <table class="default">
+                        <tbody>
+                            <tr>
+                                <th colspan="2" scope="rowgroup">FECHA: {{$datos->fecha_postulacion}}</th>
+                            </tr>
+                            <tr>
+                                <td>Puesto Solicitado: </td>
+                                <td>{{$datos->vacantes->puesto->puesto}}</td>
+                            </tr>
+                            <tr>
+                                <td>Sucursal: </td>
+                                <td>{{$datos->vacantes->sucursal->sucursal}}</td>
+                            </tr>
+                            <tr>
+                                <td>Sueldo pretendido mensual: </td>
+                                <td>${{$datos->sueldoPretendido}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    {{--  <table class="table w-100 mt-10">
                         <tr>
                             <th class="w-50">Puesto Solicitado</th>
                             <th class="w-50">Sucursal</th>
                         </tr>
                         <tr>
                             <td>
-                                <div class="box-text">
-                                    <p>{{$datos->vacantes->puesto->puesto}}</p>
-                                </div>
+                                <p>{{$datos->vacantes->puesto->puesto}}</p>
                             </td>
                             <td>
-                                <div class="box-text">
-                                    <p>{{$datos->vacantes->sucursal->sucursal}}</p>
-                                </div>
+                                <p>{{$datos->vacantes->sucursal->sucursal}}</p>
                             </td>
                         </tr>
                         <tr>
@@ -227,28 +242,14 @@
                         </tr>
                         <tr>
                             <td>
-                                <div class="box-text">
-                                    <p>{{$datos->fecha_postulacion}}</p>
-                                    
-                                   
-                                </div>
+                                <p>{{$datos->fecha_postulacion}}</p>
                             </td>
                             <td>
-                                <div class="box-text">
-                                    <p>${{$datos->sueldoPretendido}}</p>
-                                </div>
+                                <p>${{$datos->sueldoPretendido}}</p>
                             </td>
                         </tr>
-                    </table>
+                    </table>  --}}
                 </div>
-                {{--  <h3>Shinra Electric power company</h3>
-                <pre>
-                    Company representative name
-                    Company address
-                    Tax ID
-                    phone
-                    fax
-                </pre>  --}}
             </td>
         </tr>
     </table>
@@ -256,7 +257,6 @@
 </div>
 <div class="table-section bill-tbl w-100 mt-10">
     <table class="default">
-
         <tbody>
           <tr>
             <th colspan="6" scope="rowgroup">Datos Personales</th>
