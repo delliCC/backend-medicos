@@ -32,6 +32,7 @@ class Postulant extends Model
         'cartilla',
         'correo',
         'telefono',
+        'estado_civil',
         'vive_con',
 
         'ciudad',

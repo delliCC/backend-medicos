@@ -32,6 +32,7 @@ class RhPostulante extends Migration
             $table->string('cartilla')->nullable();
             $table->string('correo');
             $table->string('telefono');
+            $table->enum('estado_civil',['soltero','casado']);
             $table->enum('vive_con',['padres','familia','parientes','solo']);
 
             $table->text('direccion');

@@ -37,7 +37,6 @@
       });
  
       $('#formVacantes').on('submit', event => {
-        $('#formVacantes').on('submit', event => {
         event.preventDefault();
 
         let formData = new FormData();
@@ -73,7 +72,6 @@
          }).fail(function (data) {
           console.log(data)
          });
-        });
       });
 
       function editarEspecilidad(id, nombre) {
