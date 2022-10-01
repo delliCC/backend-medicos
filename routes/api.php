@@ -37,7 +37,7 @@ Route::group(['prefix' => 'vacantes'], function () {
 });
 
 Route::group(['prefix' => 'postulante'], function () {
-    Route::post('/{id}', [PostulanteController::class, 'guardar']);
+    Route::post('/guardar', [PostulanteController::class, 'guardar']);
     Route::get('/{id}', [PostulanteController::class, 'index']);
 });
 

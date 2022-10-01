@@ -82,8 +82,12 @@ class PostulantController extends Controller
             }])->with(['empleado'=> function ($query){
                 $query->select('id', 'nombre','apellido_paterno','apellido_materno');
             }]);
+        }])->with(['familiares'=> function ($query){
+            $query->select('id','postulante_id' ,'nombre','ocupacion', 'edad', 'telefono', 'domicilio');
+        }])->with(['referencias'=> function ($query){
+            $query->select('id','postulante_id', 'nombre', 'ocupacion', 'edad', 'telefono', 'domicilio');
         }])->find($id);
-     
+        
         return view('/pages/reclutamiento/postulant/edit', ['breadcrumbs' => $breadcrumbs, 'datos' => $datos], compact('sucursales','puestos'));
 
     }

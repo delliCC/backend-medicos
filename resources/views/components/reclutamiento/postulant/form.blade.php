@@ -411,7 +411,102 @@
         <div class="divider-text">Datos Familiares</div>
     </div>
   </div>
+  @foreach ($datos->familiares as $familiar)
+    <div class="col-4 mb-1">
+      <fieldset class="form-group">
+          <label for="nombre">Nombre Completo</label>
+          <input type="hidden" value="{{$familiar->id}}" id="familiar_id">
+          <input type="text" id="nombre" value="{{ old('nombre', isset($datos) ? $familiar->nombre : '') }}" class="form-control @error('nombre') is-invalid @enderror" name="nombre">
+          @error('nombre')
+          <span class="invalid-feedback" role="alert">
+              <strong>{{ $message }}</strong>
+          </span>
+          @enderror
+      </fieldset>
+    </div>
 
+    <div class="col-4 mb-1">
+      <fieldset class="form-group">
+          <label for="parentesco">Vive Parentesco</label>
+          <select class="form-control"  class="form-control" name="parentesco" id="parentesco">
+            <option {{isset($datos) ? $datos->parentesco == 'mama' ? 'selected' : '' : ''}}>Mamá</option>
+            <option {{isset($datos) ? $datos->parentesco == 'papa' ? 'selected' : '' : ''}}>Papá</option>
+            <option {{isset($datos) ? $datos->parentesco == 'conyuge' ? 'selected' : '' : ''}}>Conyuge</option>
+            <option {{isset($datos) ? $datos->parentesco == 'hijo' ? 'selected' : '' : ''}}>Hijo</option>
+            <option {{isset($datos) ? $datos->parentesco == 'hija' ? 'selected' : '' : ''}}>Hija</option>
+            <option {{isset($datos) ? $datos->parentesco == 'hermano' ? 'selected' : '' : ''}}>Hermano</option>
+            <option {{isset($datos) ? $datos->parentesco == 'hermana' ? 'selected' : '' : ''}}>Hermana</option>
+            <option {{isset($datos) ? $datos->parentesco == 'abuelo' ? 'selected' : '' : ''}}>Abuelo</option>
+            <option {{isset($datos) ? $datos->parentesco == 'abuela' ? 'selected' : '' : ''}}>Abuela</option>
+          </select>
+          @error('parentesco')
+          <span class="invalid-feedback" role="alert">
+              <strong>{{ $message }}</strong>
+          </span>
+          @enderror
+      </fieldset>
+    </div>
+    <div class="col-4 mb-1">
+      <fieldset class="form-group">
+          <label for="vive">Vive</label>
+          <select class="form-control"  class="form-control" name="vive" id="vive">
+            <option {{isset($datos) ? $datos->vive == 'si' ? 'selected' : '' : ''}}>Si</option>
+            <option {{isset($datos) ? $datos->vive == 'no' ? 'selected' : '' : ''}}>No</option>
+          </select>
+          @error('vive_con')
+          <span class="invalid-feedback" role="alert">
+              <strong>{{ $message }}</strong>
+          </span>
+          @enderror
+      </fieldset>
+    </div>
+    <div class="col-4 mb-1">
+      <fieldset class="form-group">
+          <label for="ocupacion">Ocupación</label>
+          <input type="text" id="ocupacion" value="{{ old('ocupacion', isset($datos) ? $familiar->ocupacion : '') }}" class="form-control @error('ocupacion') is-invalid @enderror" name="ocupacion">
+          @error('ocupacion')
+          <span class="invalid-feedback" role="alert">
+              <strong>{{ $message }}</strong>
+          </span>
+          @enderror
+      </fieldset>
+    </div>
+    <div class="col-4 mb-1">
+      <fieldset class="form-group">
+          <label for="edad">Edad</label>
+          <input type="text" id="edad" value="{{ old('edad', isset($datos) ? $familiar->edad : '') }}" class="form-control @error('edad') is-invalid @enderror" name="edad">
+          @error('edad')
+          <span class="invalid-feedback" role="alert">
+              <strong>{{ $message }}</strong>
+          </span>
+          @enderror
+      </fieldset>
+    </div>
+    <div class="col-4 mb-1">
+      <fieldset class="form-group">
+          <label for="telefono">Teléfono</label>
+          <input type="text" id="telefono" value="{{ old('telefono', isset($datos) ? $familiar->telefono : '') }}" class="form-control @error('telefono') is-invalid @enderror" name="telefono">
+          @error('telefono')
+          <span class="invalid-feedback" role="alert">
+              <strong>{{ $message }}</strong>
+          </span>
+          @enderror
+      </fieldset>
+    </div>
+    <div class="col-xl-12 col-md-12 col-12">
+      <fieldset class="form-group">
+          <label for="domicilio">Dirección <i style="color: red">*</i></label>
+          <textarea class="form-control @error('domicilio') is-invalid @enderror" id="domicilio" name="domicilio">{{ isset($datos) ? $datos->domicilio : '' }}</textarea>
+          @error('domicilio')
+          <span class="invalid-feedback" role="alert">
+              <strong>{{ $message }}</strong>
+          </span>
+          @enderror
+      </fieldset>
+    </div>
+  
+  @endforeach
+  
 
   <div class="col-xl-12 col-md-12 col-12">
       <a href="{{ route('postulant.index') }}" class="btn btn-outline-warning"><i data-feather="slash"></i> Cancelar</a>

@@ -4,6 +4,8 @@ namespace App\Models\Reclutamiento;
 
 use App\Models\Reclutamiento\Vacant;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Reclutamiento\PostulantFamily;
+use App\Models\Reclutamiento\PostulantReference;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Postulant extends Model
@@ -89,5 +91,15 @@ class Postulant extends Model
     public function vacantes()
     {
         return $this->belongsTo(Vacant::class, 'vacante_id');
+    }
+
+    public function familiares()
+    {
+        return $this->hasMany(PostulantFamily::class, 'postulante_id','id');
+    }
+
+    public function referencias()
+    {
+        return $this->hasMany(PostulantReference::class, 'postulante_id','id');
     }
 }
