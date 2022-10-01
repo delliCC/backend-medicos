@@ -37,8 +37,6 @@
       });
  
       $('#formVacantes').on('submit', event => {
-        $('#formVacantes').on('submit', event => {
-        event.preventDefault();
 
         let formData = new FormData();
         formData.append('puesto_id', $('#puesto_id').val());
@@ -73,7 +71,6 @@
          }).fail(function (data) {
           console.log(data)
          });
-        });
       });
 
       function editarEspecilidad(id, nombre) {
