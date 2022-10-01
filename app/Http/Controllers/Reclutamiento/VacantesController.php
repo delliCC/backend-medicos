@@ -62,6 +62,7 @@ class VacantesController extends Controller
             'reclutador_id' => 'required',
             // 'imagen'=>'required|image',
         ]);
+
         $fileBase64 = base64_encode(file_get_contents($request->file('imagen')));
         $fileName = time();
 
@@ -157,7 +158,7 @@ class VacantesController extends Controller
         ]);
 
         $imagen = null;
-        if($request->file('imagen')){
+        if(true === $request->hasFile('imagen')){
             $fileBase64 = base64_encode(file_get_contents($request->file('imagen')));
             $fileName = time();
 
@@ -165,25 +166,32 @@ class VacantesController extends Controller
         }
         // DB::beginTransaction();
 
-        foreach($request->sucursal_id as $sucursal_id){
-            $verificar = Vacant::select("*")->where('sucursal_id',$sucursal_id)->where('puesto_id',$request->puesto_id)->where("status",1)->get();
+        foreach ($request->sucursal_id as $sucursal_id){
+            $vacanteExiste = Vacant::where('sucursal_id',$sucursal_id)->where('puesto_id',$request->puesto_id)->where("status",1)->first();
     
-            if (count($verificar) > 0){
+            if (null !== $vacanteExiste) {
                 return redirect()->route('vacant.index')->with('success', 'Este registro capturado ya existe.',[],400);
             }
+
             $datos = Vacant::find($id);
-            $datos->update([
-                'puesto_id'=> $request->puesto_id,
-                'sucursal_id'=> $sucursal_id,
-                'cantidad'=> $request->cantidad,
-                'requisitos'=> $request->requisitos,
-                'funcion'=> $request->funcion,
-                'salario'=> $request->salario,
-                'prestaciones'=> $request->prestaciones, 
-                'horario'=> $request->horario,
-                'reclutador_id'=> $request->reclutador_id,
-                'imagen_url'=>$imagen['url']
-            ]);
+
+            $data = [
+                'puesto_id' => $request->puesto_id,
+                'sucursal_id' => $sucursal_id,
+                'cantidad' => $request->cantidad,
+                'requisitos' => $request->requisitos,
+                'funcion' => $request->funcion,
+                'salario' => $request->salario,
+                'prestaciones' => $request->prestaciones, 
+                'horario' => $request->horario,
+                'reclutador_id' => $request->reclutador_id,
+            ];
+
+            if (null !== $imagen) {
+                $data['imagen_url'] = $imagen['url'];
+            }
+    
+            $datos->update($data);
         }
 
         // DB::commit();
