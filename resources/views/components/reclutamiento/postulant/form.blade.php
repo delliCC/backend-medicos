@@ -296,31 +296,19 @@
     </fieldset>
   </div>
 
-  {{--  <div class="col-xl-6 col-md-12 col-12">
-      <fieldset class="form-group">
-          <label for="descripcion">Descripción <i style="color: red">*</i></label>
-          <textarea class="form-control @error('descripcion') is-invalid @enderror" id="input-descripcion" name="descripcion"  placeholder="Descripción">
-              {{ isset($datos) ? $datos->descripcion : '' }}
-          </textarea>
-          @error('descripcion')
-          <span class="invalid-feedback" role="alert">
-              <strong>{{ $message }}</strong>
-          </span>
-          @enderror
-      </fieldset>
-  </div>
-
   <div class="col-xl-12 col-md-12 col-12">
     <div class="divider divider-left  divider-success">
-        <div class="divider-text">Ficha Indica</div>
+        <div class="divider-text">Dirección</div>
     </div>
   </div>
 
-  <div class="col-6 mb-1">
+  <div class="col-xl-4 col-md-6 col-12">
     <fieldset class="form-group">
-        <label for="input-fiha">Ficha</label>
-        <input type="text" id="input-ficha" value="{{ old('ficha_nombre', isset($datos) ? $datos->ficha_nombre : '') }}" class="form-control @error('nombre') is-invalid @enderror" name="ficha_nombre"  placeholder="Nombre de la ficha">
-        @error('ficha_nombre')
+        <label for="pais">País <i style="color: red">*</i></label>
+        <select class="form-control" name="pais" id="pais">
+            <option value="mexico" >México</option>
+        </select>
+        @error('pais')
         <span class="invalid-feedback" role="alert">
             <strong>{{ $message }}</strong>
         </span>
@@ -328,17 +316,102 @@
     </fieldset>
   </div>
 
-  <div class="col-6 mb-2">
+  <div class="col-xl-4 col-md-6 col-12">
     <fieldset class="form-group">
-      <label for="input-fiha">Ficha indica</label>
-      <small class="text-muted"> El tamaño máximo de archivo es de 250 GB.</small>
-      <div class="custom-file b-form-file" data-v-3bcd05f2="" id="__BVID__1505__BV_file_outer_">
-        <input type="file" class="custom-file-input" id="input-fichaIndica" style="z-index: -5;" accept="application/pdf">
-        <label data-browse="Browse" class="custom-file-label" for="input-fichaIndica">
-          <span class="d-block form-file-text" style="pointer-events: none;"></span></label>
-      </div>
+        <label for="estado">Estado <i style="color: red">*</i></label>
+        <select class="form-control"  name="estado" id="selectEstado" onchange="cargarMunicipio()">
+            <option value=""> Selecciona una opción </option>
+        </select>
+        @error('estado')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
     </fieldset>
-  </div>  --}}
+  </div>
+
+  <div class="col-xl-4 col-md-6 col-12">
+    <fieldset class="form-group">
+        <label for="municipio">Municipio <i style="color: red">*</i></label>
+        <div class="form-group">
+            <select class="select2-municipios form-control" name="municipio" id="select2-municipios">
+                <option value="">Selecciona una opción</option>
+            </select>
+        </div>
+        @error('municipio')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
+    </fieldset>
+  </div>
+
+  <div class="col-4 mb-1">
+    <fieldset class="form-group">
+        <label for="colonia">Colonia</label>
+        <input type="text" id="colonia" value="{{ old('colonia', isset($datos) ? $datos->colonia : '') }}" class="form-control @error('colonia') is-invalid @enderror" name="colonia">
+        @error('colonia')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
+    </fieldset>
+  </div>
+
+  <div class="col-4 mb-1">
+    <fieldset class="form-group">
+        <label for="entre_calles">Entre Calles</label>
+        <input type="text" id="entre_calles" value="{{ old('entre_calles', isset($datos) ? $datos->entre_calles : '') }}" class="form-control @error('entre_calles') is-invalid @enderror" name="entre_calles">
+        @error('entre_calles')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
+    </fieldset>
+  </div>
+
+  <div class="col-2 mb-1">
+    <fieldset class="form-group">
+        <label for="numero_casa">No. de Casa </label>
+        <input type="text" id="numero_casa" value="{{ old('numero_casa', isset($datos) ? $datos->numero_casa : '') }}" class="form-control @error('numero_casa') is-invalid @enderror" name="numero_casa">
+        @error('numero_casa')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
+    </fieldset>
+  </div>
+
+  <div class="col-2 mb-1">
+    <fieldset class="form-group">
+        <label for="codigo_postal">Codigo Postal </label>
+        <input type="text" id="codigo_postal" value="{{ old('codigo_postal', isset($datos) ? $datos->codigo_postal : '') }}" class="form-control @error('codigo_postal') is-invalid @enderror" name="codigo_postal">
+        @error('codigo_postal')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
+    </fieldset>
+  </div>
+
+  <div class="col-xl-12 col-md-12 col-12">
+    <fieldset class="form-group">
+        <label for="direccion">Dirección <i style="color: red">*</i></label>
+        <textarea class="form-control @error('direccion') is-invalid @enderror" id="direccion" name="direccion">{{ isset($datos) ? $datos->direccion : '' }}</textarea>
+        @error('direccion')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
+    </fieldset>
+  </div>
+
+  <div class="col-xl-12 col-md-12 col-12">
+    <div class="divider divider-left  divider-success">
+        <div class="divider-text">Datos Familiares</div>
+    </div>
+  </div>
+
 
   <div class="col-xl-12 col-md-12 col-12">
       <a href="{{ route('postulant.index') }}" class="btn btn-outline-warning"><i data-feather="slash"></i> Cancelar</a>

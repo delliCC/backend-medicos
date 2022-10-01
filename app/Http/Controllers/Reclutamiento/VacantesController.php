@@ -165,16 +165,16 @@ class VacantesController extends Controller
             $imagen = $this->uploadS3Base64("{$fileName}.jpg", $fileBase64, 'vacantes');
         }
         // DB::beginTransaction();
-
+        
         foreach ($request->sucursal_id as $sucursal_id){
             $vacanteExiste = Vacant::where('sucursal_id',$sucursal_id)->where('puesto_id',$request->puesto_id)->where("status",1)->first();
     
             if (null !== $vacanteExiste) {
                 return redirect()->route('vacant.index')->with('success', 'Este registro capturado ya existe.',[],400);
             }
-
+           
             $datos = Vacant::find($id);
-
+            return $request->all();
             $data = [
                 'puesto_id' => $request->puesto_id,
                 'sucursal_id' => $sucursal_id,
