@@ -55,7 +55,7 @@ class Controller extends BaseController
         Storage::disk('s3')->put($file, base64_decode($fileBase64), 'public');
 
         return [
-            'url' => Storage::disk('s3')->getAdapter()->getClient()->getObjectUrl('vacantes', $file),
+            'url' => Storage::disk('s3')->getAdapter()->getClient()->getObjectUrl('laboratorios-chontalpa-file', "{$path}/{$file}"),
             'path' => $file,
         ];
     }
