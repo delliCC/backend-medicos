@@ -37,7 +37,6 @@
       });
  
       $('#formVacantes').on('submit', event => {
-        event.preventDefault();
 
         let formData = new FormData();
         formData.append('puesto_id', $('#puesto_id').val());

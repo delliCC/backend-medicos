@@ -84,7 +84,6 @@
     <fieldset class="form-group">
         <label for="reclutador_id">Reclutador</label>
         <select class="form-control" class="form-control" id="reclutador_id" name="reclutador_id">
-            <option value="" selected disabled> Selecciona una opción </option>
             @foreach ($empleados as $reclutador)
                 <option value="{{$reclutador->id}}"  {{isset($datos) ? $reclutador->id == $reclutador->reclutador_id ? 'selected' : '' : ''}}>
                     {{ $reclutador->nombre }}
