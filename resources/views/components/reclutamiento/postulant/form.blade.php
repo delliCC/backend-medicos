@@ -5,12 +5,18 @@
       </div>
   </div>
 
-  <div class="col-6 mb-1">
+  <div class="col-4 mb-1">
       <fieldset class="form-group">
-          <input type="hidden" id="id-webinar">
-          <label for="input-nombre">Nombre</label>
-          <input type="text" id="input-nombre" value="{{ old('nombre', isset($datos) ? $datos->nombre : '') }}" class="form-control @error('nombre') is-invalid @enderror" name="nombre"  placeholder="Nombre">
-          @error('nombre')
+        <input type="hidden" value="{{$datos->id}}" id="postulante_id">
+          <label for="puesto_solicitado">Puesto Solicitado</label>
+          <select class="form-control" class="form-control" id="puesto_solicitado" name="puesto_id">
+            @foreach ($puestos as $puesto)
+                <option value="{{$puesto->id}}" {{isset($datos) ? $puesto->id == $datos->vacantes->puesto_id ? 'selected' : '' : ''}}>
+                    {{ $puesto->puesto }}
+                </option>
+            @endforeach
+          </select>
+          @error('puesto_solicitado')
           <span class="invalid-feedback" role="alert">
               <strong>{{ $message }}</strong>
           </span>
@@ -18,17 +24,47 @@
       </fieldset>
   </div>
 
-  <div class="col-6 mb-1">
+  <div class="col-4 mb-1">
     <fieldset class="form-group">
-        <label for="input-fecha-inicio">Fecha inicio</label>
-        <input type="datetime-local" id="input-fecha-inicio" value="{{ old('nombre', isset($datos) ? $datos->fecha_inicio : '') }}" class="form-control @error('fecha_inicio') is-invalid @enderror" name="fecha_inicio"  placeholder="fecha inicio">
-        @error('fecha_inicio')
+        <label for="sucursal_id">Sucursal</label>
+        <select class="form-control" class="form-control" id="sucursal_id" name="sucursal_id[]" multiple>
+          @foreach ($sucursales as $sucursal)
+              <option value="{{$sucursal->id}}" {{isset($datos) ? $sucursal->id == $datos->vacantes->sucursal_id ? 'selected' : '' : ''}}>
+                  {{ $sucursal->sucursal }}
+              </option>
+          @endforeach
+        </select>
+        @error('sucursal_id')
         <span class="invalid-feedback" role="alert">
             <strong>{{ $message }}</strong>
         </span>
         @enderror
     </fieldset>
-</div>
+  </div>
+
+  <div class="col-4 mb-1">
+    <fieldset class="form-group">
+      <label for="fecha_postulacion">Fecha de Postulacion</label>
+        <input type="date" id="fecha_postulacion" value="{{ old('fecha_postulacion', isset($datos) ? $datos->fecha_postulacion : '') }}" class="form-control @error('fecha_postulacion') is-invalid @enderror" name="fecha_postulacion">
+        @error('fecha_postulacion')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
+    </fieldset>
+  </div>
+
+  <div class="col-6 mb-1">
+    <fieldset class="form-group">
+        <label for="sueldo_pretendido">Sueldo Pretendido Mensual</label>
+        <input type="text" id="sueldo_pretendido" value="{{ old('sueldo_pretendido', isset($datos) ? $datos->sueldo_pretendido : '') }}" class="form-control @error('sueldo_pretendido') is-invalid @enderror" name="sueldo_pretendido">
+        @error('sueldo_pretendido')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
+    </fieldset>
+  </div>
 
   <div class="col-xl-6 col-md-12 col-12">
       <fieldset class="form-group">
@@ -42,18 +78,6 @@
           </span>
           @enderror
       </fieldset>
-  </div>
-
-  <div class="col-6 mb-2">
-    <fieldset class="form-group">
-      <h4 class="mb-1">Video</h4>
-      <small class="text-muted"> El tamaño máximo de archivo es de 250 GB.</small>
-      <div class="custom-file b-form-file" data-v-3bcd05f2="" id="__BVID__1505__BV_file_outer_">
-        <input type="file" class="custom-file-input" id="input-videoWebinar" style="z-index: -5;" accept="video/*">
-        <label data-browse="Browse" class="custom-file-label" for="input-videoWebinar">
-          <span class="d-block form-file-text" style="pointer-events: none;"></span></label>
-      </div>
-    </fieldset>
   </div>
 
   <div class="col-xl-12 col-md-12 col-12">

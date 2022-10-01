@@ -6,8 +6,10 @@ use PDF;
 use DataTables;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Reclutamiento\Puestos;
 use App\Models\Reclutamiento\Employees;
 use App\Models\Reclutamiento\Postulant;
+use App\Models\Reclutamiento\Sucursales;
 
 class PostulantController extends Controller
 {
@@ -65,7 +67,25 @@ class PostulantController extends Controller
      */
     public function edit($id)
     {
-        //
+        $sucursales = Sucursales::select('id','sucursal','status')->where('status',1)->get();
+        // $empleados = Employees::select('id','nombre','status')->where('status',1)->get();
+        $puestos = Puestos::select('id','puesto','status')->where('status',1)->get();
+        $breadcrumbs = [
+            ['link'=>"medicos", 'name'=>"Datos del postulante"], ['name'=>"Editar"]
+        ];
+
+        $datos = Postulant::with(['vacantes'=> function ($query){
+            $query->select('id', 'puesto_id','sucursal_id', 'reclutador_id')->with(['puesto'=> function ($query){
+                $query->select('id', 'puesto');
+            }])->with(['sucursal'=> function ($query){
+                $query->select('id', 'sucursal');
+            }])->with(['empleado'=> function ($query){
+                $query->select('id', 'nombre','apellido_paterno','apellido_materno');
+            }]);
+        }])->find($id);
+     
+        return view('/pages/reclutamiento/postulant/edit', ['breadcrumbs' => $breadcrumbs, 'datos' => $datos], compact('sucursales','puestos'));
+
     }
 
     /**

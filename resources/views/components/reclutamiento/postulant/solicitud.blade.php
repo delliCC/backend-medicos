@@ -201,25 +201,25 @@
 <div class="add-detail mt-10">
     <table width="100%" style="border: hidden"  >
         <tr>
-            <td valign="top" width="40%"><img src="https://via.placeholder.com/150" alt="" /></td>
+            <td valign="top" width="40%"><img src="#" alt="" /></td>
             <td width="60%">
                 <div class="table-section bill-tbl w-100 mt-10">
-                    <table class="default">
+                    <table class="default" width="100%">
                         <tbody>
                             <tr>
                                 <th colspan="2" scope="rowgroup">FECHA: {{$datos->fecha_postulacion}}</th>
                             </tr>
                             <tr>
                                 <td>Puesto Solicitado: </td>
-                                <td>{{$datos->vacantes->puesto->puesto}}</td>
+                                <td width="60%">{{$datos->vacantes->puesto->puesto}}</td>
                             </tr>
                             <tr>
                                 <td>Sucursal: </td>
-                                <td>{{$datos->vacantes->sucursal->sucursal}}</td>
+                                <td width="60%">{{$datos->vacantes->sucursal->sucursal}}</td>
                             </tr>
                             <tr>
                                 <td>Sueldo pretendido mensual: </td>
-                                <td>${{$datos->sueldoPretendido}}</td>
+                                <td width="60%">${{$datos->sueldoPretendido}}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -256,13 +256,13 @@
     <div style="clear: both;"></div>
 </div>
 <div class="table-section bill-tbl w-100 mt-10">
-    <table class="default">
+    <table class="default" width="100%">
         <tbody>
           <tr>
             <th colspan="6" scope="rowgroup">Datos Personales</th>
           </tr>
           <tr>
-            <td>Nombre: </td>
+            <td style="background:red">Nombre: </td>
             <td>{{$datos->nombre}} {{$datos->apellido_paterno}} {{$datos->apellido_materno}}</td>
             <td>Edad:</td>
             <td>{{$datos->edad}} años</td>

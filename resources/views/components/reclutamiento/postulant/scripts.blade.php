@@ -29,6 +29,12 @@
         ]
         $('#tablePostulante').DataTable(configuracionesBasicasDatatable);
       });
+
+      $('#sucursal_id').select2({
+        dropdownAutoWidth: true,
+        dropdownParent: $('#sucursal_id').parent(),
+        width: '100%',
+      });
       
       function changeEstado(id, status){
         var estado = document.getElementById("valor").value;
