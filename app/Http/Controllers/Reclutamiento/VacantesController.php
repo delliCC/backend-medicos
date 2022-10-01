@@ -66,7 +66,7 @@ class VacantesController extends Controller
         $fileBase64 = base64_encode(file_get_contents($request->file('imagen')));
         $fileName = time();
 
-        $imagen = $this->uploadS3Base64("{$fileName}.jpg", $fileBase64, 'vacantes/');
+        $imagen = $this->uploadS3Base64("{$fileName}.jpg", $fileBase64, 'vacantes');
         // DB::beginTransaction();
 
         foreach($request->sucursal_id as $sucursal_id){
@@ -163,7 +163,7 @@ class VacantesController extends Controller
         $fileBase64 = base64_encode(file_get_contents($request->file('imagen')));
         $fileName = time();
 
-        $imagen = $this->uploadS3Base64("{$fileName}.jpg", $fileBase64, 'vacantes/');
+        $imagen = $this->uploadS3Base64("{$fileName}.jpg", $fileBase64, 'vacantes');
         // DB::beginTransaction();
 
         foreach($request->sucursal_id as $sucursal_id){

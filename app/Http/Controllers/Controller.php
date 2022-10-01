@@ -50,12 +50,12 @@ class Controller extends BaseController
 
     public function uploadS3Base64($fileName, $fileBase64, $path = '')
     {
-        $file = $path ."". $fileName;
+        $file = $path ."/". $fileName;
       
         Storage::disk('s3')->put($file, base64_decode($fileBase64), 'public');
 
         return [
-            'url' => Storage::disk('s3')->getAdapter()->getClient()->getObjectUrl('laboratorios-chontalpa-file', "{$path}/{$file}"),
+            'url' => Storage::disk('s3')->getAdapter()->getClient()->getObjectUrl('laboratorios-chontalpa-file', $file),
             'path' => $file,
         ];
     }
