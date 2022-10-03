@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use PDF;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Reclutamiento\Vacant;
@@ -100,7 +101,7 @@ class PostulanteController extends Controller
 
         ]);
 
-        return $datos = Postulant::create([
+        $postulante = Postulant::create([
             'vacante_id'=> $request->vacante_id,
             'fecha_postulacion'=> $request->fecha_postulacion,
             'sueldo_pretendido'=> $request->sueldo_pretendido,
@@ -151,11 +152,28 @@ class PostulanteController extends Controller
             // ''=> $request->,
             // ''=> $request->,
             // ''=> $request->,
-
-
         ]);
-        $array = json_decode($datos, true);
-       // return $this->sendResponse($array, 'Lista de Vacantes', 200);
-        return redirect()->route('postulant.solicitud')->with('success', 'Datos guardados correctamente.');
+       
+        $pdf = base64_encode($this->solicitudPDF($postulante->id));
+
+        // $array = json_decode($data, true);
+        return $this->sendResponse(['postulante' => $postulante, 'pdf' => $pdf], 'Datos del postulante', 200);
+       // return redirect()->route('postulant.solicitud')->with('success', 'Datos guardados correctamente.');
+    }
+
+    public function solicitudPDF($id)
+    {       
+        $datos = Postulant::with(['vacantes'=> function ($query){
+            $query->select('id', 'puesto_id','sucursal_id', 'reclutador_id')->with(['puesto'=> function ($query){
+                $query->select('id', 'puesto');
+            }])->with(['sucursal'=> function ($query){
+                $query->select('id', 'sucursal');
+            }])->with(['empleado'=> function ($query){
+                $query->select('id', 'nombre','apellido_paterno','apellido_materno');
+            }]);
+        }])->find($id);
+        $pdf = PDF::loadView('components.reclutamiento.postulant.solicitud', compact('datos'));
+        return $pdf->stream($datos->nombre);
+            // return $pdf->download('solicitud_empleo.pdf');
     }
 }
