@@ -33,7 +33,7 @@ class VacantesController extends Controller
     public function create()
     {
         $sucursales = Sucursales::select('id','sucursal','status')->where('status',1)->get();
-        $empleados = Employees::select('id','nombre','status')->where('status',1)->get();
+        $empleados = Employees::select('id','nombre','apellido_paterno','apellido_materno','status')->where('status',1)->get();
         $puestos = Puestos::select('id','puesto','status')->where('status',1)->get();
         $breadcrumbs = [
             ['link'=>"vacantes",'name'=>"Vacantes"], ['name'=>"Crear"]
@@ -90,7 +90,7 @@ class VacantesController extends Controller
                 'prestaciones'=> $request->prestaciones, 
                 'horario'=> $request->horario,
                 'reclutador_id'=> $request->reclutador_id,
-                'imagen'=>$imagen['url']
+                'imagen_url'=>$imagen['url']
             ]);
         }
 
@@ -167,14 +167,14 @@ class VacantesController extends Controller
         // DB::beginTransaction();
         
         foreach ($request->sucursal_id as $sucursal_id){
-            $vacanteExiste = Vacant::where('sucursal_id',$sucursal_id)->where('puesto_id',$request->puesto_id)->where("status",1)->first();
+            // $vacanteExiste = Vacant::where('sucursal_id',$sucursal_id)->where('puesto_id',$request->puesto_id)->where("status",1)->first();
     
-            if (null !== $vacanteExiste) {
-                return redirect()->route('vacant.index')->with('success', 'Este registro capturado ya existe.',[],400);
-            }
-           
+            // if (null !== $vacanteExiste) {
+            //     return redirect()->route('vacant.index')->with('success', 'Este registro capturado ya existe.',[],400);
+            // }
+
             $datos = Vacant::find($id);
-            return $request->all();
+
             $data = [
                 'puesto_id' => $request->puesto_id,
                 'sucursal_id' => $sucursal_id,
@@ -190,12 +190,10 @@ class VacantesController extends Controller
             if (null !== $imagen) {
                 $data['imagen_url'] = $imagen['url'];
             }
-    
             $datos->update($data);
         }
 
         // DB::commit();
-        
         return redirect()->route('vacant.index')->with('success', 'Datos guardados correctamente.');
     }
 

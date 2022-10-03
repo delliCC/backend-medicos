@@ -39,7 +39,6 @@ class PostulanteController extends Controller
 
     public function guardar(Request $request)
     {
-        // return $request;
         $this->validate($request, [
             'vacante_id' => 'required',
             'puesto_id' => 'required',
@@ -77,13 +76,7 @@ class PostulanteController extends Controller
             'especialidad'=> 'required',
             'certificado'=> 'required',
             'titulo'=> 'required',
-            // 'cedula'=> 'required',
-            // 'trunco'=> 'required',
             'estudia_actualmente'=> 'required',
-            // 'institucion_actual'=> 'required',
-            // 'carrera_actual'=> 'required',
-            // 'semestre_actual'=> 'required',
-            // 'horario_actual'=> 'required',
 
             'idiomas'=> 'required',
             'maquinas_software'=> 'required',
@@ -100,6 +93,24 @@ class PostulanteController extends Controller
             // ''=> 'required',
 
         ]);
+        if($request->titulo == 'si'){
+            $this->validate($request, [
+                'cedula'=> 'required',
+            ]);
+        }else{
+            $this->validate($request, [
+                'trunco'=> 'required',
+            ]);
+        }
+        
+        if($request->estudia_actualmente == 'si'){
+            $this->validate($request, [
+                'institucion_actual'=> 'required',
+                'carrera_actual'=> 'required',
+                'semestre_actual'=> 'required',
+                'horario_actual'=> 'required',
+            ]);
+        }
 
         $postulante = Postulant::create([
             'vacante_id'=> $request->vacante_id,

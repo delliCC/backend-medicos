@@ -29,7 +29,6 @@
     <fieldset class="form-group">
         <label for="sucursal_id">Sucursal</label>
         <select class="form-control" class="form-control" id="sucursal_id" name="sucursal_id[]" multiple>
-            {{--  <option value="" selected disabled> Selecciona una opción </option>  --}}
             @foreach ($sucursales as $sucursal)
                 <option value="{{$sucursal->id}}" {{isset($datos) ? $sucursal->id == $datos->sucursal_id ? 'selected' : '' : ''}}>
                     {{ $sucursal->sucursal }}
@@ -44,7 +43,7 @@
     </fieldset>
 </div>
 
-<div class="col-4 mb-1">
+  <div class="col-4 mb-1">
     <fieldset class="form-group">
         <label for="cantidad">Cantidad</label>
         <input type="number" id="cantidad" value="{{ old('cantidad', isset($datos) ? $datos->cantidad : '') }}" class="form-control @error('cantidad') is-invalid @enderror" name="cantidad"  placeholder="cantidad">
@@ -84,9 +83,10 @@
     <fieldset class="form-group">
         <label for="reclutador_id">Reclutador</label>
         <select class="form-control" class="form-control" id="reclutador_id" name="reclutador_id">
+          <option value="" selected disabled> Selecciona una opción </option>
             @foreach ($empleados as $reclutador)
-                <option value="{{$reclutador->id}}"  {{isset($datos) ? $reclutador->id == $reclutador->reclutador_id ? 'selected' : '' : ''}}>
-                    {{ $reclutador->nombre }}
+                <option value="{{$reclutador->id}}"  {{isset($datos) ? $reclutador->id == $datos->reclutador_id ? 'selected' : '' : ''}}>
+                    {{ $reclutador->nombre }} {{ $reclutador->apellido_paterno }} {{ $reclutador->apellido_materno }}
                 </option>
             @endforeach
         </select>

@@ -194,7 +194,7 @@
 </style>
 <body>
 <div class="head-title">
-    <img src="https://laboratorios-chontalpa-file.s3.amazonaws.com/vacantes/Encabezado-02.png" id="blog-feature-image" class="rounded mr-2 mb-1 mb-md-0" width="100%" height="100" alt="encabezado"/>
+    <img src="https://laboratorios-chontalpa-file.s3.amazonaws.com/Header.png" id="blog-feature-image" class="rounded mr-2 mb-1 mb-md-0" width="100%"  alt="encabezado"/>
 
     <h1 class="text-center m-0 p-0">Solicitud de empleo</h1>
 </div>
@@ -365,4 +365,7 @@
         </tr>
     </table>
 </div>
+<footer>
+    <img src="https://laboratorios-chontalpa-file.s3.amazonaws.com/Footer.png" id="blog-feature-image" class="rounded mr-2 mb-1 mb-md-0" width="100%"  alt="encabezado"/>
+</footer>
 </html>
