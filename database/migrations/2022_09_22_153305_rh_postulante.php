@@ -63,7 +63,7 @@ class RhPostulante extends Migration
             $table->text('datos_manejo');
 
             $table->enum('como_entero',['internet','publicidad','perifoneo','estatal_empleo','periodico','redes_sociales','lonas','feria_empleo','universidad','volantes','contacto','otros']);
-            $table->string('otros_entero');
+            $table->string('otros_entero')->nullable();
             $table->enum('parientes',['si','no'])->default('no');
             $table->string('parientes_nombre')->nullable();
             $table->enum('afianzado',['si','no'])->default('no');
@@ -87,7 +87,7 @@ class RhPostulante extends Migration
             $table->string('conyuge_donde')->nullable();
             $table->enum('paga_renta',['si','no'])->default('no');
             $table->string('importe_renta')->nullable();
-            $table->enum('casa_propia',['si','no'])->default('no');
+            $table->enum('casa_propia',['si','no'])->default('no')->nullable();
             $table->enum('auto_propio',['si','no'])->default('no');
             $table->string('marca')->nullable();
             $table->string('modelo')->nullable();

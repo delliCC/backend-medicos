@@ -128,7 +128,7 @@ class PostulanteController extends Controller
         // return $request->referencia_familiar;
         if($request->conyuge_trabaja == 'si'){
             $this->validate($request, [
-                'importe_deuda'=> 'required',
+                'importe_conyuge'=> 'required',
                 'conyuge_donde'=> 'required',
             ]);
         }
@@ -136,7 +136,6 @@ class PostulanteController extends Controller
         if($request->paga_renta == 'si'){
             $this->validate($request, [
                 'importe_renta'=> 'required',
-                'casa_propia'=> 'required',
             ]);
         }
 
