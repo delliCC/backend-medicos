@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Reclutamiento\Vacant;
 use App\Models\Reclutamiento\Postulant;
+use App\Models\Reclutamiento\PostulantFamily;
+use App\Models\Reclutamiento\PostulantReference;
+use App\Models\Reclutamiento\PostulantTrajectory;
 
 class PostulanteController extends Controller
 {
@@ -39,6 +42,7 @@ class PostulanteController extends Controller
 
     public function guardar(Request $request)
     {
+      
         $this->validate($request, [
             'vacante_id' => 'required',
             'puesto_id' => 'required',
@@ -82,16 +86,6 @@ class PostulanteController extends Controller
             'maquinas_software'=> 'required',
             'otros_oficios'=> 'required',
             'datos_manejo'=> 'required',
-            // ''=> 'required',
-            // ''=> 'required',
-            // ''=> 'required',
-            // ''=> 'required',
-            // ''=> 'required',
-            // ''=> 'required',
-            // ''=> 'required',
-            // ''=> 'required',
-            // ''=> 'required',
-
         ]);
         if($request->titulo == 'si'){
             $this->validate($request, [
@@ -102,13 +96,61 @@ class PostulanteController extends Controller
                 'trunco'=> 'required',
             ]);
         }
-        
+
         if($request->estudia_actualmente == 'si'){
             $this->validate($request, [
                 'institucion_actual'=> 'required',
                 'carrera_actual'=> 'required',
                 'semestre_actual'=> 'required',
                 'horario_actual'=> 'required',
+            ]);
+        }
+
+        // if($request->referencia_familiar >= 0){
+        //     if(count($request->referencia_familiar)){
+
+        //     }
+        //     $this->validate($request, [
+        //         'nombre_familiares'=> 'required',
+        //         'ocupacion_familiares'=> 'required',
+        //         'parentesco_familiares'=> 'required',
+        //         'edad_familiares'=> 'required',
+        //         'telefono_familiares'=> 'required',
+        //         'domicilio_familiares'=> 'required',
+        //         'vive_familiar'=> 'required',
+        //     // ''=> 'required',
+        //     // ''=> 'required',
+        //     // ''=> 'required',
+        //     // ''=> 'required',
+        //     // ''=> 'required',
+        //     ]);
+        // }
+        // return $request->referencia_familiar;
+        if($request->conyuge_trabaja == 'si'){
+            $this->validate($request, [
+                'importe_deuda'=> 'required',
+                'conyuge_donde'=> 'required',
+            ]);
+        }
+
+        if($request->paga_renta == 'si'){
+            $this->validate($request, [
+                'importe_renta'=> 'required',
+                'casa_propia'=> 'required',
+            ]);
+        }
+
+        if($request->deudas == 'si'){
+            $this->validate($request, [
+                'importe_deuda'=> 'required',
+                'abono_mensual'=> 'required',
+            ]);
+        }
+
+        if($request->auto_propio == 'si'){
+            $this->validate($request, [
+                'marca'=> 'required',
+                'modelo'=> 'required',
             ]);
         }
 
@@ -159,11 +201,85 @@ class PostulanteController extends Controller
             'maquina_software'=> $request->maquinas_software,
             'oficios_domines'=> $request->otros_oficios,
             'datos_manejo'=> $request->datos_manejo,
-            // ''=> $request->,
-            // ''=> $request->,
-            // ''=> $request->,
-            // ''=> $request->,
+
+            'como_entero'=> $request->como_entero,
+            'otros_entero'=> $request->otros_entero,
+            'parientes'=> $request->parientes,
+            'parientes_nombre'=> $request->parientes_nombre,
+            'afianzado'=> $request->afianzado,
+            'nombre_cia'=> $request->nombre_cia,
+            'sindicato'=> $request->sindicato,
+            'nombre_sindicato'=> $request->nombre_sindicato,
+            'seguro'=> $request->seguro,
+            'nombre_seguro'=> $request->nombre_seguro,
+            'viajar'=> $request->viajar,
+            'razones_viajar'=> $request->razones_viajar,
+            'residencia'=> $request->residencia,
+            'razones_residencia'=> $request->razones_residencia,
+            'espera_oferta_laboral'=> $request->espera_oferta_laboral,
+            'fecha_trabajar'=> $request->fecha_trabajar,
+
+            'otro_ingreso'=> $request->otro_ingreso,
+            'importe_mensual'=> $request->importe_mensual,
+            'cual_ingreso'=> $request->cual_ingreso,
+            'conyuge_trabaja'=> $request->conyuge_trabaja,
+            'importe_conyuge'=> $request->importe_conyuge,
+            'conyuge_donde'=> $request->conyuge_donde,
+            'paga_renta'=> $request->paga_renta,
+            'importe_renta'=> $request->importe_renta,
+            'casa_propia'=> $request->casa_propia,
+            'auto_propio'=> $request->auto_propio,
+            'marca'=> $request->marca,
+            'modelo'=> $request->modelo,
+            'deudas'=> $request->deudas,
+            'importe_deuda'=> $request->importe_deuda,
+            'abono_mensual'=> $request->abono_mensual
         ]);
+
+        foreach ($request->referencia_familiar as $familiar) {
+            $postulante = PostulantFamily::create([
+                'postulante_id'=> $postulante->id,
+                'nombre'=> $familiar['nombre_familiares'],
+                'ocupacion'=> $familiar['ocupacion_familiares'],
+                'parentesco'=> $familiar['parentesco_familiares'],
+                'edad'=> $familiar['edad_familiares'],
+                'telefono'=> $familiar['telefono_familiares'],
+                'domicilio'=> $familiar['domicilio_familiares'],
+                'vive'=> $familiar['vive_familiar']
+            ]);
+        }
+
+        foreach ($request->referencia_personal as $personal) {
+            $postulante = PostulantReference::create([
+                'postulante_id'=> $postulante->id,
+                'nombre'=> $personal['nombre_referencia'],
+                'ocupacion'=> $personal['ocupacion_referencia'],
+                'parentesco'=> $personal['parentesco_referencia'],
+                'edad'=> $personal['edad_referencia'],
+                'telefono'=> $personal['telefono_referencia'],
+                'domicilio'=> $personal['domicilio_referencia'],
+                'vive'=> $personal['vive_referencia']
+            ]);
+        }
+
+        foreach ($request->trayectoria_laboral as $trajectoria) {
+            $postulante = PostulantTrajectory::create([
+                'postulante_id'=> $postulante->id,
+                'empresa'=> $trajectoria['empresa'],
+                'fecha_ingreso'=> $trajectoria['fecha_ingreso'],
+                'fecha_baja'=> $trajectoria['fecha_baja'],
+                'puesto'=> $trajectoria['puesto'],
+                'sueldo'=> $trajectoria['sueldo'],
+                'select_carta'=> $trajectoria['select_carta'],
+                'select_constancia'=> $trajectoria['select_constancia'],
+                'motivo_salida'=> $trajectoria['motivo_salida'],
+                'otro_motivo_salida'=> $trajectoria['otro_motivo_salida'],
+                'domicilio_empresa'=> $trajectoria['domicilio_empresa'],
+                'jefe'=> $trajectoria['jefe'],
+                'puesto_jefe'=> $trajectoria['puesto_jefe'],
+                'telefono_jefe'=> $trajectoria['telefono_jefe']
+            ]);
+        }
        
         $pdf = base64_encode($this->solicitudPDF($postulante->id));
 

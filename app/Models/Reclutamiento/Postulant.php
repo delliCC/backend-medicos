@@ -81,7 +81,7 @@ class Postulant extends Model
         
         'otro_ingreso',
         'importe_mensual',
-        'motivo_conyuge',
+        'cual_ingreso',
         'conyuge_trabaja',
         'importe_conyuge',
         'conyuge_donde',

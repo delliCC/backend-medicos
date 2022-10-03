@@ -62,6 +62,39 @@ class RhPostulante extends Migration
             $table->text('oficios_domines');
             $table->text('datos_manejo');
 
+            $table->enum('como_entero',['internet','publicidad','perifoneo','estatal_empleo','periodico','redes_sociales','lonas','feria_empleo','universidad','volantes','contacto','otros']);
+            $table->string('otros_entero');
+            $table->enum('parientes',['si','no'])->default('no');
+            $table->string('parientes_nombre')->nullable();
+            $table->enum('afianzado',['si','no'])->default('no');
+            $table->string('nombre_cia')->nullable();
+            $table->enum('sindicato',['si','no'])->default('no');
+            $table->string('nombre_sindicato')->nullable();
+            $table->enum('seguro',['si','no'])->default('no');
+            $table->string('nombre_seguro')->nullable();
+            $table->enum('viajar',['si','no'])->default('no');
+            $table->string('razones_viajar')->nullable();
+            $table->enum('residencia',['si','no'])->default('no');
+            $table->text('razones_residencia')->nullable();
+            $table->enum('espera_oferta_laboral',['si','no'])->default('no');
+            $table->string('fecha_trabajar');
+
+            $table->enum('otro_ingreso',['si','no'])->default('no');
+            $table->string('importe_mensual')->nullable();
+            $table->text('cual_ingreso')->nullable();
+            $table->enum('conyuge_trabaja',['si','no'])->default('no');
+            $table->string('importe_conyuge')->nullable();
+            $table->string('conyuge_donde')->nullable();
+            $table->enum('paga_renta',['si','no'])->default('no');
+            $table->string('importe_renta')->nullable();
+            $table->enum('casa_propia',['si','no'])->default('no');
+            $table->enum('auto_propio',['si','no'])->default('no');
+            $table->string('marca')->nullable();
+            $table->string('modelo')->nullable();
+            $table->enum('deudas',['si','no'])->default('no');
+            $table->string('importe_deuda')->nullable();
+            $table->string('abono_mensual')->nullable();
+
             $table->enum('estado_postulante',['postulante','seleccionado','cartera'])->default('postulante');
             $table->boolean('status')->default(true);
             $table->timestamps();
