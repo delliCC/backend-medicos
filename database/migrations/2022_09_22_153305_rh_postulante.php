@@ -49,8 +49,8 @@ class RhPostulante extends Migration
             $table->string('especialidad');
             $table->enum('certificado',['si','no'])->default('no');
             $table->enum('titulo',['si','no'])->default('no');
-            $table->enum('cedula',['si','no'])->default('no');
-            $table->enum('trunco',['si','no'])->default('no');
+            $table->enum('cedula',['si','no'])->default('no')->nullable();
+            $table->enum('trunco',['si','no'])->default('no')->nullable();
             $table->enum('estudia_actualmente',['si','no'])->default('no');
             $table->string('institucion_actual')->nullable();
             $table->string('carrera_actual')->nullable();

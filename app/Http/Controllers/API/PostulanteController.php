@@ -40,6 +40,7 @@ class PostulanteController extends Controller
     {
         // return $request;
         $this->validate($request, [
+            'vacante_id' => 'required',
             'puesto_id' => 'required',
             'sucursal_id' => 'required',
             'fecha_postulacion' => 'required',
@@ -53,20 +54,54 @@ class PostulanteController extends Controller
             'fecha_nacimiento' => 'required',
             'curp' => 'required',
             'rfc' => 'required',
-            'numero_social' => 'required',
+            'numero_seguro_social' => 'required',
             'licencia_conducir' => 'required',
-            'cartilla' => 'required',
-            'correo' => 'required',
+            // 'cartilla_militar' => 'required', opcional
+            'correo_electronico' => 'required',
             'telefono' => 'required',
             'estado_civil'=> 'required',
             'vive_con'=> 'required',
-            // ''=> 'required'
+
+            'ciudad'=> 'required',
+            'estado'=> 'required',
+            'municipio'=> 'required',
+            'colonia'=> 'required',
+            'entre_calles'=> 'required',
+            'numero_casa'=> 'required',
+            'codigo_postal'=> 'required',
+            'direccion'=> 'required',
+
+            'ultimo_grado_estudios'=> 'required',
+            'institucion'=> 'required',
+            'especialidad'=> 'required',
+            'certificado'=> 'required',
+            'titulo'=> 'required',
+            // 'cedula'=> 'required',
+            // 'trunco'=> 'required',
+            'estudia_actualmente'=> 'required',
+            // 'institucion_actual'=> 'required',
+            // 'carrera_actual'=> 'required',
+            // 'semestre_actual'=> 'required',
+            // 'horario_actual'=> 'required',
+
+            'idiomas'=> 'required',
+            'maquinas_software'=> 'required',
+            'otros_oficios'=> 'required',
+            'datos_manejo'=> 'required',
+            // ''=> 'required',
+            // ''=> 'required',
+            // ''=> 'required',
+            // ''=> 'required',
+            // ''=> 'required',
+            // ''=> 'required',
+            // ''=> 'required',
+            // ''=> 'required',
+            // ''=> 'required',
+
         ]);
 
-        $datos = Postulant::create([
+        return $datos = Postulant::create([
             'vacante_id'=> $request->vacante_id,
-            'puesto_id'=> $request->puesto_id,
-            'sucursal_id'=> $request->sucursal_id,
             'fecha_postulacion'=> $request->fecha_postulacion,
             'sueldo_pretendido'=> $request->sueldo_pretendido,
             'nombre'=> $request->nombre,
@@ -78,19 +113,49 @@ class PostulanteController extends Controller
             'fecha_nacimiento'=> $request->fecha_nacimiento,
             'curp'=> $request->curp,
             'rfc'=> $request->rfc,
-            'numero_social'=> $request->numero_social,
+            'numero_social'=> $request->numero_seguro_social,
             'licencia_conducir'=> $request->licencia_conducir,
-            'cartilla'=> $request->cartilla,
-            'correo'=> $request->correo,
+            'cartilla'=> $request->cartilla_militar,
+            'correo'=> $request->correo_electronico,
             'telefono'=> $request->telefono,
             'estado_civil'=> $request->estado_civil,
             'vive_con'=> $request->vive_con,
+            
+            'direccion'=> $request->direccion,
+            'numero_casa'=> $request->numero_casa,
+            'entre_calles'=> $request->entre_calles,
+            'colonia'=> $request->colonia,
+            'ciudad'=> $request->ciudad,
+            'estado'=> $request->estado,
+            'municipio'=> $request->municipio,
+            'codigo_postal'=> $request->codigo_postal,
+
+            'ultimo_grado_estudios'=> $request->ultimo_grado_estudios,
+            'institucion'=> $request->institucion,
+            'especialidad'=> $request->especialidad,
+            'certificado'=> $request->certificado,
+            'titulo'=> $request->titulo,
+            'cedula'=> $request->cedula,
+            'trunco'=> $request->trunco,
+            'estudia_actualmente'=> $request->estudia_actualmente,
+            'institucion_actual'=> $request->institucion_actual,
+            'carrera_actual'=> $request->carrera_actual,
+            'semestre_actual'=> $request->semestre_actual,
+            'horario_actual'=> $request->horario_actual,
+
+            'idiomas'=> $request->idiomas,
+            'maquina_software'=> $request->maquinas_software,
+            'oficios_domines'=> $request->otros_oficios,
+            'datos_manejo'=> $request->datos_manejo,
             // ''=> $request->,
             // ''=> $request->,
             // ''=> $request->,
+            // ''=> $request->,
+
+
         ]);
         $array = json_decode($datos, true);
-        return $this->sendResponse($array, 'Lista de Vacantes', 200);
+       // return $this->sendResponse($array, 'Lista de Vacantes', 200);
         return redirect()->route('postulant.solicitud')->with('success', 'Datos guardados correctamente.');
     }
 }

@@ -16,8 +16,6 @@ class Postulant extends Model
     protected $fillable = [
         'id',
         'vacante_id',
-        'puesto_id',
-        'sucursal_id',
         'fecha_postulacion',
         'sueldo_pretendido',
         'nombre',
@@ -46,9 +44,22 @@ class Postulant extends Model
         'codigo_postal',
         'direccion',
 
+        'ultimo_grado_estudios',
+        'institucion',
+        'especialidad',
+        'certificado',
+        'titulo',
+        'cedula',
+        'trunco',
+        'estudia_actualmente',
+        'institucion_actual',
+        'carrera_actual',
+        'semestre_actual',
+        'horario_actual',
+
         'idiomas',
-        'maquinas_software',
-        'otros_oficios',
+        'maquina_software',
+        'oficios_domines',
         'datos_manejo',
 
         'como_entero',
