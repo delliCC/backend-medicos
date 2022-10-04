@@ -294,6 +294,8 @@ class PostulanteController extends Controller
                 $query->select('id', 'sucursal');
             }])->with(['empleado'=> function ($query){
                 $query->select('id', 'nombre','apellido_paterno','apellido_materno');
+            }])->with(['familiares'=> function ($query){
+                $query->select('id', 'nombre','ocupacion','parentesco','edad','domicilio','telefono','vive');
             }]);
         }])->find($id);
         $pdf = PDF::loadView('components.reclutamiento.postulant.solicitud', compact('datos'));
