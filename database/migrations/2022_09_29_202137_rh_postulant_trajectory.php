@@ -24,7 +24,7 @@ class RhPostulantTrajectory extends Migration
             $table->enum('select_carta',['si','no']);
             $table->enum('select_constancia',['si','no']);
             $table->enum('motivo_salida',['renuncia','termino_contrato','renudacion_estudios','horarios','salario','problemas_salud','otros']);
-            $table->text('otro_motivo_salida');
+            $table->text('otro_motivo_salida')->nullable();
             $table->text('domicilio_empresa');
             $table->string('jefe');
             $table->string('puesto_jefe');

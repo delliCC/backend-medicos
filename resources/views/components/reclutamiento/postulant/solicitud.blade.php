@@ -8,10 +8,10 @@
             }
             body {
                 font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, sans-serif;
-                margin-top: 2cm;
+                margin-top: 4cm;
                 margin-left: 1cm;
                 margin-right: 1cm;
-                margin-bottom: 1cm;
+                margin-bottom: 2cm;
             }    
 
             header {
@@ -28,6 +28,7 @@
 
             footer {
                 position: fixed; 
+                width: 100%;
                 bottom: 0cm; 
                 left: 0cm; 
                 right: 0cm;
@@ -63,11 +64,11 @@
         </style>
     </head>
     <body>
-        <div style="height: 90px">
-            <header>
-                <img src="https://laboratorios-chontalpa-file.s3.amazonaws.com/Header.png" id="blog-feature-image" width="100%" alt="encabezado"/>
-            </header>
-        </div>
+        <header>
+            <img src="https://laboratorios-chontalpa-file.s3.amazonaws.com/Header.png" id="blog-feature-image" width="100%" alt="encabezado"/>
+        </header>
+
+       
         <div class="head-title">
             <h1 class="m-0 p-0">Solicitud de empleo</h1>
         </div>
@@ -154,7 +155,7 @@
                 <td>{{ strtoupper($datos->licencia_conducir) }}</td>
                 <td>{{ $datos->correo }}</td>
             </tr>
-         </table>
+            </table>
 
         <span class="title"><strong>Dirección</strong></span>
         <table class="tablaBody" border="1">
@@ -189,45 +190,6 @@
                 <td>{{ strtoupper($datos->telefono) }}</td>
             </tr>
         </table>
-
-        <span class="seccion"><strong>Datos familiares</strong></span>
-
-        @foreach ($datos->familiares as $familiar)
-            <table class="tablaBody" border="1">
-                <tr class="relleno">
-                    <th width="70%">Nombre completo</th>
-                    <th width="30%">Parentesco</th>
-                </tr>
-                <tr>
-                    <td>{{ strtoupper($familiar->nombre) }}</td>
-                    @if($familiar->parentesco == 'mama')
-                        <td>Mamá</td>
-                    @elseif($familiar->parentesco == 'papa')
-                        <td>Papá</td>
-                    @else
-                        <td>{{ strtoupper($familiar->parentesco) }}</td>
-                    @endif
-                </tr>
-                <tr class="relleno">
-                    <th>Domicilio</th>
-                    <th>Ocupación</th>
-                </tr>
-                <tr>
-                    <td rowspan="2">{{ strtoupper($familiar->domicilio) }}</td>
-                    <td>{{ strtoupper( $familiar->ocupacion ) }}</td>
-                </tr>
-                <tr>
-                    <td>
-                        <table class="tablaBody" style="border: hidden">
-                            <tr>
-                                <th width="40%" class="relleno" style="border-right: 1px solid black;">Edad</th>
-                                <td>{{ $familiar->edad }}</td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-            </table>  
-        @endforeach
 
         <span class="seccion"><strong>Datos Escolares</strong></span>
         <table class="tablaBody" border="1">
@@ -304,7 +266,6 @@
             </tr>
         </table>
 
-        <div style="page-break-after:always;"></div>
         <span class="seccion"><strong>Conocimientos Generales</strong></span>
         <table class="tablaBody" border="1">
             <tr class="relleno">
@@ -328,6 +289,47 @@
                 <td colspan="2">{{ strtoupper($datos->datos_manejo) }}</td>
             </tr>
         </table>
+
+        <div style="page-break-after:always;"></div>
+
+        <span class="seccion"><strong>Datos familiares</strong></span>
+        @foreach ($datos->familiares as $familiar)
+            <table class="tablaBody" border="1">
+                <tr class="relleno">
+                    <th width="70%">Nombre completo</th>
+                    <th width="30%">Parentesco</th>
+                </tr>
+                <tr>
+                    <td>{{ strtoupper($familiar->nombre) }}</td>
+                    @if($familiar->parentesco == 'mama')
+                        <td>Mamá</td>
+                    @elseif($familiar->parentesco == 'papa')
+                        <td>Papá</td>
+                    @else
+                        <td>{{ strtoupper($familiar->parentesco) }}</td>
+                    @endif
+                </tr>
+                <tr class="relleno">
+                    <th>Domicilio</th>
+                    <th>Ocupación</th>
+                </tr>
+                <tr>
+                    <td rowspan="2">{{ strtoupper($familiar->domicilio) }}</td>
+                    <td>{{ strtoupper( $familiar->ocupacion ) }}</td>
+                </tr>
+                <tr>
+                    <td>
+                        <table class="tablaBody" style="border: hidden">
+                            <tr>
+                                <th width="40%" class="relleno" style="border-right: 1px solid black;">Edad</th>
+                                <td>{{ $familiar->edad }}</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table><br>
+        @endforeach
+
         <span class="seccion"><strong>Referencias Personales</strong></span>
 
         @foreach ($datos->referencias as $referencia)
@@ -352,8 +354,10 @@
                     <th colspan="2" width="30%" colspan="2">Domicilio</th>
                 </tr>
                 <tr><td colspan="2">{{ strtoupper( $referencia->domicilio ) }}</td></tr>
-            </table>  
+            </table> <br>
         @endforeach
+        
+        <div style="page-break-after:always;"></div>
 
         <span class="seccion"><strong>Trayectoria laboral</strong></span>
         @foreach ($datos->trayectoria as $laboral)
@@ -454,17 +458,6 @@
                 <tr>
                     <td colspan="4">OTROS: {{ strtoupper($laboral->otro_motivo_salida) }}</td>
                 </tr>
-                {{--  <tr>
-                    <th class="relleno">Perteneció a un sindicato</th>
-                    <td colspan="3">{{ strtoupper($$laboral->pertenecio_sindicato_empresa_1) }}</td>
-                </tr>
-                <tr>
-                    <th class="relleno">Nombre del sindicato</th>
-                    <td colspan="3">{{ strtoupper($nombre_sindicato_empresa_1) }}</td>
-                </tr>  --}}
-                {{--  <tr>
-                    <th colspan="4" class="relleno">Comprobante laboral</th>
-                </tr>  --}}
                 <tr>
                     {{--  colspan="2"  --}}
                     <td>Carta de recomendación</td>
@@ -490,9 +483,10 @@
                         @endif
                     </td>
                 </tr>
-            </table>
+            </table><br>
+            <div style="page-break-after:always;"></div>
         @endforeach
-
+        
         <span class="seccion"><strong>Datos generales</strong></span>
         <table class="tablaBody" border="1">
             <tr class="relleno">
@@ -530,7 +524,7 @@
                 @endif
                 @if($datos->como_entero  == 'contacto')
                     <td width="5%" style="background-color: lightgray; font-size: 10px;">CONTACTO</td>
-                    <td width="30%">{{ strtoupper($contacto) }}</td>
+                    <td width="30%">&nbsp;</td>
                 @else
                     <td width="5%" style="font-size: 11px;">CONTACTO</td>
                     <td width="30%">&nbsp;</td>
@@ -576,37 +570,225 @@
                 @endif
             </tr>
         </table>
+        <table class="tablaBody" border="1">
+            <tr>
+                <th class="relleno" colspan="2">Esta en espera de alguna oferta laboral</th>
+                @if($datos->espera_oferta_laboral == 'si')
+                    <td width="5%" style="background-color: lightgray">SI</td>
+                    <td width="5%">NO</td>
+                    <td width="50%" style="border-right: none; border-top: none; border-bottom: none;">&nbsp;</td>
+                @else
+                    <td width="5%">SI</td>
+                    <td width="5%" style="background-color: lightgray">NO</td>
+                    <td width="50%" style="border-right: none; border-top: none; border-bottom: none;">&nbsp;</td>
+                @endif
+            </tr>
+            <tr>
+                <th class="relleno" colspan="2">¿Tiene Parientes trabajando en esta empresa?</th>
+                @if($datos->parientes == 'si')
+                    <td width="5%" style="background-color: lightgray">SI</td>
+                    <td width="5%">NO</td>
+                    <td width="50%">
+                        {{ strtoupper($datos->parientes_nombre) }}
+                    </td>
+                @else
+                    <td width="5%">SI</td>
+                    <td width="5%" style="background-color: lightgray">NO</td>
+                    <td width="50%">&nbsp;</td>
+                @endif
+            </tr>
+            <tr>
+                <th class="relleno" colspan="2">¿Ha estado afianzado?</th>
+                @if($datos->afianzado == 'si')
+                    <td width="5%" style="background-color: lightgray">SI</td>
+                    <td width="5%">NO</td>
+                    <td width="50%">
+                        {{ strtoupper($datos->nombre_cia) }}
+                    </td>
+                @else
+                    <td width="5%">SI</td>
+                    <td width="5%" style="background-color: lightgray">NO</td>
+                    <td width="50%">&nbsp;</td>
+                @endif
+            </tr>
+            <tr>
+                <th class="relleno" colspan="2">¿Perteneció a un sindicato?</th>
+                @if($datos->afianzado == 'si')
+                    <td width="5%" style="background-color: lightgray">SI</td>
+                    <td width="5%">NO</td>
+                    <td width="50%">
+                        {{ strtoupper($datos->nombre_sindicato) }}
+                    </td>
+                @else
+                    <td width="5%">SI</td>
+                    <td width="5%" style="background-color: lightgray">NO</td>
+                    <td width="50%">&nbsp;</td>
+                @endif
+            </tr>
+            <tr>
+                <th class="relleno" colspan="2">¿Tiene seguro de vida?</th>
+                @if($datos->seguro == 'si')
+                    <td width="5%" style="background-color: lightgray">SI</td>
+                    <td width="5%">NO</td>
+                    <td width="50%">
+                        {{ strtoupper($datos->nombre_seguro) }}
+                    </td>
+                @else
+                    <td width="5%">SI</td>
+                    <td width="5%" style="background-color: lightgray">NO</td>
+                    <td width="50%">&nbsp;</td>
+                @endif
+            </tr>
+            <tr>
+                <th class="relleno" colspan="2">¿Puede Viajar?</th>
+                @if($datos->viajar == 'si')
+                    <td width="5%" style="background-color: lightgray">SI</td>
+                    <td width="5%">NO</td>
+                    <td width="50%">&nbsp;</td>
+                @else
+                    <td width="5%">SI</td>
+                    <td width="5%" style="background-color: lightgray">NO</td>
+                    <td width="50%">{{ strtoupper($datos->razones_viajar) }}</td>
+                @endif
+            </tr>
+            <tr>
+                <th class="relleno" colspan="2">¿Está dispuesto a cambiar su lugar de residencia?</th>
+                @if($datos->residencia == 'si')
+                    <td width="5%" style="background-color: lightgray">SI</td>
+                    <td width="5%">NO</td>
+                    <td width="50%">&nbsp;</td>
+                @else
+                    <td width="5%">SI</td>
+                    <td width="5%" style="background-color: lightgray">NO</td>
+                    <td width="50%">{{ strtoupper($datos->razones_residencia) }}</td>
+                @endif
+            </tr>
+            <tr>
+                <th class="relleno" colspan="2">Fecha en que podria presentarse a trabajar</th>
+                @if($datos->fecha_trabjar != null)
+                    <td colspan="3">{{ strtoupper($datos->fecha_trabjar) }}</td>
+                @else
+                    <td colspan="3">&nbsp;</td>
+                @endif
+            </tr>
+        </table>
+            
         <span class="seccion"><strong>Datos Económicos</strong></span>
-        <span class="seccion"><strong>Documentos</strong></span>
-{{--   
-
- 
-<div style="page-break-after:always;"></div>
-<table class="principal" border="1">
-   <tr>
-       <th class="relleno" colspan="2">ESTA EN ESPERA DE ALGUNA OFERTA LABORAL</th>
-       @if($espera_oferta_laboral == 'si')
-           <td width="5%" style="background-color: lightgray">SI</td>
-           <td width="5%">NO</td>
-           <td width="50%" style="border-right: none; border-top: none; border-bottom: none;">&nbsp;</td>
-       @else
-           <td width="5%">SI</td>
-           <td width="5%" style="background-color: lightgray">NO</td>
-           <td width="50%" style="border-right: none; border-top: none; border-bottom: none;">&nbsp;</td>
-       @endif
-   </tr>
-   <tr>
-       <th class="relleno" colspan="2">ESPECIFIQUE EMPRESA</th>
-       @if($especifique_empresa != null)
-           <td colspan="3">{{ strtoupper($especifique_empresa) }}</td>
-       @else
-           <td colspan="3">&nbsp;</td>
-       @endif
-   </tr>
-</table>  --}}
+        <table class="tablaBody" border="1">
+            <tr>
+                <th class="relleno" colspan="3">¿Tiene usted otros ingresos?</th>
+                @if($datos->otro_ingreso == 'si')
+                    <td width="5%" style="background-color: lightgray">SI</td>
+                    <td width="5%">NO</td>
+                    <th width="5%" class="relleno">Importe: </th>
+                    <td width="50%">$ {{ strtoupper($datos->importe_mensual) }}</td>
+                @else
+                    <td width="5%">SI</td>
+                    <td width="5%" style="background-color: lightgray">NO</td>
+                    <th width="5%">Importe</th>
+                    <td width="50%" style="border-right: none; border-top: none; border-bottom: none;">&nbsp;</td>
+                @endif
+            </tr>
+            <tr>
+                <th class="relleno" colspan="3">Cuál</th>
+                @if($datos->cual_ingreso != null)
+                    <td colspan="4">{{ strtoupper($datos->cual_ingreso) }}</td>
+                @else
+                    <td colspan="4">&nbsp;</td>
+                @endif
+            </tr>
+            <tr>
+                <th class="relleno" colspan="3">¿Su conyuge trabaja?</th>
+                @if($datos->conyuge_trabaja == 'si')
+                    <td width="5%" style="background-color: lightgray">SI</td>
+                    <td width="5%">NO</td>
+                    <th width="5%" class="relleno">Importe: </th>
+                    <td width="50%"> {{ strtoupper($datos->importe_conyuge) }} </td>
+                @else
+                    <td width="5%">SI</td>
+                    <td width="5%" style="background-color: lightgray">NO</td>
+                    <th width="5%" class="relleno">Importe: </th>
+                    <td width="50%">&nbsp;</td>
+                @endif
+            </tr>
+            <tr>
+                <th class="relleno" colspan="3">¿Dónde? </th>
+                @if($datos->conyuge_donde != null)
+                    <td colspan="4">{{ strtoupper($datos->conyuge_donde) }}</td>
+                @else
+                    <td colspan="4">&nbsp;</td>
+                @endif
+            </tr>
+            <tr>
+                <th class="relleno" colspan="3">¿Paga renta?</th>
+                @if($datos->paga_renta == 'si')
+                    <td width="5%" style="background-color: lightgray">SI</td>
+                    <td width="5%">NO</td>
+                    <th width="5%" class="relleno">Importe: </th>
+                    <td width="50%">{{ strtoupper($datos->importe_renta) }}</td>
+                @else
+                    <td width="5%">SI</td>
+                    <td width="5%" style="background-color: lightgray">NO</td>
+                    <th width="5%" class="relleno">Importe: </th>
+                    <td width="50%">&nbsp;</td>
+                @endif
+            </tr>
+            <tr>
+                <th class="relleno" colspan="3">¿Vive en casa propia? </th>
+                @if($datos->casa_propia != null)
+                    <td colspan="4">{{ strtoupper($datos->casa_propia) }}</td>
+                @else
+                    <td colspan="4">&nbsp;</td>
+                @endif
+            </tr>
+            <tr>
+                <th class="relleno" colspan="3">¿Tiene vehículo propio?</th>
+                @if($datos->auto_propio == 'si')
+                    <td width="5%" style="background-color: lightgray">SI</td>
+                    <td width="5%">NO</td>
+                    <th width="5%" class="relleno">Marca: </th>
+                    <td width="50%">{{ strtoupper($datos->marca) }}</td>
+                @else
+                    <td width="5%">SI</td>
+                    <td width="5%" style="background-color: lightgray">NO</td>
+                    <th width="5%" class="relleno">Marca: </th>
+                    <td width="50%">&nbsp;</td>
+                @endif
+            </tr>
+            <tr>
+                <th class="relleno" colspan="3">Modelo </th>
+                @if($datos->modelo != null)
+                    <td colspan="4">{{ strtoupper($datos->modelo) }}</td>
+                @else
+                    <td colspan="4">&nbsp;</td>
+                @endif
+            </tr>
+            <tr>
+                <th class="relleno" colspan="3">¿Tiene deudas?</th>
+                @if($datos->deudas == 'si')
+                    <td width="5%" style="background-color: lightgray">SI</td>
+                    <td width="5%">NO</td>
+                    <th width="5%" class="relleno">Importe: </th>
+                    <td width="50%">{{ strtoupper($datos->importe_deuda) }}</td>
+                @else
+                    <td width="5%">SI</td>
+                    <td width="5%" style="background-color: lightgray">NO</td>
+                    <th width="5%" class="relleno">Importe: </th>
+                    <td width="50%">&nbsp;</td>
+                @endif
+            </tr>
+            <tr>
+                <th class="relleno" colspan="3">¿Cuanto abona mensualmente? </th>
+                @if($datos->abono_mensual != null)
+                    <td colspan="4">{{ strtoupper($datos->abono_mensual) }}</td>
+                @else
+                    <td colspan="4">&nbsp;</td>
+                @endif
+            </tr>
+        </table>
+    
         <footer>
             <img src="https://laboratorios-chontalpa-file.s3.amazonaws.com/Footer.png" id="blog-feature-image" width="100%" alt="encabezado"/>
         </footer>
     </body>
- 
 </html>

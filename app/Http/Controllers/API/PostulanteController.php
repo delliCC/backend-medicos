@@ -118,11 +118,6 @@ class PostulanteController extends Controller
         //         'telefono_familiares'=> 'required',
         //         'domicilio_familiares'=> 'required',
         //         'vive_familiar'=> 'required',
-        //     // ''=> 'required',
-        //     // ''=> 'required',
-        //     // ''=> 'required',
-        //     // ''=> 'required',
-        //     // ''=> 'required',
         //     ]);
         // }
         // return $request->referencia_familiar;
@@ -153,6 +148,7 @@ class PostulanteController extends Controller
             ]);
         }
 
+        // return $request->all();
         $postulante = Postulant::create([
             'vacante_id'=> $request->vacante_id,
             'fecha_postulacion'=> $request->fecha_postulacion,
@@ -236,20 +232,20 @@ class PostulanteController extends Controller
         ]);
 
         foreach ($request->referencia_familiar as $familiar) {
-            $postulante = PostulantFamily::create([
+            PostulantFamily::create([
                 'postulante_id'=> $postulante->id,
                 'nombre'=> $familiar['nombre_familiares'],
                 'ocupacion'=> $familiar['ocupacion_familiares'],
-                'parentesco'=> $familiar['parentesco_familiares'],
+                // 'parentesco'=> $familiar['parentesco_familiares'],
                 'edad'=> $familiar['edad_familiares'],
                 'telefono'=> $familiar['telefono_familiares'],
                 'domicilio'=> $familiar['domicilio_familiares'],
-                'vive'=> $familiar['vive_familiar']
+                // 'vive'=> $familiar['vive_familiar']
             ]);
         }
 
         foreach ($request->referencia_personal as $personal) {
-            $postulante = PostulantReference::create([
+            PostulantReference::create([
                 'postulante_id'=> $postulante->id,
                 'nombre'=> $personal['nombre_referencia'],
                 'ocupacion'=> $personal['ocupacion_referencia'],
@@ -260,7 +256,7 @@ class PostulanteController extends Controller
         }
 
         foreach ($request->trayectoria_laboral as $trajectoria) {
-            $postulante = PostulantTrajectory::create([
+            PostulantTrajectory::create([
                 'postulante_id'=> $postulante->id,
                 'empresa'=> $trajectoria['empresa'],
                 'fecha_ingreso'=> $trajectoria['fecha_ingreso'],
