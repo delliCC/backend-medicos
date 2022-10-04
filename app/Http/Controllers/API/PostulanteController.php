@@ -253,11 +253,9 @@ class PostulanteController extends Controller
                 'postulante_id'=> $postulante->id,
                 'nombre'=> $personal['nombre_referencia'],
                 'ocupacion'=> $personal['ocupacion_referencia'],
-                'parentesco'=> $personal['parentesco_referencia'],
                 'edad'=> $personal['edad_referencia'],
                 'telefono'=> $personal['telefono_referencia'],
                 'domicilio'=> $personal['domicilio_referencia'],
-                'vive'=> $personal['vive_referencia']
             ]);
         }
 
