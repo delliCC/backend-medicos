@@ -82,7 +82,7 @@ class RhPostulante extends Migration
             $table->enum('otro_ingreso',['si','no'])->default('no');
             $table->string('importe_mensual')->nullable();
             $table->text('cual_ingreso')->nullable();
-            $table->enum('conyuge_trabaja',['si','no'])->default('no');
+            $table->enum('conyuge_trabaja',['si','no'])->default('no')->nullable();
             $table->string('importe_conyuge')->nullable();
             $table->string('conyuge_donde')->nullable();
             $table->enum('paga_renta',['si','no'])->default('no');

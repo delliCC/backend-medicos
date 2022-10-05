@@ -42,7 +42,6 @@ class PostulanteController extends Controller
 
     public function guardar(Request $request)
     {
-      
         $this->validate($request, [
             'vacante_id' => 'required',
             'puesto_id' => 'required',
@@ -231,52 +230,58 @@ class PostulanteController extends Controller
             'abono_mensual'=> $request->abono_mensual
         ]);
 
-        foreach ($request->referencia_familiar as $familiar) {
-            PostulantFamily::create([
-                'postulante_id'=> $postulante->id,
-                'nombre'=> $familiar['nombre_familiares'],
-                'ocupacion'=> $familiar['ocupacion_familiares'],
-                // 'parentesco'=> $familiar['parentesco_familiares'],
-                'edad'=> $familiar['edad_familiares'],
-                'telefono'=> $familiar['telefono_familiares'],
-                'domicilio'=> $familiar['domicilio_familiares'],
-                // 'vive'=> $familiar['vive_familiar']
-            ]);
+        if($request->referencia_familiar > 0 ){
+            foreach ($request->referencia_familiar as $familiar) {
+                PostulantFamily::create([
+                    'postulante_id'=> $postulante->id,
+                    'nombre'=> $familiar['nombre_familiares'],
+                    'ocupacion'=> $familiar['ocupacion_familiares'],
+                    'parentesco'=> $familiar['parentesco_familiares'],
+                    'edad'=> $familiar['edad_familiares'],
+                    'telefono'=> $familiar['telefono_familiares'],
+                    'domicilio'=> $familiar['domicilio_familiares'],
+                    // 'vive'=> $familiar['vive_familiar']
+                ]);
+            }
         }
-
-        foreach ($request->referencia_personal as $personal) {
-            PostulantReference::create([
-                'postulante_id'=> $postulante->id,
-                'nombre'=> $personal['nombre_referencia'],
-                'ocupacion'=> $personal['ocupacion_referencia'],
-                'edad'=> $personal['edad_referencia'],
-                'telefono'=> $personal['telefono_referencia'],
-                'domicilio'=> $personal['domicilio_referencia'],
-            ]);
+        
+        if($request->referencia_personal > 0 ){
+            foreach ($request->referencia_personal as $personal) {
+                PostulantReference::create([
+                    'postulante_id'=> $postulante->id,
+                    'nombre'=> $personal['nombre_referencia'],
+                    'ocupacion'=> $personal['ocupacion_referencia'],
+                    'edad'=> $personal['edad_referencia'],
+                    'telefono'=> $personal['telefono_referencia'],
+                    'domicilio'=> $personal['domicilio_referencia'],
+                ]);
+            }
         }
-
+        
         foreach ($request->trayectoria_laboral as $trajectoria) {
-            PostulantTrajectory::create([
-                'postulante_id'=> $postulante->id,
-                'empresa'=> $trajectoria['empresa'],
-                'fecha_ingreso'=> $trajectoria['fecha_ingreso'],
-                'fecha_baja'=> $trajectoria['fecha_baja'],
-                'puesto'=> $trajectoria['puesto'],
-                'sueldo'=> $trajectoria['sueldo'],
-                'select_carta'=> $trajectoria['select_carta'],
-                'select_constancia'=> $trajectoria['select_constancia'],
-                'motivo_salida'=> $trajectoria['motivo_salida'],
-                'otro_motivo_salida'=> $trajectoria['otro_motivo_salida'],
-                'domicilio_empresa'=> $trajectoria['domicilio_empresa'],
-                'jefe'=> $trajectoria['jefe'],
-                'puesto_jefe'=> $trajectoria['puesto_jefe'],
-                'telefono_jefe'=> $trajectoria['telefono_jefe']
-            ]);
+            if($trajectoria->empresa != null && $trajectoria->fecha_ingreso != null && $trajectoria->fecha_baja != null && $trajectoria->puesto != null
+            && $trajectoria->sueldo != null && $trajectoria->domicilio_empresa != null){
+                PostulantTrajectory::create([
+                    'postulante_id'=> $postulante->id,
+                    'empresa'=> $trajectoria['empresa'],
+                    'fecha_ingreso'=> $trajectoria['fecha_ingreso'],
+                    'fecha_baja'=> $trajectoria['fecha_baja'],
+                    'puesto'=> $trajectoria['puesto'],
+                    'sueldo'=> $trajectoria['sueldo'],
+                    'select_carta'=> $trajectoria['select_carta'],
+                    'select_constancia'=> $trajectoria['select_constancia'],
+                    'motivo_salida'=> $trajectoria['motivo_salida'],
+                    'otro_motivo_salida'=> $trajectoria['otro_motivo_salida'],
+                    'domicilio_empresa'=> $trajectoria['domicilio_empresa'],
+                    'jefe'=> $trajectoria['jefe'],
+                    'puesto_jefe'=> $trajectoria['puesto_jefe'],
+                    'telefono_jefe'=> $trajectoria['telefono_jefe']
+                ]);
+            }
         }
-       
+
         $pdf = base64_encode($this->solicitudPDF($postulante->id));
 
-        // $array = json_decode($data, true);
         return $this->sendResponse(['postulante' => $postulante, 'pdf' => $pdf], 'Datos del postulante', 200);
        // return redirect()->route('postulant.solicitud')->with('success', 'Datos guardados correctamente.');
     }
@@ -290,16 +295,9 @@ class PostulanteController extends Controller
                 $query->select('id', 'sucursal');
             }])->with(['empleado'=> function ($query){
                 $query->select('id', 'nombre','apellido_paterno','apellido_materno');
-            }])->with(['familiares'=> function ($query){
-                $query->select('id', 'nombre','ocupacion','parentesco','edad','domicilio','telefono','vive');
-            }])->with(['referencias'=> function ($query){
-                $query->select('id', 'nombre','ocupacion','edad','domicilio','telefono');
-            }])->with(['trayectoria'=> function ($query){
-                $query->select('*');
             }]);
         }])->find($id);
         $pdf = PDF::loadView('components.reclutamiento.postulant.solicitud', compact('datos'));
         return $pdf->stream($datos->nombre);
-            // return $pdf->download('solicitud_empleo.pdf');
     }
 }
