@@ -20,7 +20,10 @@ class RhPostulantTrajectory extends Migration
             $table->date('fecha_ingreso');
             $table->date('fecha_baja');
             $table->string('puesto');
-            $table->string('sueldo');
+            $table->string('sueldo_inicial');
+            $table->string('sueldo_final');
+            $table->enum('dias_cobro',['proyecto','mensual','quincenal','semanal','diario']);
+            $table->enum('pedir_referencia',['si','no']);
             $table->enum('select_carta',['si','no']);
             $table->enum('select_constancia',['si','no']);
             $table->enum('motivo_salida',['renuncia','termino_contrato','renudacion_estudios','horarios','salario','problemas_salud','otros']);

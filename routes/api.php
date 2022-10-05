@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\API\LoginController;
+use App\Http\Controllers\API\EstadosController;
 use App\Http\Controllers\API\StudiesController;
 use App\Http\Controllers\API\TrainigController;
 use App\Http\Controllers\API\WebinarController;
@@ -42,7 +43,7 @@ Route::group(['prefix' => 'postulante'], function () {
 });
 
 Route::group(['prefix' => 'estados'], function () {
-    Route::get('/{id}', [VacantesController::class, 'index']);
+    Route::get('/', [EstadosController::class, 'index']);
 });
 // ********************************************************************************
 

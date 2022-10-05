@@ -132,6 +132,12 @@
                     </table>
                 </td>
             </tr>
+            <tr class="relleno">
+                <th colspan="2">Estado civil</th>
+            </tr>
+            <tr>
+                <td colspan="2">{{ strtoupper($datos->estado_civil) }}</td>
+            </tr>
         </table>
 
         <table class="tablaBody" border="1">

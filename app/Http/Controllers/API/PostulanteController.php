@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Reclutamiento\Vacant;
 use App\Models\Reclutamiento\Postulant;
 use App\Models\Reclutamiento\PostulantFamily;
+use App\Models\Reclutamiento\PostulantLicence;
 use App\Models\Reclutamiento\PostulantReference;
 use App\Models\Reclutamiento\PostulantTrajectory;
 
@@ -42,6 +43,8 @@ class PostulanteController extends Controller
 
     public function guardar(Request $request)
     {
+
+        // return $request->all()
         $this->validate($request, [
             'vacante_id' => 'required',
             'puesto_id' => 'required',
@@ -85,6 +88,7 @@ class PostulanteController extends Controller
             'maquinas_software'=> 'required',
             'otros_oficios'=> 'required',
             'datos_manejo'=> 'required',
+            'gasto_mensual'=> 'required',
         ]);
         if($request->titulo == 'si'){
             $this->validate($request, [
@@ -227,8 +231,16 @@ class PostulanteController extends Controller
             'modelo'=> $request->modelo,
             'deudas'=> $request->deudas,
             'importe_deuda'=> $request->importe_deuda,
-            'abono_mensual'=> $request->abono_mensual
+            'abono_mensual'=> $request->abono_mensual,
+            'gasto_mensual'=> $request->gasto_mensual
         ]);
+
+        foreach ($request->referencia_familiar as $familiar) {
+            PostulantLicence::create([
+                'postulante_id'=> $postulante->id,
+                'tipo_licencia'=> $familiar['tipo_licencia'],
+            ]);
+        }
 
         if($request->referencia_familiar > 0 ){
             foreach ($request->referencia_familiar as $familiar) {
@@ -240,7 +252,8 @@ class PostulanteController extends Controller
                     'edad'=> $familiar['edad_familiares'],
                     'telefono'=> $familiar['telefono_familiares'],
                     'domicilio'=> $familiar['domicilio_familiares'],
-                    // 'vive'=> $familiar['vive_familiar']
+                    'vive'=> $familiar['vive_familiar'],
+                    'depende'=> $familiar['depende_familiares'],
                 ]);
             }
         }
@@ -267,7 +280,10 @@ class PostulanteController extends Controller
                     'fecha_ingreso'=> $trajectoria['fecha_ingreso'],
                     'fecha_baja'=> $trajectoria['fecha_baja'],
                     'puesto'=> $trajectoria['puesto'],
-                    'sueldo'=> $trajectoria['sueldo'],
+                    'sueldo_inicial'=> $trajectoria['sueldo_inicial'],
+                    'sueldo_final'=> $trajectoria['sueldo_final'],
+                    'dias_cobro'=> $trajectoria['dias_cobro'],
+                    'pedir_referencia'=> $trajectoria['pedir_referencia'],
                     'select_carta'=> $trajectoria['select_carta'],
                     'select_constancia'=> $trajectoria['select_constancia'],
                     'motivo_salida'=> $trajectoria['motivo_salida'],
@@ -283,7 +299,6 @@ class PostulanteController extends Controller
         $pdf = base64_encode($this->solicitudPDF($postulante->id));
 
         return $this->sendResponse(['postulante' => $postulante, 'pdf' => $pdf], 'Datos del postulante', 200);
-       // return redirect()->route('postulant.solicitud')->with('success', 'Datos guardados correctamente.');
     }
 
     public function solicitudPDF($id)

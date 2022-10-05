@@ -496,7 +496,7 @@
     <div class="col-xl-12 col-md-12 col-12">
       <fieldset class="form-group">
           <label for="domicilio">Dirección <i style="color: red">*</i></label>
-          <textarea class="form-control @error('domicilio') is-invalid @enderror" id="domicilio" name="domicilio">{{ isset($datos) ? $datos->domicilio : '' }}</textarea>
+          <textarea class="form-control @error('domicilio') is-invalid @enderror" id="domicilio" name="domicilio">{{ isset($datos) ? $familiar->domicilio : '' }}</textarea>
           @error('domicilio')
           <span class="invalid-feedback" role="alert">
               <strong>{{ $message }}</strong>
@@ -507,6 +507,314 @@
   
   @endforeach
   
+  <div class="col-xl-12 col-md-12 col-12">
+    <div class="divider divider-left  divider-success">
+        <div class="divider-text">Datos Escolares</div>
+    </div>
+  </div>
+
+  <div class="col-4 mb-1">
+    <fieldset class="form-group">
+        <label for="ultimo_grado_estudios">Último Grado de Estudios</label>
+        <input type="text" id="ultimo_grado_estudios" value="{{ old('ultimo_grado_estudios', isset($datos) ? $datos->ultimo_grado_estudios : '') }}" class="form-control @error('ultimo_grado_estudios') is-invalid @enderror" name="ultimo_grado_estudios">
+        @error('ultimo_grado_estudios')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
+    </fieldset>
+  </div>
+
+  <div class="col-4 mb-1">
+    <fieldset class="form-group">
+        <label for="institucion">Institución </label>
+        <input type="text" id="institucion" value="{{ old('institucion', isset($datos) ? $datos->institucion : '') }}" class="form-control @error('institucion') is-invalid @enderror" name="institucion">
+        @error('institucion')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
+    </fieldset>
+  </div>
+
+  <div class="col-4 mb-1">
+    <fieldset class="form-group">
+        <label for="especialidad">Especialidad </label>
+        <input type="text" id="especialidad" value="{{ old('especialidad', isset($datos) ? $datos->especialidad : '') }}" class="form-control @error('especialidad') is-invalid @enderror" name="especialidad">
+        @error('especialidad')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
+    </fieldset>
+  </div>
+
+  <div class="col-4 mb-1">
+    <fieldset class="form-group">
+        <label for="certificado">Certificado </label>
+        <select class="form-control"  class="form-control" name="certificado" id="certificado">
+          <option {{isset($datos) ? $datos->certificado == 'si' ? 'selected' : '' : ''}}>Si</option>
+          <option {{isset($datos) ? $datos->certificado == 'no' ? 'selected' : '' : ''}}>No</option>
+        </select>
+        @error('certificado')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
+    </fieldset>
+  </div>
+
+  <div class="col-4 mb-1">
+    <fieldset class="form-group">
+        <label for="titulo">Título </label>
+        <select class="form-control"  class="form-control" name="titulo" id="titulo" onclick="activarEscolaridad(this)">
+          <option {{isset($datos) ? $datos->titulo == 'si' ? 'selected' : '' : ''}}>Si</option>
+          <option {{isset($datos) ? $datos->titulo == 'no' ? 'selected' : '' : ''}}>No</option>
+        </select>
+        @error('titulo')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
+    </fieldset>
+  </div>
+
+  <div class="col-4 mb-1" id="campoEscolarCedula" style="display:none">
+    <fieldset class="form-group">
+        <label for="cedula">Cédula </label>
+        <select class="form-control"  class="form-control" name="cedula" id="cedula">
+          <option {{isset($datos) ? $datos->cedula == 'si' ? 'selected' : '' : ''}}>Si</option>
+          <option {{isset($datos) ? $datos->cedula == 'no' ? 'selected' : '' : ''}}>No</option>
+        </select>
+        @error('cedula')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
+    </fieldset>
+  </div>
+
+  <div class="col-4 mb-1" id="campoEscolarTrunco" style="display:none">
+    <fieldset class="form-group">
+        <label for="trunco">Trunco </label>
+        <select class="form-control"  class="form-control" name="trunco" id="trunco">
+          <option {{isset($datos) ? $datos->trunco == 'si' ? 'selected' : '' : ''}}>Si</option>
+          <option {{isset($datos) ? $datos->trunco == 'no' ? 'selected' : '' : ''}}>No</option>
+        </select>
+        @error('trunco')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
+    </fieldset>
+  </div>
+
+  <div class="col-4 mb-1">
+    <fieldset class="form-group">
+        <label for="estudia_actualmente">Estudias Actualmente </label>
+        <select class="form-control"  class="form-control" name="estudia_actualmente" id="estudia_actualmente" onclick="activarEscolaridad(this)">
+          <option {{isset($datos) ? $datos->estudia_actualmente == 'si' ? 'selected' : '' : ''}}>Si</option>
+          <option {{isset($datos) ? $datos->estudia_actualmente == 'no' ? 'selected' : '' : ''}}>No</option>
+        </select>
+        @error('estudia_actualmente')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
+    </fieldset>
+  </div>
+
+  <div class="col-4 mb-1" id="campoInstitucion" style="display: none;">
+    <fieldset class="form-group">
+        <label for="institucion_actual">Institución Actual </label>
+        <input type="text" id="institucion_actual" value="{{ old('institucion_actual', isset($datos) ? $datos->institucion_actual : '') }}" class="form-control @error('institucion_actual') is-invalid @enderror" name="institucion_actual">
+        @error('institucion_actual')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
+    </fieldset>
+  </div>
+
+  <div class="col-4 mb-1" id="campoCarrera" style="display: none;">
+    <fieldset class="form-group">
+        <label for="carrera_actual">Carrera </label>
+        <input type="text" id="carrera_actual" value="{{ old('carrera_actual', isset($datos) ? $datos->carrera_actual : '') }}" class="form-control @error('carrera_actual') is-invalid @enderror" name="carrera_actual">
+        @error('carrera_actual')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
+    </fieldset>
+  </div>
+
+  <div class="col-4 mb-1" id="campoSemestre" style="display: none;">
+    <fieldset class="form-group">
+        <label for="semestre_actual">Semestre </label>
+        <input type="text" id="semestre_actual" value="{{ old('semestre_actual', isset($datos) ? $datos->semestre_actual : '') }}" class="form-control @error('semestre_actual') is-invalid @enderror" name="semestre_actual">
+        @error('semestre_actual')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
+    </fieldset>
+  </div>
+
+  <div class="col-4 mb-1" id="campoHorario" style="display: none;">
+    <fieldset class="form-group">
+        <label for="horario_actual">Horario </label>
+        <input type="text" id="horario_actual" value="{{ old('horario_actual', isset($datos) ? $datos->horario_actual : '') }}" class="form-control @error('horario_actual') is-invalid @enderror" name="horario_actual">
+        @error('horario_actual')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
+    </fieldset>
+  </div>
+
+  <div class="col-xl-12 col-md-12 col-12">
+    <div class="divider divider-left  divider-success">
+        <div class="divider-text">Conocimientos Generales</div>
+    </div>
+  </div>
+
+  <div class="col-4 mb-1">
+    <fieldset class="form-group">
+        <label for="maquina_software">Lenguaje que Dominas </label>
+        <input type="text" id="idiomas" value="{{ old('idiomas', isset($datos) ? $datos->idiomas : '') }}" class="form-control @error('idiomas') is-invalid @enderror" name="idiomas">
+        @error('idiomas')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
+    </fieldset>
+  </div>
+
+  <div class="col-4 mb-1">
+    <fieldset class="form-group">
+        <label for="maquina_software">Maquina o Software de Oficina que dominas </label>
+        <textarea class="form-control @error('maquina_software') is-invalid @enderror" id="maquina_software" name="maquina_software">{{ isset($datos) ? $datos->maquina_software : '' }}</textarea>
+        @error('maquina_software')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
+    </fieldset>
+  </div>
+
+  <div class="col-4 mb-1">
+    <fieldset class="form-group">
+        <label for="oficios_domines">Otros Trabajos o Oficios que Domines </label>
+        <textarea class="form-control @error('oficios_domines') is-invalid @enderror" id="oficios_domines" name="oficios_domines">{{ isset($datos) ? $datos->oficios_domines : '' }}</textarea>
+        @error('oficios_domines')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
+    </fieldset>
+  </div>
+
+  <div class="col-4 mb-1">
+    <fieldset class="form-group">
+        <label for="datos_manejo">En caso de saber conducir, Indique el tipo de unidad que ha manejado </label>
+        <textarea class="form-control @error('datos_manejo') is-invalid @enderror" id="datos_manejo" name="datos_manejo">{{ isset($datos) ? $datos->datos_manejo : '' }}</textarea>
+        @error('datos_manejo')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
+    </fieldset>
+  </div>
+
+  <div class="col-xl-12 col-md-12 col-12">
+    <div class="divider divider-left  divider-success">
+        <div class="divider-text">Referencias Personales</div>
+    </div>
+  </div>
+
+  @foreach ($datos->referencias as $referencia)
+    <div class="col-4 mb-1">
+      <fieldset class="form-group">
+          <label for="nombre">Nombre Completo</label>
+          <input type="hidden" value="{{$referencia->id}}" id="familiar_id">
+          <input type="text" id="nombre" value="{{ old('nombre', isset($datos) ? $referencia->nombre : '') }}" class="form-control @error('nombre') is-invalid @enderror" name="nombre">
+          @error('nombre')
+          <span class="invalid-feedback" role="alert">
+              <strong>{{ $message }}</strong>
+          </span>
+          @enderror
+      </fieldset>
+    </div>
+
+    <div class="col-4 mb-1">
+      <fieldset class="form-group">
+          <label for="ocupacion">Ocupación</label>
+          <input type="text" id="ocupacion" value="{{ old('ocupacion', isset($datos) ? $referencia->ocupacion : '') }}" class="form-control @error('ocupacion') is-invalid @enderror" name="ocupacion">
+          @error('ocupacion')
+          <span class="invalid-feedback" role="alert">
+              <strong>{{ $message }}</strong>
+          </span>
+          @enderror
+      </fieldset>
+    </div>
+    <div class="col-4 mb-1">
+      <fieldset class="form-group">
+          <label for="edad">Edad</label>
+          <input type="text" id="edad" value="{{ old('edad', isset($datos) ? $referencia->edad : '') }}" class="form-control @error('edad') is-invalid @enderror" name="edad">
+          @error('edad')
+          <span class="invalid-feedback" role="alert">
+              <strong>{{ $message }}</strong>
+          </span>
+          @enderror
+      </fieldset>
+    </div>
+    <div class="col-4 mb-1">
+      <fieldset class="form-group">
+          <label for="telefono">Teléfono</label>
+          <input type="text" id="telefono" value="{{ old('telefono', isset($datos) ? $referencia->telefono : '') }}" class="form-control @error('telefono') is-invalid @enderror" name="telefono">
+          @error('telefono')
+          <span class="invalid-feedback" role="alert">
+              <strong>{{ $message }}</strong>
+          </span>
+          @enderror
+      </fieldset>
+    </div>
+    <div class="col-xl-8 col-md-12 col-12">
+      <fieldset class="form-group">
+          <label for="domicilio">Dirección <i style="color: red">*</i></label>
+          <textarea class="form-control @error('domicilio') is-invalid @enderror" id="domicilio" name="domicilio">{{ isset($datos) ? $referencia->domicilio : '' }}</textarea>
+          @error('domicilio')
+          <span class="invalid-feedback" role="alert">
+              <strong>{{ $message }}</strong>
+          </span>
+          @enderror
+      </fieldset>
+    </div>
+  @endforeach
+
+  <div class="col-xl-12 col-md-12 col-12">
+    <div class="divider divider-left  divider-success">
+        <div class="divider-text">Trayectoria Laboral</div>
+    </div>
+  </div>
+
+  <div class="col-xl-12 col-md-12 col-12">
+    <div class="divider divider-left  divider-success">
+        <div class="divider-text">Datos Generales</div>
+    </div>
+  </div>
+
+  <div class="col-xl-12 col-md-12 col-12">
+    <div class="divider divider-left  divider-success">
+        <div class="divider-text">Datos Económicos</div>
+    </div>
+  </div>
+
+  <div class="col-xl-12 col-md-12 col-12">
+    <div class="divider divider-left  divider-success">
+        <div class="divider-text">Documentos</div>
+    </div>
+  </div>
 
   <div class="col-xl-12 col-md-12 col-12">
       <a href="{{ route('postulant.index') }}" class="btn btn-outline-warning"><i data-feather="slash"></i> Cancelar</a>

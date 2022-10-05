@@ -23,6 +23,7 @@ class RhPostulantFamily extends Migration
             $table->string('telefono');
             $table->string('domicilio');
             $table->enum('vive',['si','no']);
+            $table->enum('depende',['si','no']);
             $table->timestamps();
 
             $table->foreign('postulante_id')->references('id')->on('rh_postulante');

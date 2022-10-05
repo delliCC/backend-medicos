@@ -94,6 +94,7 @@ class RhPostulante extends Migration
             $table->enum('deudas',['si','no'])->default('no');
             $table->string('importe_deuda')->nullable();
             $table->string('abono_mensual')->nullable();
+            $table->string('gasto_mensual')->nullable();
 
             $table->enum('estado_postulante',['postulante','seleccionado','cartera'])->default('postulante');
             $table->boolean('status')->default(true);

@@ -5,6 +5,8 @@ namespace App\Models\Reclutamiento;
 use App\Models\Reclutamiento\Vacant;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Reclutamiento\PostulantFamily;
+use App\Models\Reclutamiento\PostulantLicence;
+use App\Models\Reclutamiento\PostulantDocument;
 use App\Models\Reclutamiento\PostulantReference;
 use App\Models\Reclutamiento\PostulantTrajectory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -95,6 +97,7 @@ class Postulant extends Model
         'deudas',
         'importe_deuda',
         'abono_mensual',
+        'gasto_mensual',
 
         'estado_postulante',
         'status'
@@ -119,4 +122,15 @@ class Postulant extends Model
     {
         return $this->hasMany(PostulantTrajectory::class, 'postulante_id','id');
     }
+
+    public function documentos()
+    {
+        return $this->hasMany(PostulantDocument::class, 'postulante_id','id');
+    }
+
+    public function licencia()
+    {
+        return $this->hasMany(PostulantLicence::class, 'postulante_id','id');
+    }
+
 }

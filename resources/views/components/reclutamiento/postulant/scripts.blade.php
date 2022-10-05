@@ -134,6 +134,35 @@
           });
       }
 
+      function activarEscolaridad(){
+        var tituloSelected = document.getElementById("titulo").value;
+
+        console.log(tituloSelected)
+        if(tituloSelected =="si"){
+            document.getElementById("campoEscolarCedula").style.display = "block";
+            document.getElementById("campoEscolarTrunco").style.display = "none";
+        }else{
+            document.getElementById("campoEscolarCedula").style.display = "none";
+            document.getElementById("campoEscolarTrunco").style.display = "block";
+        }
+        // --------------------Estudios actuales----------------------------------
+
+        var estudioSelected = document.getElementById("estudia_actualmente").value;
+
+        if(estudioSelected =="si"){
+            document.getElementById("campoInstitucion").style.display = "block";
+            document.getElementById("campoCarrera").style.display = "block";
+            document.getElementById("campoSemestre").style.display = "block";
+            document.getElementById("campoHorario").style.display = "block";
+        }else{
+            document.getElementById("campoInstitucion").style.display = "none";
+            document.getElementById("campoCarrera").style.display = "none";
+            document.getElementById("campoSemestre").style.display = "none";
+            document.getElementById("campoHorario").style.display = "none";
+        }
+        
+      }
+
       function changeStatus(event, id){
         event.preventDefault();
         let checked = event.target.checked
