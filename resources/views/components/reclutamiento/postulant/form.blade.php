@@ -578,6 +578,10 @@
         @enderror
     </fieldset>
   </div>
+{{--  
+  @if ($datos->titulo == 'no')
+      
+  @endif  --}}
 
   <div class="col-4 mb-1" id="campoEscolarCedula" style="display:none">
     <fieldset class="form-group">
@@ -593,6 +597,7 @@
         @enderror
     </fieldset>
   </div>
+
 
   <div class="col-4 mb-1" id="campoEscolarTrunco" style="display:none">
     <fieldset class="form-group">
@@ -612,7 +617,7 @@
   <div class="col-4 mb-1">
     <fieldset class="form-group">
         <label for="estudia_actualmente">Estudias Actualmente </label>
-        <select class="form-control"  class="form-control" name="estudia_actualmente" id="estudia_actualmente" onclick="activarEscolaridad(this)">
+        <select class="form-control"  class="form-control" name="estudia_actualmente" id="estudia_actualmente" onchange="activarEstudios(this)">
           <option {{isset($datos) ? $datos->estudia_actualmente == 'si' ? 'selected' : '' : ''}}>Si</option>
           <option {{isset($datos) ? $datos->estudia_actualmente == 'no' ? 'selected' : '' : ''}}>No</option>
         </select>
@@ -797,11 +802,474 @@
         <div class="divider-text">Trayectoria Laboral</div>
     </div>
   </div>
+  @foreach ($datos->trayectoria as $laboral)
+    <div class="col-4 mb-1">
+      <fieldset class="form-group">
+          <label for="empresa">Empresa</label>
+          <input type="text" id="empresa" value="{{ old('empresa', isset($datos) ? $laboral->empresa : '') }}" class="form-control @error('empresa') is-invalid @enderror" name="empresa">
+          @error('empresa')
+          <span class="invalid-feedback" role="alert">
+              <strong>{{ $message }}</strong>
+          </span>
+          @enderror
+      </fieldset>
+    </div>
+
+    <div class="col-4 mb-1">
+      <fieldset class="form-group">
+        <label for="fecha_ingreso">Fecha de Ingreso</label>
+          <input type="date" id="fecha_ingreso" value="{{ old('fecha_ingreso', isset($datos) ? $laboral->fecha_ingreso : '') }}" class="form-control @error('fecha_ingreso') is-invalid @enderror" name="fecha_ingreso">
+          @error('fecha_ingreso')
+          <span class="invalid-feedback" role="alert">
+              <strong>{{ $message }}</strong>
+          </span>
+          @enderror
+      </fieldset>
+    </div>
+    <div class="col-4 mb-1">
+      <fieldset class="form-group">
+        <label for="fecha_baja">Fecha de Baja</label>
+          <input type="date" id="fecha_baja" value="{{ old('fecha_baja', isset($datos) ? $laboral->fecha_baja : '') }}" class="form-control @error('fecha_baja') is-invalid @enderror" name="fecha_baja">
+          @error('fecha_baja')
+          <span class="invalid-feedback" role="alert">
+              <strong>{{ $message }}</strong>
+          </span>
+          @enderror
+      </fieldset>
+    </div>
+    <div class="col-4 mb-1">
+      <fieldset class="form-group">
+          <label for="puesto">Puesto</label>
+          <input type="text" id="puesto" value="{{ old('puesto', isset($datos) ? $laboral->puesto : '') }}" class="form-control @error('puesto') is-invalid @enderror" name="puesto">
+          @error('puesto')
+          <span class="invalid-feedback" role="alert">
+              <strong>{{ $message }}</strong>
+          </span>
+          @enderror
+      </fieldset>
+    </div>
+
+    <div class="col-4 mb-1">
+      <fieldset class="form-group">
+          <label for="sueldo_inicial">Sueldo Inicial</label>
+          <input type="text" id="sueldo_inicial" value="{{ old('sueldo_inicial', isset($datos) ? $laboral->sueldo_inicial : '') }}" class="form-control @error('sueldo_inicial') is-invalid @enderror" name="sueldo_inicial">
+          @error('sueldo_inicial')
+          <span class="invalid-feedback" role="alert">
+              <strong>{{ $message }}</strong>
+          </span>
+          @enderror
+      </fieldset>
+    </div>
+
+    <div class="col-4 mb-1">
+      <fieldset class="form-group">
+          <label for="sueldo_final">Sueldo Final</label>
+          <input type="text" id="sueldo_final" value="{{ old('sueldo_final', isset($datos) ? $laboral->sueldo_final : '') }}" class="form-control @error('sueldo_final') is-invalid @enderror" name="sueldo_final">
+          @error('sueldo_final')
+          <span class="invalid-feedback" role="alert">
+              <strong>{{ $message }}</strong>
+          </span>
+          @enderror
+      </fieldset>
+    </div>
+
+    <div class="col-4 mb-1">
+      <fieldset class="form-group">
+          <label for="dias_cobro">Días de cobro</label>
+          <input type="text" id="dias_cobro" value="{{ old('dias_cobro', isset($datos) ? $laboral->dias_cobro : '') }}" class="form-control @error('dias_cobro') is-invalid @enderror" name="dias_cobro">
+          @error('dias_cobro')
+          <span class="invalid-feedback" role="alert">
+              <strong>{{ $message }}</strong>
+          </span>
+          @enderror
+      </fieldset>
+    </div>
+    <div class="col-4 mb-1">
+      <fieldset class="form-group">
+          <label for="pedir_referencia">¿Podemos pedir referencias? </label>
+          <select class="form-control"  class="form-control" name="pedir_referencia" id="pedir_referencia">
+            <option {{isset($datos) ? $laboral->pedir_referencia == 'si' ? 'selected' : '' : ''}}>Si</option>
+            <option {{isset($datos) ? $laboral->pedir_referencia == 'no' ? 'selected' : '' : ''}}>No</option>
+          </select>
+          @error('pedir_referencia')
+          <span class="invalid-feedback" role="alert">
+              <strong>{{ $message }}</strong>
+          </span>
+          @enderror
+      </fieldset>
+    </div>
+
+    <div class="col-4">
+      <fieldset class="form-group">
+          <label for="select_carta">Carta de recomendación</label>
+          <select class="form-control"  class="form-control" name="select_carta" id="select_carta">
+            <option {{isset($datos) ? $laboral->select_carta == 'si' ? 'selected' : '' : ''}}>Si</option>
+            <option {{isset($datos) ? $laboral->select_carta == 'no' ? 'selected' : '' : ''}}>No</option>
+          </select>
+          @error('select_carta')
+          <span class="invalid-feedback" role="alert">
+              <strong>{{ $message }}</strong>
+          </span>
+          @enderror
+      </fieldset>
+    </div>
+
+    <div class="col-4">
+      <fieldset class="form-group">
+          <label for="select_constancia">Constancia de Laboral </label>
+          <select class="form-control"  class="form-control" name="select_constancia" id="select_constancia">
+            <option {{isset($datos) ? $laboral->select_constancia == 'si' ? 'selected' : '' : ''}}>Si</option>
+            <option {{isset($datos) ? $laboral->select_constancia == 'no' ? 'selected' : '' : ''}}>No</option>
+          </select>
+          @error('select_constancia')
+          <span class="invalid-feedback" role="alert">
+              <strong>{{ $message }}</strong>
+          </span>
+          @enderror
+      </fieldset>
+    </div>
+
+    <div class="col-4">
+      <fieldset class="form-group">
+          <label for="motivo_salida">Motivo de Salida </label>
+          <select class="form-control"  class="form-control" name="motivo_salida" id="motivo_salida"
+            onchange="activarMotivoSalida()">
+            <option {{isset($datos) ? $laboral->renuncia == 'renuncia' ? 'selected' : '' : ''}}>Renuncia Voluntaria</option>
+            <option {{isset($datos) ? $laboral->renudacion_estudios == 'renudacion_estudios' ? 'selected' : '' : ''}}>Reanudación de  estudios</option>
+            <option {{isset($datos) ? $laboral->horarios == 'horarios' ? 'selected' : '' : ''}}>Horarios</option>
+            <option {{isset($datos) ? $laboral->salario == 'salario' ? 'selected' : '' : ''}}>Salario</option>
+            <option {{isset($datos) ? $laboral->problemas_salud == 'problemas_salud' ? 'selected' : '' : ''}}>Problemas de Salud</option>
+            <option {{isset($datos) ? $laboral->otros == 'otros' ? 'selected' : '' : ''}}>Otros</option>
+          </select>
+          @error('motivo_salida')
+          <span class="invalid-feedback" role="alert">
+              <strong>{{ $message }}</strong>
+          </span>
+          @enderror
+      </fieldset>
+    </div>
+
+    <div class="col-xl-8 col-md-4 col-12" id="campoMotivoCual" style="display:none">
+      <fieldset class="form-group">
+          <label for="otro_motivo_salida">Cuál <i style="color: red">*</i></label>
+          <textarea class="form-control @error('otro_motivo_salida') is-invalid @enderror" id="otro_motivo_salida" name="otro_motivo_salida">{{ isset($datos) ? $laboral->otro_motivo_salida : '' }}</textarea>
+          @error('otro_motivo_salida')
+          <span class="invalid-feedback" role="alert">
+              <strong>{{ $message }}</strong>
+          </span>
+          @enderror
+      </fieldset>
+    </div>
+
+    <div class="col-xl-12 col-md-12 col-12">
+      <fieldset class="form-group">
+          <label for="domicilio_empresa">Domicilio <i style="color: red">*</i></label>
+          <textarea class="form-control @error('domicilio_empresa') is-invalid @enderror" id="domicilio_empresa" name="domicilio_empresa">{{ isset($datos) ? $laboral->domicilio_empresa : '' }}</textarea>
+          @error('domicilio_empresa')
+          <span class="invalid-feedback" role="alert">
+              <strong>{{ $message }}</strong>
+          </span>
+          @enderror
+      </fieldset>
+    </div>
+
+    <div class="col-4 mb-1">
+      <fieldset class="form-group">
+          <label for="jefe">Nombre completo del Jefe Inmediato </label>
+          <input type="text" id="jefe" value="{{ old('jefe', isset($datos) ? $laboral->jefe : '') }}" class="form-control @error('jefe') is-invalid @enderror" name="jefe">
+          @error('jefe')
+          <span class="invalid-feedback" role="alert">
+              <strong>{{ $message }}</strong>
+          </span>
+          @enderror
+      </fieldset>
+    </div>
+
+    <div class="col-4 mb-1">
+      <fieldset class="form-group">
+          <label for="puesto_jefe">Puesto </label>
+          <input type="text" id="puesto_jefe" value="{{ old('puesto_jefe', isset($datos) ? $laboral->puesto_jefe : '') }}" class="form-control @error('puesto_jefe') is-invalid @enderror" name="puesto_jefe">
+          @error('puesto_jefe')
+          <span class="invalid-feedback" role="alert">
+              <strong>{{ $message }}</strong>
+          </span>
+          @enderror
+      </fieldset>
+    </div>
+
+    <div class="col-4 mb-1">
+      <fieldset class="form-group">
+          <label for="telefono_jefe">Teléfono </label>
+          <input type="text" id="telefono_jefe" value="{{ old('telefono_jefe', isset($datos) ? $laboral->telefono_jefe : '') }}" class="form-control @error('telefono_jefe') is-invalid @enderror" name="telefono_jefe">
+          @error('telefono_jefe')
+          <span class="invalid-feedback" role="alert">
+              <strong>{{ $message }}</strong>
+          </span>
+          @enderror
+      </fieldset>
+    </div>
+  @endforeach
 
   <div class="col-xl-12 col-md-12 col-12">
     <div class="divider divider-left  divider-success">
         <div class="divider-text">Datos Generales</div>
     </div>
+  </div>
+
+  <div class="col-4">
+    <fieldset class="form-group">
+        <label for="como_entero">¿Como se entero de la oferta del empleo?  </label>
+        <select class="form-control"  class="form-control" name="como_entero" id="como_entero">
+          <option {{isset($datos) ? $datos->como_entero == 'internet' ? 'selected' : '' : ''}}>Internet</option>
+          <option {{isset($datos) ? $datos->como_entero == 'publicidad' ? 'selected' : '' : ''}}>Publicidad</option>
+          <option {{isset($datos) ? $datos->como_entero == 'perifoneo' ? 'selected' : '' : ''}}>Perifoneo</option>
+          <option {{isset($datos) ? $datos->como_entero == 'estatal_empleo' ? 'selected' : '' : ''}}>Estatal del Empleo</option>
+          <option {{isset($datos) ? $datos->como_entero == 'periodico' ? 'selected' : '' : ''}}>Periodico</option>
+          <option {{isset($datos) ? $datos->como_entero == 'redes_sociales' ? 'selected' : '' : ''}}>Redes Sociales</option>
+          <option {{isset($datos) ? $datos->como_entero == 'lonas' ? 'selected' : '' : ''}}>Lonas</option>
+          <option {{isset($datos) ? $datos->como_entero == 'feria_empleo' ? 'selected' : '' : ''}}>Feria del Empleo</option>
+          <option {{isset($datos) ? $datos->como_entero == 'universidad' ? 'selected' : '' : ''}}>Universidad</option>
+          <option {{isset($datos) ? $datos->como_entero == 'volantes' ? 'selected' : '' : ''}}>Volantes</option>
+          <option {{isset($datos) ? $datos->como_entero == 'contacto' ? 'selected' : '' : ''}}>Contactos</option>
+          <option {{isset($datos) ? $datos->como_entero == 'otros' ? 'selected' : '' : ''}}>Otros</option>
+        </select>
+        @error('como_entero')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
+    </fieldset>
+  </div>
+
+  <div class="col-4 mb-1">
+    <fieldset class="form-group">
+        <label for="otros_entero">Otros </label>
+        <input type="text" id="otros_entero" value="{{ old('otros_entero', isset($datos) ? $datos->otros_entero : '') }}" class="form-control @error('otros_entero') is-invalid @enderror" name="otros_entero">
+        @error('otros_entero')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
+    </fieldset>
+  </div>
+
+  <div class="col-4">
+    <fieldset class="form-group">
+        <label for="select_constancia">¿Tiene Parientes trabajando en esta empresa? </label>
+        <select class="form-control"  class="form-control" name="select_constancia" id="select_constancia">
+          <option {{isset($datos) ? $datos->select_constancia == 'si' ? 'selected' : '' : ''}}>Si</option>
+          <option {{isset($datos) ? $datos->select_constancia == 'no' ? 'selected' : '' : ''}}>No</option>
+        </select>
+        @error('select_constancia')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
+    </fieldset>
+  </div>
+
+  <div class="col-4 mb-1">
+    <fieldset class="form-group">
+        <label for="otros_entero">Otros</label>
+        <input type="text" id="otros_entero" value="{{ old('otros_entero', isset($datos) ? $datos->otros_entero : '') }}" class="form-control @error('otros_entero') is-invalid @enderror" name="otros_entero">
+        @error('otros_entero')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
+    </fieldset>
+  </div>
+
+  <div class="col-4">
+    <fieldset class="form-group">
+        <label for="parientes">¿Tiene Parientes trabajando en esta empresa? </label>
+        <select class="form-control"  class="form-control" name="parientes" id="parientes">
+          <option {{isset($datos) ? $datos->parientes == 'si' ? 'selected' : '' : ''}}>Si</option>
+          <option {{isset($datos) ? $datos->parientes == 'no' ? 'selected' : '' : ''}}>No</option>
+        </select>
+        @error('parientes')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
+    </fieldset>
+  </div>
+
+  <div class="col-4 mb-1">
+    <fieldset class="form-group">
+        <label for="parientes_nombre">Nombre completo del pariente</label>
+        <input type="text" id="parientes_nombre" value="{{ old('parientes_nombre', isset($datos) ? $datos->parientes_nombre : '') }}" class="form-control @error('parientes_nombre') is-invalid @enderror" name="parientes_nombre">
+        @error('parientes_nombre')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
+    </fieldset>
+  </div>
+
+  <div class="col-4">
+    <fieldset class="form-group">
+        <label for="afianzado">¿Ha estado afianzado? </label>
+        <select class="form-control"  class="form-control" name="afianzado" id="afianzado">
+          <option {{isset($datos) ? $datos->afianzado == 'si' ? 'selected' : '' : ''}}>Si</option>
+          <option {{isset($datos) ? $datos->afianzado == 'no' ? 'selected' : '' : ''}}>No</option>
+        </select>
+        @error('afianzado')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
+    </fieldset>
+  </div>
+
+  <div class="col-4 mb-1">
+    <fieldset class="form-group">
+        <label for="nombre_cia">Nombre de la CIA</label>
+        <input type="text" id="nombre_cia" value="{{ old('nombre_cia', isset($datos) ? $datos->nombre_cia : '') }}" class="form-control @error('nombre_cia') is-invalid @enderror" name="nombre_cia">
+        @error('nombre_cia')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
+    </fieldset>
+  </div>
+
+  <div class="col-4">
+    <fieldset class="form-group">
+        <label for="sindicato">¿Ha estado afiliado en algún sindicato?</label>
+        <select class="form-control"  class="form-control" name="sindicato" id="sindicato">
+          <option {{isset($datos) ? $datos->sindicato == 'si' ? 'selected' : '' : ''}}>Si</option>
+          <option {{isset($datos) ? $datos->sindicato == 'no' ? 'selected' : '' : ''}}>No</option>
+        </select>
+        @error('sindicato')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
+    </fieldset>
+  </div>
+
+  <div class="col-4 mb-1">
+    <fieldset class="form-group">
+        <label for="nombre_sindicato">¿A cuál?</label>
+        <input type="text" id="nombre_sindicato" value="{{ old('nombre_sindicato', isset($datos) ? $datos->nombre_sindicato : '') }}" class="form-control @error('nombre_sindicato') is-invalid @enderror" name="nombre_sindicato">
+        @error('nombre_sindicato')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
+    </fieldset>
+  </div>
+
+  <div class="col-4">
+    <fieldset class="form-group">
+        <label for="seguro">¿Tiene seguro de vida?</label>
+        <select class="form-control"  class="form-control" name="seguro" id="seguro">
+          <option {{isset($datos) ? $datos->seguro == 'si' ? 'selected' : '' : ''}}>Si</option>
+          <option {{isset($datos) ? $datos->seguro == 'no' ? 'selected' : '' : ''}}>No</option>
+        </select>
+        @error('seguro')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
+    </fieldset>
+  </div>
+
+  <div class="col-4 mb-1">
+    <fieldset class="form-group">
+        <label for="nombre_seguro">Nombre del seguro</label>
+        <input type="text" id="nombre_seguro" value="{{ old('nombre_seguro', isset($datos) ? $datos->nombre_seguro : '') }}" class="form-control @error('nombre_seguro') is-invalid @enderror" name="nombre_seguro">
+        @error('nombre_seguro')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
+    </fieldset>
+  </div>
+
+  <div class="col-4">
+    <fieldset class="form-group">
+        <label for="viajar">¿Puede Viajar? </label>
+        <select class="form-control"  class="form-control" name="viajar" id="viajar">
+          <option {{isset($datos) ? $datos->viajar == 'si' ? 'selected' : '' : ''}}>Si</option>
+          <option {{isset($datos) ? $datos->viajar == 'no' ? 'selected' : '' : ''}}>No</option>
+        </select>
+        @error('viajar')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
+    </fieldset>
+  </div>
+
+  <div class="col-4 mb-1">
+    <fieldset class="form-group">
+        <label for="razones_viajar">Razones</label>
+        <input type="text" id="razones_viajar" value="{{ old('razones_viajar', isset($datos) ? $datos->razones_viajar : '') }}" class="form-control @error('razones_viajar') is-invalid @enderror" name="razones_viajar">
+        @error('razones_viajar')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
+    </fieldset>
+  </div>
+
+  <div class="col-4">
+    <fieldset class="form-group">
+        <label for="residencia">¿Está dispuesto a cambiar su lugar de residencia? </label>
+        <select class="form-control"  class="form-control" name="residencia" id="residencia">
+          <option {{isset($datos) ? $datos->residencia == 'si' ? 'selected' : '' : ''}}>Si</option>
+          <option {{isset($datos) ? $datos->residencia == 'no' ? 'selected' : '' : ''}}>No</option>
+        </select>
+        @error('residencia')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
+    </fieldset>
+  </div>
+
+  <div class="col-4 mb-1">
+    <fieldset class="form-group">
+        <label for="razones_residencia">Razones</label>
+        <input type="text" id="razones_residencia" value="{{ old('razones_residencia', isset($datos) ? $datos->razones_residencia : '') }}" class="form-control @error('razones_residencia') is-invalid @enderror" name="razones_residencia">
+        @error('razones_residencia')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
+    </fieldset>
+  </div>
+
+  <div class="col-4">
+    <fieldset class="form-group">
+        <label for="espera_oferta_laboral">¿Esta en espera de alguna oferta laboral? </label>
+        <select class="form-control"  class="form-control" name="espera_oferta_laboral" id="espera_oferta_laboral">
+          <option {{isset($datos) ? $datos->espera_oferta_laboral == 'si' ? 'selected' : '' : ''}}>Si</option>
+          <option {{isset($datos) ? $datos->espera_oferta_laboral == 'no' ? 'selected' : '' : ''}}>No</option>
+        </select>
+        @error('espera_oferta_laboral')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
+    </fieldset>
+  </div>
+
+  <div class="col-4">
+    <fieldset class="form-group">
+        <label for="fecha_trabajar">Fecha en que podria presentarse a trabajar</label>
+        <select class="form-control"  class="form-control" name="fecha_trabajar" id="fecha_trabajar">
+          <option {{isset($datos) ? $datos->fecha_trabajar == 'si' ? 'selected' : '' : ''}}>Si</option>
+          <option {{isset($datos) ? $datos->fecha_trabajar == 'no' ? 'selected' : '' : ''}}>No</option>
+        </select>
+        @error('fecha_trabajar')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
+    </fieldset>
   </div>
 
   <div class="col-xl-12 col-md-12 col-12">
@@ -810,11 +1278,245 @@
     </div>
   </div>
 
+  <div class="col-4">
+    <fieldset class="form-group">
+        <label for="otro_ingreso">¿Tiene usted otros ingresos?</label>
+        <select class="form-control"  class="form-control" name="otro_ingreso" id="otro_ingreso">
+          <option {{isset($datos) ? $datos->otro_ingreso == 'si' ? 'selected' : '' : ''}}>Si</option>
+          <option {{isset($datos) ? $datos->otro_ingreso == 'no' ? 'selected' : '' : ''}}>No</option>
+        </select>
+        @error('otro_ingreso')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
+    </fieldset>
+  </div>
+
+  <div class="col-4 mb-1">
+    <fieldset class="form-group">
+        <label for="importe_mensual">Importe mensual</label>
+        <input type="text" id="importe_mensual" value="{{ old('importe_mensual', isset($datos) ? $datos->importe_mensual : '') }}" class="form-control @error('importe_mensual') is-invalid @enderror" name="importe_mensual">
+        @error('importe_mensual')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
+    </fieldset>
+  </div>
+
+  <div class="col-xl-12 col-md-12 col-12">
+    <fieldset class="form-group">
+        <label for="cual_ingreso">Cuál <i style="color: red">*</i></label>
+        <textarea class="form-control @error('cual_ingreso') is-invalid @enderror" id="cual_ingreso" name="cual_ingreso">{{ isset($datos) ? $datos->cual_ingreso : '' }}</textarea>
+        @error('cual_ingreso')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
+    </fieldset>
+  </div>
+
+  <div class="col-4">
+    <fieldset class="form-group">
+        <label for="conyuge_trabaja">¿Su conyuge trabaja?</label>
+        <select class="form-control"  class="form-control" name="conyuge_trabaja" id="conyuge_trabaja">
+          <option {{isset($datos) ? $datos->conyuge_trabaja == 'si' ? 'selected' : '' : ''}}>Si</option>
+          <option {{isset($datos) ? $datos->conyuge_trabaja == 'no' ? 'selected' : '' : ''}}>No</option>
+        </select>
+        @error('conyuge_trabaja')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
+    </fieldset>
+  </div>
+
+  <div class="col-4 mb-1">
+    <fieldset class="form-group">
+        <label for="importe_conyuge">Importe mensual</label>
+        <input type="text" id="importe_conyuge" value="{{ old('importe_conyuge', isset($datos) ? $datos->importe_conyuge : '') }}" class="form-control @error('importe_conyuge') is-invalid @enderror" name="importe_conyuge">
+        @error('importe_conyuge')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
+    </fieldset>
+  </div>
+
+  <div class="col-xl-12 col-md-12 col-12">
+    <fieldset class="form-group">
+        <label for="conyuge_donde">Dónde <i style="color: red">*</i></label>
+        <textarea class="form-control @error('conyuge_donde') is-invalid @enderror" id="conyuge_donde" name="conyuge_donde">{{ isset($datos) ? $datos->conyuge_donde : '' }}</textarea>
+        @error('conyuge_donde')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
+    </fieldset>
+  </div>
+
+  <div class="col-4">
+    <fieldset class="form-group">
+        <label for="paga_renta">¿Paga renta?</label>
+        <select class="form-control"  class="form-control" name="paga_renta" id="paga_renta">
+          <option {{isset($datos) ? $datos->paga_renta == 'si' ? 'selected' : '' : ''}}>Si</option>
+          <option {{isset($datos) ? $datos->paga_renta == 'no' ? 'selected' : '' : ''}}>No</option>
+        </select>
+        @error('paga_renta')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
+    </fieldset>
+  </div>
+
+  <div class="col-4 mb-1">
+    <fieldset class="form-group">
+        <label for="importe_renta">Importe mensual</label>
+        <input type="text" id="importe_renta" value="{{ old('importe_renta', isset($datos) ? $datos->importe_renta : '') }}" class="form-control @error('importe_renta') is-invalid @enderror" name="importe_renta">
+        @error('importe_renta')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
+    </fieldset>
+  </div>
+
+  <div class="col-4">
+    <fieldset class="form-group">
+        <label for="casa_propia">¿Vive en casa propia? </label>
+        <select class="form-control"  class="form-control" name="casa_propia" id="casa_propia">
+          <option {{isset($datos) ? $datos->casa_propia == 'si' ? 'selected' : '' : ''}}>Si</option>
+          <option {{isset($datos) ? $datos->casa_propia == 'no' ? 'selected' : '' : ''}}>No</option>
+        </select>
+        @error('casa_propia')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
+    </fieldset>
+  </div>
+
+  <div class="col-4">
+    <fieldset class="form-group">
+        <label for="auto_propio">¿Tiene automovil propio? </label>
+        <select class="form-control"  class="form-control" name="auto_propio" id="auto_propio">
+          <option {{isset($datos) ? $datos->auto_propio == 'si' ? 'selected' : '' : ''}}>Si</option>
+          <option {{isset($datos) ? $datos->auto_propio == 'no' ? 'selected' : '' : ''}}>No</option>
+        </select>
+        @error('auto_propio')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
+    </fieldset>
+  </div>
+
+  <div class="col-4 mb-1">
+    <fieldset class="form-group">
+        <label for="marca">Marca</label>
+        <input type="text" id="marca" value="{{ old('marca', isset($datos) ? $datos->marca : '') }}" class="form-control @error('marca') is-invalid @enderror" name="marca">
+        @error('marca')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
+    </fieldset>
+  </div>
+
+  <div class="col-4 mb-1">
+    <fieldset class="form-group">
+        <label for="modelo">Modelo</label>
+        <input type="text" id="modelo" value="{{ old('modelo', isset($datos) ? $datos->modelo : '') }}" class="form-control @error('modelo') is-invalid @enderror" name="modelo">
+        @error('modelo')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
+    </fieldset>
+  </div>
+
+  <div class="col-4">
+    <fieldset class="form-group">
+        <label for="deudas">¿Tiene deudas? </label>
+        <select class="form-control"  class="form-control" name="deudas" id="deudas">
+          <option {{isset($datos) ? $datos->deudas == 'si' ? 'selected' : '' : ''}}>Si</option>
+          <option {{isset($datos) ? $datos->deudas == 'no' ? 'selected' : '' : ''}}>No</option>
+        </select>
+        @error('deudas')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
+    </fieldset>
+  </div>
+
+  <div class="col-4 mb-1">
+    <fieldset class="form-group">
+        <label for="importe_deuda">Importe</label>
+        <input type="text" id="importe_deuda" value="{{ old('importe_deuda', isset($datos) ? $datos->importe_deuda : '') }}" class="form-control @error('importe_deuda') is-invalid @enderror" name="importe_deuda">
+        @error('importe_deuda')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
+    </fieldset>
+  </div>
+
+  <div class="col-4 mb-1">
+    <fieldset class="form-group">
+        <label for="abono_mensual">¿Cuanto abona mensualmente?</label>
+        <input type="text" id="abono_mensual" value="{{ old('abono_mensual', isset($datos) ? $datos->abono_mensual : '') }}" class="form-control @error('abono_mensual') is-invalid @enderror" name="abono_mensual">
+        @error('abono_mensual')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
+    </fieldset>
+  </div>
+
+  <div class="col-4 mb-1">
+    <fieldset class="form-group">
+        <label for="gasto_mensual">Gastos mensuales </label>
+        <input type="text" id="gasto_mensual" value="{{ old('gasto_mensual', isset($datos) ? $datos->gasto_mensual : '') }}" class="form-control @error('gasto_mensual') is-invalid @enderror" name="gasto_mensual">
+        @error('gasto_mensual')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
+    </fieldset>
+  </div>
+
   <div class="col-xl-12 col-md-12 col-12">
     <div class="divider divider-left  divider-success">
         <div class="divider-text">Documentos</div>
     </div>
   </div>
+
+  <div class="col-6 mb-2">
+    <fieldset class="form-group">
+      <label for="input-imagen">CV</label>
+      <small class="text-muted"> El tamaño máximo de archivo es de 1M.</small>
+      <div class="custom-file b-form-file" data-v-3bcd05f2="" id="__BVID__1505__BV_file_outer_">
+        <input name="imagen" type="file" class="custom-file-input" id="input-imagen" style="z-index: -5;" accept="image/*">
+        <label data-browse="Browse" class="custom-file-label" for="input-imagen">
+          <span class="d-block form-file-text" style="pointer-events: none;"></span></label>
+      </div>
+    </fieldset>
+  </div>
+
+  <div class="col-6 mb-2">
+    <fieldset class="form-group">
+      <label for="input-imagen">Carta de recomendación</label>
+      <small class="text-muted"> El tamaño máximo de archivo es de 1M.</small>
+      <div class="custom-file b-form-file" data-v-3bcd05f2="" id="__BVID__1505__BV_file_outer_">
+        <input name="imagen" type="file" class="custom-file-input" id="input-imagen" style="z-index: -5;" accept="image/*">
+        <label data-browse="Browse" class="custom-file-label" for="input-imagen">
+          <span class="d-block form-file-text" style="pointer-events: none;"></span></label>
+      </div>
+    </fieldset>
+  </div> 
 
   <div class="col-xl-12 col-md-12 col-12">
       <a href="{{ route('postulant.index') }}" class="btn btn-outline-warning"><i data-feather="slash"></i> Cancelar</a>

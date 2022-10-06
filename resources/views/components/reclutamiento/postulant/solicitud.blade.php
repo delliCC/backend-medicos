@@ -73,7 +73,7 @@
             <h1 class="m-0 p-0">Solicitud de empleo</h1>
         </div>
 
-        <table class="tablaBody" >
+        <table class="tablaBody">
             <tr>
                 <td width="20%">
                     <img src="#" width="80%" height="100"/>
@@ -316,12 +316,24 @@
                     @endif
                 </tr>
                 <tr class="relleno">
-                    <th>Domicilio</th>
                     <th>Ocupación</th>
+                    <th>Depende económicamente</th>
                 </tr>
                 <tr>
-                    <td rowspan="2">{{ strtoupper($familiar->domicilio) }}</td>
-                    <td>{{ strtoupper( $familiar->ocupacion ) }}</td>
+                    <td rowspan="2">{{ strtoupper( $familiar->ocupacion ) }}</td>
+                    <td>
+                        <table class="tablaBody" style="border: hidden">
+                            <tr>
+                                @if($familiar->depende == 'si')
+                                    <td width="5%" style="background-color: lightgray">SI</td>
+                                    <td width="5%">NO</td>
+                                @else
+                                    <td width="5%">SI</td>
+                                    <td width="5%" style="background-color: lightgray">NO</td>
+                                @endif
+                            </tr> 
+                        </table>
+                    </td>
                 </tr>
                 <tr>
                     <td>
@@ -332,6 +344,12 @@
                             </tr>
                         </table>
                     </td>
+                </tr>
+                <tr class="relleno">
+                    <th colspan="2">Domicilio</th>
+                </tr>
+                <tr>
+                    <td colspan="2">{{ strtoupper($familiar->domicilio) }}</td>
                 </tr>
             </table><br>
         @endforeach
@@ -389,8 +407,16 @@
                     <td colspan="3">{{ strtoupper($laboral->puesto) }}</td>
                 </tr>
                 <tr>
-                    <th class="relleno" width="25%">Sueldo</th>
-                    <td colspan="3">{{ strtoupper($laboral->sueldo) }}</td>
+                    <th class="relleno" width="25%"> Sueldo Inicial</th>
+                    <td colspan="3">{{ strtoupper($laboral->sueldo_inicial) }}</td>
+                </tr>
+                <tr>
+                    <th class="relleno" width="25%">Último sueldo</th>
+                    <td colspan="3">{{ strtoupper($laboral->sueldo_final) }}</td>
+                </tr>
+                <tr>
+                    <th class="relleno" width="25%">Días de cobro</th>
+                    <td colspan="3">{{ strtoupper($laboral->dias_cobro) }}</td>
                 </tr>
                 <tr>
                     <th class="relleno" width="25%">Jefe Inmediato</th>
@@ -488,6 +514,12 @@
                             <td width="3%" style="background-color: lightgray;">NO</td>
                         @endif
                     </td>
+                </tr>
+                <tr class="relleno">
+                    <th colspan="4">¿Podemos pedir referencias?</th>
+                </tr>
+                <tr>
+                    <td colspan="4">{{ strtoupper($laboral->pedir_referencia) }}</td>
                 </tr>
             </table><br>
             <div style="page-break-after:always;"></div>
@@ -787,6 +819,14 @@
                 <th class="relleno" colspan="3">¿Cuanto abona mensualmente? </th>
                 @if($datos->abono_mensual != null)
                     <td colspan="4">{{ strtoupper($datos->abono_mensual) }}</td>
+                @else
+                    <td colspan="4">&nbsp;</td>
+                @endif
+            </tr>
+            <tr>
+                <th class="relleno" colspan="3">¿Gastos mensuales? </th>
+                @if($datos->gasto_mensual != null)
+                    <td colspan="4">{{ strtoupper($datos->gasto_mensual) }}</td>
                 @else
                     <td colspan="4">&nbsp;</td>
                 @endif

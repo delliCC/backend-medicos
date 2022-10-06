@@ -133,23 +133,32 @@
             }
           });
       }
+      function activarConyugeEstadoCivil(){
+        var estadoCivilSelected = document.getElementById("estado_civil").value;
+
+        if(estadoCivilSelected =="Soltero"){
+            document.getElementById("campoConyugeTrabaja").style.display = "none";
+        }else{
+            document.getElementById("campoConyugeTrabaja").style.display = "block";
+        }
+      }
 
       function activarEscolaridad(){
         var tituloSelected = document.getElementById("titulo").value;
 
-        console.log(tituloSelected)
-        if(tituloSelected =="si"){
+        if(tituloSelected =="Si"){
             document.getElementById("campoEscolarCedula").style.display = "block";
             document.getElementById("campoEscolarTrunco").style.display = "none";
         }else{
             document.getElementById("campoEscolarCedula").style.display = "none";
             document.getElementById("campoEscolarTrunco").style.display = "block";
         }
-        // --------------------Estudios actuales----------------------------------
+      }
 
+      function activarEstudios(){
         var estudioSelected = document.getElementById("estudia_actualmente").value;
 
-        if(estudioSelected =="si"){
+        if(estudioSelected =="Si"){
             document.getElementById("campoInstitucion").style.display = "block";
             document.getElementById("campoCarrera").style.display = "block";
             document.getElementById("campoSemestre").style.display = "block";
@@ -160,7 +169,17 @@
             document.getElementById("campoSemestre").style.display = "none";
             document.getElementById("campoHorario").style.display = "none";
         }
+      }
+
+      function activarMotivoSalida(){
+          var motivoSelected = document.getElementById("motivo_salida").value;
         
+          if(motivoSelected =="otros"){
+              document.getElementById("campoMotivoCual").style.display = "block";
+              console.log('motivoSelected',motivoSelected)
+          }else{
+              document.getElementById("campoMotivoCual").style.display = "none";
+          }
       }
 
       function changeStatus(event, id){
