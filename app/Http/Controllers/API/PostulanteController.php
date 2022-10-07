@@ -7,10 +7,12 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Reclutamiento\Vacant;
 use App\Models\Reclutamiento\Postulant;
+use Illuminate\Support\Facades\Validator;
 use App\Models\Reclutamiento\PostulantFamily;
 use App\Models\Reclutamiento\PostulantLicence;
 use App\Models\Reclutamiento\PostulantReference;
 use App\Models\Reclutamiento\PostulantTrajectory;
+use App\Http\Requests\PostulantRequest;
 
 class PostulanteController extends Controller
 {
@@ -41,11 +43,20 @@ class PostulanteController extends Controller
         return $this->sendResponse($array, 'Lista de Vacantes', 200);
     }
 
-    public function guardar(Request $request)
+    public function guardar(PostulantRequest $request)
     {
+        // $rules = [
+        //     'vacante_id' => 'required',
+        //     'puesto_id' => 'required',
+        //     'sucursal_id' => 'required',
+        //     'fecha_postulacion' => 'required',
+        //     'sueldo_pretendido' => 'required',
+        //     // 'nombre' => 'required|max:191',
+        //     // 'descripcion => 'required|max:255',
+        //     // 'nivel' => 'required|integer|min:0|max:10
+        //   ];
 
-        // return $request->all()
-        $this->validate($request, [
+        $validator = Validator::make( [
             'vacante_id' => 'required',
             'puesto_id' => 'required',
             'sucursal_id' => 'required',
@@ -90,6 +101,57 @@ class PostulanteController extends Controller
             'datos_manejo'=> 'required',
             'gasto_mensual'=> 'required',
         ]);
+        
+        if ($validator->fails()) {
+            return response()->withErrors($validator)->withInput();
+            // return response()->json($validator->messages(), 400);
+        }
+        
+        // $this->validate($request, [
+        //     'vacante_id' => 'required',
+        //     'puesto_id' => 'required',
+        //     'sucursal_id' => 'required',
+        //     'fecha_postulacion' => 'required',
+        //     'sueldo_pretendido' => 'required',
+        //     'nombre' => 'required',
+        //     'apellido_paterno' => 'required',
+        //     'apellido_materno' => 'required',
+        //     'sexo' => 'required',
+        //     'edad' => 'required',
+        //     'lugar_nacimiento' => 'required',
+        //     'fecha_nacimiento' => 'required',
+        //     'curp' => 'required',
+        //     'rfc' => 'required',
+        //     'numero_seguro_social' => 'required',
+        //     'licencia_conducir' => 'required',
+        //     // 'cartilla_militar' => 'required', opcional
+        //     'correo_electronico' => 'required',
+        //     'telefono' => 'required',
+        //     'estado_civil'=> 'required',
+        //     'vive_con'=> 'required',
+
+        //     'ciudad'=> 'required',
+        //     'estado'=> 'required',
+        //     'municipio'=> 'required',
+        //     'colonia'=> 'required',
+        //     'entre_calles'=> 'required',
+        //     'numero_casa'=> 'required',
+        //     'codigo_postal'=> 'required',
+        //     'direccion'=> 'required',
+
+        //     'ultimo_grado_estudios'=> 'required',
+        //     'institucion'=> 'required',
+        //     'especialidad'=> 'required',
+        //     'certificado'=> 'required',
+        //     'titulo'=> 'required',
+        //     'estudia_actualmente'=> 'required',
+
+        //     'idiomas'=> 'required',
+        //     'maquinas_software'=> 'required',
+        //     'otros_oficios'=> 'required',
+        //     'datos_manejo'=> 'required',
+        //     'gasto_mensual'=> 'required',
+        // ]);
         if($request->titulo == 'si'){
             $this->validate($request, [
                 'cedula'=> 'required',
