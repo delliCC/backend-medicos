@@ -157,7 +157,7 @@ class PostulantController extends Controller
         return DataTables::of($datos)->addColumn('accion', function($row){
             $btn = '<div class="demo-inline-spacing">';
             $btn .= '<a href="'.route("postulant.solicitud", $row->id).'" class="btn btn btn-gradient-danger btn-sm" target="_blank"><i data-feather="file"></i></a>';
-            $btn .= '<a href="'.route("postulant.edit", $row->id).'" class="btn btn-gradient-info btn-sm"><i data-feather="edit"></i></a>';
+            // $btn .= '<a href="'.route("postulant.edit", $row->id).'" class="btn btn-gradient-info btn-sm"><i data-feather="edit"></i></a>';
             if($row->estado_postulante != "seleccionado"){
                 $btn .= '<a href="'.route("postulant.destroy", $row->id).'" class="btn btn btn-gradient-secondary btn-sm"><i data-feather="trash"></i></a>';
             }

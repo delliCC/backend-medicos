@@ -2,17 +2,19 @@
 
 namespace App\Http\Controllers\API;
 
+use DB;
 use PDF;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Reclutamiento\Vacant;
+use App\Http\Requests\PostulantRequest;
 use App\Models\Reclutamiento\Postulant;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Reclutamiento\PostulantFamily;
 use App\Models\Reclutamiento\PostulantLicence;
+use App\Models\Reclutamiento\PostulantDocument;
 use App\Models\Reclutamiento\PostulantReference;
 use App\Models\Reclutamiento\PostulantTrajectory;
-use App\Http\Requests\PostulantRequest;
 
 class PostulanteController extends Controller
 {
@@ -45,17 +47,6 @@ class PostulanteController extends Controller
 
     public function guardar(PostulantRequest $request)
     {
-        // $rules = [
-        //     'vacante_id' => 'required',
-        //     'puesto_id' => 'required',
-        //     'sucursal_id' => 'required',
-        //     'fecha_postulacion' => 'required',
-        //     'sueldo_pretendido' => 'required',
-        //     // 'nombre' => 'required|max:191',
-        //     // 'descripcion => 'required|max:255',
-        //     // 'nivel' => 'required|integer|min:0|max:10
-        //   ];
-
         $validator = Validator::make( [
             'vacante_id' => 'required',
             'puesto_id' => 'required',
@@ -100,120 +91,94 @@ class PostulanteController extends Controller
             'otros_oficios'=> 'required',
             'datos_manejo'=> 'required',
             'gasto_mensual'=> 'required',
+
+            'como_entero' => 'required',
+            // 'otros_entero'=> 'required',
+            'parientes'=> 'required',
+            // 'parientes_nombre'=> 'required',
+            'afianzado'=> 'required',
+            // 'nombre_cia'=> 'required',
+            'sindicato'=> 'required',
+            // 'nombre_sindicato'=> 'required',
+            'seguro'=> 'required',
+            // 'nombre_seguro'=> 'required',
+            'viajar'=> 'required',
+            // 'razones_viajar'=> 'required',
+            'residencia'=> 'required',
+            // 'razones_residencia'=> 'required',
+            'espera_oferta_laboral'=> 'required',
+            'fecha_trabajar'=> 'required',
+            
+            'otro_ingreso'=> 'required',
+            // 'importe_mensual'=> 'required',
+            // 'cual_ingreso'=> 'required',
+            'conyuge_trabaja'=> 'required',
+            // 'importe_conyuge'=> 'required',
+            // 'conyuge_donde'=> 'required',
+            'paga_renta'=> 'required',
+            // 'importe_renta'=> 'required',
+            // 'casa_propia'=> 'required',
+            'auto_propio'=> 'required',
+            // 'marca'=> 'required',
+            // 'modelo'=> 'required',
+            'deudas'=> 'required',
+            // 'importe_deuda',
+            // 'abono_mensual',
+            // 'gasto_mensual',
         ]);
-        
-        if ($validator->fails()) {
-            return response()->withErrors($validator)->withInput();
-            // return response()->json($validator->messages(), 400);
-        }
-        
-        // $this->validate($request, [
-        //     'vacante_id' => 'required',
-        //     'puesto_id' => 'required',
-        //     'sucursal_id' => 'required',
-        //     'fecha_postulacion' => 'required',
-        //     'sueldo_pretendido' => 'required',
-        //     'nombre' => 'required',
-        //     'apellido_paterno' => 'required',
-        //     'apellido_materno' => 'required',
-        //     'sexo' => 'required',
-        //     'edad' => 'required',
-        //     'lugar_nacimiento' => 'required',
-        //     'fecha_nacimiento' => 'required',
-        //     'curp' => 'required',
-        //     'rfc' => 'required',
-        //     'numero_seguro_social' => 'required',
-        //     'licencia_conducir' => 'required',
-        //     // 'cartilla_militar' => 'required', opcional
-        //     'correo_electronico' => 'required',
-        //     'telefono' => 'required',
-        //     'estado_civil'=> 'required',
-        //     'vive_con'=> 'required',
 
-        //     'ciudad'=> 'required',
-        //     'estado'=> 'required',
-        //     'municipio'=> 'required',
-        //     'colonia'=> 'required',
-        //     'entre_calles'=> 'required',
-        //     'numero_casa'=> 'required',
-        //     'codigo_postal'=> 'required',
-        //     'direccion'=> 'required',
-
-        //     'ultimo_grado_estudios'=> 'required',
-        //     'institucion'=> 'required',
-        //     'especialidad'=> 'required',
-        //     'certificado'=> 'required',
-        //     'titulo'=> 'required',
-        //     'estudia_actualmente'=> 'required',
-
-        //     'idiomas'=> 'required',
-        //     'maquinas_software'=> 'required',
-        //     'otros_oficios'=> 'required',
-        //     'datos_manejo'=> 'required',
-        //     'gasto_mensual'=> 'required',
-        // ]);
         if($request->titulo == 'si'){
-            $this->validate($request, [
-                'cedula'=> 'required',
+            $validator = Validator::make( [
+            'cedula' => 'required',
             ]);
         }else{
-            $this->validate($request, [
-                'trunco'=> 'required',
+            $validator = Validator::make( [
+                'trunco' => 'required',
             ]);
         }
 
         if($request->estudia_actualmente == 'si'){
-            $this->validate($request, [
-                'institucion_actual'=> 'required',
+            $validator = Validator::make( [
+                'institucion_actual' => 'required',
                 'carrera_actual'=> 'required',
                 'semestre_actual'=> 'required',
                 'horario_actual'=> 'required',
             ]);
         }
 
-        // if($request->referencia_familiar >= 0){
-        //     if(count($request->referencia_familiar)){
-
-        //     }
-        //     $this->validate($request, [
-        //         'nombre_familiares'=> 'required',
-        //         'ocupacion_familiares'=> 'required',
-        //         'parentesco_familiares'=> 'required',
-        //         'edad_familiares'=> 'required',
-        //         'telefono_familiares'=> 'required',
-        //         'domicilio_familiares'=> 'required',
-        //         'vive_familiar'=> 'required',
-        //     ]);
-        // }
-        // return $request->referencia_familiar;
-        if($request->conyuge_trabaja == 'si'){
-            $this->validate($request, [
-                'importe_conyuge'=> 'required',
-                'conyuge_donde'=> 'required',
-            ]);
-        }
-
         if($request->paga_renta == 'si'){
-            $this->validate($request, [
+            $validator = Validator::make( [
                 'importe_renta'=> 'required',
             ]);
         }
 
         if($request->deudas == 'si'){
-            $this->validate($request, [
+            $validator = Validator::make( [
                 'importe_deuda'=> 'required',
                 'abono_mensual'=> 'required',
             ]);
         }
 
         if($request->auto_propio == 'si'){
-            $this->validate($request, [
+            $validator = Validator::make( [
                 'marca'=> 'required',
                 'modelo'=> 'required',
             ]);
         }
 
-        // return $request->all();
+        if($request->estado_civil == 'soltero'){
+            $validator = Validator::make( [
+                'conyuge_trabaja'=> 'required',
+                'importe_conyuge'=> 'required',
+                'conyuge_donde'=> 'required',
+            ]);
+        }
+
+        if ($validator->fails()) {
+            return response()->withErrors($validator)->withInput();
+            // return response()->json($validator->messages(), 400);
+        }
+        DB::beginTransaction();
         $postulante = Postulant::create([
             'vacante_id'=> $request->vacante_id,
             'fecha_postulacion'=> $request->fecha_postulacion,
@@ -296,14 +261,16 @@ class PostulanteController extends Controller
             'abono_mensual'=> $request->abono_mensual,
             'gasto_mensual'=> $request->gasto_mensual
         ]);
-
-        foreach ($request->referencia_familiar as $familiar) {
-            PostulantLicence::create([
-                'postulante_id'=> $postulante->id,
-                'tipo_licencia'=> $familiar['tipo_licencia'],
-            ]);
+       
+        if($request->tipo_licencia > 0 ){
+            foreach ($request->tipo_licencia as $licencia) {
+                PostulantLicence::create([
+                    'postulante_id'=> $postulante->id,
+                    'tipo_licencia'=> $licencia,
+                ]);
+            }
         }
-
+        
         if($request->referencia_familiar > 0 ){
             foreach ($request->referencia_familiar as $familiar) {
                 PostulantFamily::create([
@@ -334,8 +301,8 @@ class PostulanteController extends Controller
         }
         
         foreach ($request->trayectoria_laboral as $trajectoria) {
-            if($trajectoria->empresa != null && $trajectoria->fecha_ingreso != null && $trajectoria->fecha_baja != null && $trajectoria->puesto != null
-            && $trajectoria->sueldo != null && $trajectoria->domicilio_empresa != null){
+            if($trajectoria['empresa'] != '' && $trajectoria['fecha_ingreso'] != '' && $trajectoria['fecha_baja'] != '' 
+            &&  $trajectoria['puesto'] != '' && $trajectoria['domicilio_empresa'] != ''){
                 PostulantTrajectory::create([
                     'postulante_id'=> $postulante->id,
                     'empresa'=> $trajectoria['empresa'],
@@ -358,6 +325,27 @@ class PostulanteController extends Controller
             }
         }
 
+        $cvPdf = null;
+        if($request->documentos['cv_file']){
+            $fileName = time();
+            $cvPdf = $this->uploadS3Base64("{$fileName}.pdf", $request->documentos['cv_file'], 'postulante');
+            PostulantDocument::create([
+                'postulante_id'=> $postulante->id,
+                'imagen_url'=> $cvPdf['url'],
+            ]);
+        }
+
+        $imagen = null;
+        if($request->documentos['carta_recomendacion']){
+            $fileName = time();
+            $imagen = $this->uploadS3Base64("{$fileName}.pdf", $request->documentos['carta_recomendacion'], 'postulante');
+            PostulantDocument::create([
+                'postulante_id'=> $postulante->id,
+                'imagen_url'=> $imagen['url'],
+            ]);
+        }
+        
+        DB::commit();
         $pdf = base64_encode($this->solicitudPDF($postulante->id));
 
         return $this->sendResponse(['postulante' => $postulante, 'pdf' => $pdf], 'Datos del postulante', 200);
