@@ -31,61 +31,58 @@
       });
 
       const muestraDB = "{{!empty($datos) ? $datos->tipoMuestra : ''}}"
-      console.log(muestraDB)
-      $('#selectMuestra').select2({
+      $('#muestra_id').select2({
         dropdownAutoWidth: true,
-        dropdownParent: $('#selectMuestra').parent(),
+        dropdownParent: $('#muestra_id').parent(),
         width: '100%',
       });
 
-      // let selected = muestraDB == estado.nombre ? 'selected' : undefined;
-      // $('#selectMuestra').append('<option value="'+estadoDB.nombre+'" '+selected+'>'+estadoDB.nombre+'</option>');
+      const metodoDB = "{{!empty($datos) ? $datos->tipoMetodo : ''}}"
+      $('#metodo_id').select2({
+        dropdownAutoWidth: true,
+        dropdownParent: $('#metodo_id').parent(),
+        width: '100%',
+      });
 
-  
-
-      $('#form-studie').submit(event => {
-        event.preventDefault();
-       
-        let headers = {
-          Authorization: "token",
-         // 'Content-Type':'multipart/form-data'
-        };
+      $('#formStudie').submit(event => {
         var inputFileImage = document.getElementById("input-imagen");
         var inputFileImageDestacada = document.getElementById("input-imagen-destacada");
+
+        var selectMetodo = document.getElementById("metodo_id").value;
+        var selectMuestra = document.getElementById("muestra_id").value;
         var formData = new FormData();
 
-        formData.append('titulo', $('#input-titulo').val());
-        formData.append('metodo_id', $('#select-metodo').val());
-        formData.append('muestra_id', $('#select-muestra').val());
-        formData.append('descripcion', $('#text-descripcion').val());
-        formData.append('informacion_clinica', $('#text-informacion').val());
-        formData.append('precauciones', $('#text-precauciones').val());
+        formData.append('titulo', $('#titulo').val());
+        formData.append('descripcion', $('#descripcion').val());
+        formData.append('informacion_clinica', $('#informacion').val());
+        formData.append('precauciones', $('#precauciones').val());
+
+        for(var a=0; a<selectMetodo.length; a++){
+          var metodos = selectMetodo[a]
+          formData.append('metodo_id[]', metodos);
+        }
+
+        for(var a=0; a<selectMuestra.length; a++){
+          var sample = selectMuestra[a]
+          formData.append('muestra_id[]', sample);
+        }
 
         for(var a=0; a<inputFileImage.files.length; a++){
           var imagen = inputFileImage.files[a]
-          console.log(imagen)
-          formData.append('imagenes[]', imagen);
+          formData.append('imagen[]', imagen);
         }
 
         for(var a=0; a<inputFileImageDestacada.files.length; a++){
           var imagenDestacada = inputFileImageDestacada.files[a]
-          console.log(imagenDestacada)
-          formData.append('imagenes[]', imagenDestacada);
+          formData.append('imagen_destacada[]', imagenDestacada);
         }
 
         $.ajax({
-            url:'/estudios/guardar',
+            url: `${$('#formStudie').attr('action')}?${$('#formStudie').serialize()}`,
             method:'POST',
             enctype: 'multipart/form-data',
             data: formData,
-            headers: headers,
-            //--data: {
-            //-- '_token': "{{ csrf_token() }}",
-            //-- 'nombre': event.target['input-nombre'].value,
-            //--  'descripcion': event.target['input-descripcion'].value
-            //--},
             processData: false,
-            contentType: false,
             beforeSend: xhr => {
              
            }
@@ -99,10 +96,10 @@
                 },
                 buttonsStyling: false
               });
-              location.reload()
+              {{--  location.reload()  --}}
          }).fail(function (data) {
           console.log(data)
-           alert(data.responseJSON.errors.especialidad[0])
+           {{--  alert(data.responseJSON.errors.especialidad[0])  --}}
          });
 
       });

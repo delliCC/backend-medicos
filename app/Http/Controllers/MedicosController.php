@@ -49,7 +49,7 @@ class MedicosController extends Controller
      */
     public function store(Request $request)
     {
-        return $request->all();
+        //return $request->all();
         $this->validate($request, [
             'nombre' => 'required',
             'apellido_paterno' => 'required',
@@ -61,7 +61,6 @@ class MedicosController extends Controller
             'estado' => 'required',
             'municipio' => 'required',
             'prefijo' => 'required',
-            'especialidad_id' => 'required',
         ]);
 
         Medico::create($request->all());
@@ -124,7 +123,27 @@ class MedicosController extends Controller
 
         $medico = Medico::find($id);
 
-        $medico->update($request->all());
+        
+        if($request->tipo_medico === 'General'){
+            $especialidad = null;
+        }else{
+            $especialidad =  $request->especialidad_id;
+        }
+
+        $medico->update([
+            'nombre' => $request->nombre,
+            'apellido_paterno' => $request->apellido_paterno,
+            'apellido_materno' => $request->apellido_materno,
+            'correo' => $request->correo,
+            'telefono' => $request->telefono,
+            'direccion' => $request->direccion,
+            'pais' => $request->pais,
+            'estado' => $request->estado,
+            'municipio' => $request->municipio,
+            'prefijo' => $request->prefijo,
+            'tipo_medico' => $request->tipo_medico,
+            'especialidad_id' => $especialidad,
+        ]);
 
         return redirect()->route('medicos.index')->with('success', 'Datos actualizados correctamente.');
     }

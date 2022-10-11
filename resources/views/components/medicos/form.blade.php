@@ -92,19 +92,39 @@
         <fieldset class="form-group">
             <label for="tipo_medico">Médico</label>
             <select class="form-control"  class="form-control" name="tipo_medico" id="tipo_medico" onchange="verEspecialidad()">
+                <option value="" selected disabled> Selecciona una opción </option>
                 <option {{isset($medico) ? $medico->tipo_medico == 'General' ? 'selected' : '' : ''}}>General</option>
                 <option {{isset($medico) ? $medico->tipo_medico == 'Especialista' ? 'selected' : '' : ''}}>Especialista</option>
             </select>
         </fieldset>
     </div>
-
+    @if (isset($medico->especialidad_id))
+        <div class="col-xl-4 col-md-6 col-12 mb-1" id="especialidades">
+            <fieldset class="form-group">
+                <label for="especialidad_id">Especialidad</label>
+                <select class="form-control" class="form-control" id="especialidad_id" name="especialidad_id">
+                    <option value="" selected disabled> Selecciona una opción </option>
+                    @foreach ($especialidad as $specialty)
+                        <option value="{{$specialty->id}}" {{isset($medico) ? $specialty->id == $medico->especialidad_id ? 'selected' : '' : ''}}>
+                            {{ $specialty->especialidad }}
+                        </option>
+                    @endforeach
+                </select>
+                @error('especialidad_id')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+                @enderror
+            </fieldset>
+        </div>
+    @elseif (isset($medico->especialidad_id) == null)
     <div class="col-xl-4 col-md-6 col-12 mb-1" id="especialidades" style="display: none">
         <fieldset class="form-group">
             <label for="especialidad_id">Especialidad</label>
             <select class="form-control" class="form-control" id="especialidad_id" name="especialidad_id">
                 <option value="" selected disabled> Selecciona una opción </option>
                 @foreach ($especialidad as $specialty)
-                    <option {{isset($medico) ? $specialty->id == $medico->especialidad_id ? 'selected' : '' : ''}}>
+                    <option value="{{$specialty->id}}" {{isset($medico) ? $specialty->id == $medico->especialidad_id ? 'selected' : '' : ''}}>
                         {{ $specialty->especialidad }}
                     </option>
                 @endforeach
@@ -116,6 +136,7 @@
             @enderror
         </fieldset>
     </div>
+    @endif
 
     <div class="col-xl-12 col-md-12 col-12">
         <div class="divider divider-left  divider-success">
@@ -126,7 +147,9 @@
     <div class="col-xl-4 col-md-6 col-12">
         <fieldset class="form-group">
             <label for="pais">País <i style="color: red">*</i></label>
-            <input type="text" value="{{ old('pais', isset($medico) ? $medico->pais : '') }}" class="form-control @error('pais') is-invalid @enderror" name="pais"  placeholder="País">
+            <select class="form-control" name="pais" id="pais">
+                <option value="mexico" >México</option>
+            </select>
             @error('pais')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
@@ -138,7 +161,9 @@
     <div class="col-xl-4 col-md-6 col-12">
         <fieldset class="form-group">
             <label for="estado">Estado <i style="color: red">*</i></label>
-            <input type="text" value="{{ old('estado', isset($medico) ? $medico->estado : '') }}" class="form-control @error('estado') is-invalid @enderror" name="estado"  placeholder="Estado">
+            <select class="form-control"  name="estado" id="selectEstado" onchange="cargarMunicipio()">
+                <option value=""> Selecciona una opción </option>
+            </select>
             @error('estado')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
@@ -150,7 +175,9 @@
     <div class="col-xl-4 col-md-6 col-12">
         <fieldset class="form-group">
             <label for="municipio">Municipio <i style="color: red">*</i></label>
-            <input type="text" value="{{ old('municipio', isset($medico) ? $medico->municipio : '') }}" class="form-control @error('municipio') is-invalid @enderror" name="municipio"  placeholder="Municipio">
+            <select class="select2-municipios form-control" name="municipio" id="select2-municipios">
+                <option value="">Selecciona una opción</option>
+            </select>
             @error('municipio')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
@@ -162,9 +189,7 @@
     <div class="col-xl-12 col-md-12 col-12">
         <fieldset class="form-group">
             <label for="direccion">Dirección completa <i style="color: red">*</i></label>
-            <textarea class="form-control @error('direccion') is-invalid @enderror" name="direccion"  placeholder="Dirección">
-                {{ isset($medico) ? $medico->direccion : '' }}
-            </textarea>
+            <textarea class="form-control @error('direccion') is-invalid @enderror" name="direccion"  placeholder="Dirección">{{ isset($medico) ? $medico->direccion : '' }}</textarea>
             @error('direccion')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>

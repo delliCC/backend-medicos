@@ -24,7 +24,6 @@
     </fieldset>
 </div>
 
-
   <div class="col-4 mb-1">
     <fieldset class="form-group">
         <label for="sucursal_id">Sucursal</label>
@@ -41,7 +40,7 @@
         </span>
         @enderror
     </fieldset>
-</div>
+  </div>
 
   <div class="col-4 mb-1">
     <fieldset class="form-group">

@@ -19,53 +19,47 @@
         configuracionesBasicasDatatable['serverSide'] = true
         configuracionesBasicasDatatable['ajax'] = "blog/listar"
         configuracionesBasicasDatatable['columns'] = [
-          { "data": "nombre" },
-          { "data": "url" },
+          { "data": "titulo" },
+          { "data": "descripcion" },
           { "data": "status" },
           { "data": "accion" }
         ]
-        $('#blog-table').DataTable(configuracionesBasicasDatatable);
+        $('#blogTable').DataTable(configuracionesBasicasDatatable);
       });
 
-      $('#form-blog').submit(event => {
-        event.preventDefault();
-       
-        let headers = {
-          Authorization: "token",
-         // 'Content-Type':'multipart/form-data'
-        };
-        var inputFileImage = document.getElementById("input-imagen");
+      $('#formBlog').submit(event => {
+        var inputFileDestacada = document.getElementById("imagen_destacada");
+        var inputFileImagen = document.getElementById("imagen");
+
         var formData = new FormData();
 
-        formData.append('nombre', $('#input-nombre').val());
-        formData.append('descripcion', $('#input-descripcion').val());
+        formData.append('titulo', $('#titulo').val());
+        formData.append('descripcion', $('#descripcion').val());
 
-        for(var a=0; a<inputFileImage.files.length; a++){
-          var imagen = inputFileImage.files[a]
+        for(var a=0; a<inputFileDestacada.files.length; a++){
+          var imagenDestacada = inputFileDestacada.files[a]
+          console.log(imagenDestacada)
+          formData.append('imagenes_destacada[]', imagenDestacada);
+        }
+
+        for(var a=0; a<inputFileImagen.files.length; a++){
+          var imagen = inputFileImagen.files[a]
           console.log(imagen)
-          formData.append('imagenes[]', imagen);
+          formData.append('imagen[]', imagen);
         }
 		
-        const idFicha = event.target['id-blog'].value
+        {{--  const idFicha = event.target['id-blog'].value
         const url = idFicha ? `/blog/actualizar/${idFicha}` : '/blog/guardar'
         const method = idFicha ? 'PUT' : 'POST'
-
+        --}}
         $.ajax({
-            url,
-            method,
-            enctype: 'multipart/form-data',
+            url: `${$('#formBlog').attr('action')}?${$('#formBlog').serialize()}`,
+            method: 'POST',
             data: formData,
-            headers: headers,
-            //--data: {
-            //-- '_token': "{{ csrf_token() }}",
-            //-- 'nombre': event.target['input-nombre'].value,
-            //--  'descripcion': event.target['input-descripcion'].value
-            //--},
             processData: false,
-            contentType: false,
             beforeSend: xhr => {
-             
-           }
+            
+            }
           }).done(response => {
             $('#default').modal('hide')
               Swal.fire({
@@ -78,15 +72,15 @@
                 buttonsStyling: false
               });
               location.reload()
-         }).fail(function (data) {
-           alert(data.responseJSON.errors.especialidad[0])
-         });
+        }).fail(function (data) {
+            alert(data.responseJSON.errors.especialidad[0])
+        });
 
       });
 
       function editarEspecilidad(id, nombre) {
         $('#id-blog').val(id);
-        $('#input-nombre').val(nombre);
+        $('#nombre').val(nombre);
       }
 
       function changeStatus(event, id){

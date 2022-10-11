@@ -143,7 +143,7 @@ class PostulantController extends Controller
             'apellido_materno',
             'fecha_postulacion',
             'estado_postulante',
-            'status'
+            'status',
         )->with(['vacantes'=> function ($query){
             $query->select('id', 'puesto_id','sucursal_id', 'reclutador_id')->with(['puesto'=> function ($query){
                 $query->select('id', 'puesto');
@@ -152,11 +152,14 @@ class PostulantController extends Controller
             }])->with(['empleado'=> function ($query){
                 $query->select('id', 'nombre','apellido_paterno','apellido_materno');
             }]);
+        }])->with(['documentos'=> function ($query){
+            $query->select('id','postulante_id' ,'imagen_url',);
         }])->get();
 
         return DataTables::of($datos)->addColumn('accion', function($row){
             $btn = '<div class="demo-inline-spacing">';
-            $btn .= '<a href="'.route("postulant.solicitud", $row->id).'" class="btn btn btn-gradient-danger btn-sm" target="_blank"><i data-feather="file"></i></a>';
+            $btn .= '<a href="'.route("postulant.solicitud", $row->id).'" class="btn btn btn-gradient-info btn-sm" target="_blank"><i data-feather="file"></i> Solicitud</a>';
+            $btn .= view('components.reclutamiento.postulant.file', ['data' => $row]);
             // $btn .= '<a href="'.route("postulant.edit", $row->id).'" class="btn btn-gradient-info btn-sm"><i data-feather="edit"></i></a>';
             if($row->estado_postulante != "seleccionado"){
                 $btn .= '<a href="'.route("postulant.destroy", $row->id).'" class="btn btn btn-gradient-secondary btn-sm"><i data-feather="trash"></i></a>';

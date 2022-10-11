@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use DataTables;
-
 use App\Models\TypeMethod;
 use App\Models\TypeSample;
 use Illuminate\Http\Request;
@@ -38,7 +38,7 @@ class StudiesController extends Controller
         $breadcrumbs = [
             ['link'=>"javascript:void(0)",'name'=>"Estudios"], ['name'=>"Crear"]
         ];
-       
+    
         return view('/pages/studies/create', ['breadcrumbs' => $breadcrumbs], compact(['tipoMuestra','tipoMetodo']));
     }
 
@@ -59,22 +59,48 @@ class StudiesController extends Controller
             'informacion_clinica' => 'required',
         ]);
 
+        $imagenDestacada = null;
+        if(true === $request->hasFile('imagen_destacada')){
+            $fileBase64 = base64_encode(file_get_contents($request->file('imagen_destacada')));
+            $fileName = time();
+
+            $imagenDestacada = $this->uploadS3Base64("{$fileName}.jpg", $fileBase64, 'estudios');
+        }
+
+        $imagenPortada = null;
+        if(true === $request->hasFile('imagen')){
+            $fileBase64 = base64_encode(file_get_contents($request->file('imagen')));
+            $fileName = time();
+
+            $imagenPortada = $this->uploadS3Base64("{$fileName}.jpg", $fileBase64, 'estudios');
+        }
+
+        DB::beginTransaction();
+        $datos = Studies::create([
+            'titulo'=>$request->titulo,
+            'descripcion'=>$request->descripcion,
+            'informacion_clinica'=>$request->informacion_clinica,
+            'precauciones'=>$request->precauciones,
+            'imagen_destacada'=>$imagenDestacada['url'],
+            'imagen_portada'=>$imagenPortada['url'],
+        ]);
+
+        foreach ($request->metodo_id as $metodo) {
+            StudieMethod::create([
+                'estudio_id'=> $datos->id,
+                'metodo_id'=> $metodo,
+            ]);
+        }
+
+        foreach ($request->muestra_id as $sample) {
+            StudieSample::create([
+                'estudio_id'=> $datos->id,
+                'muestra_id'=> $sample,
+            ]);
+        }
        
-        $datos = Studies::create($request->all());
-
-        StudieMethod::create([
-            'estudio_id'=> $datos->id,
-            'metodo_id'=> $request->metodo_id,
-        ]);
-
-        StudieSample::create([
-            'estudio_id'=> $datos->id,
-            'muestra_id'=> $request->metodo_id,
-        ]);
-
-        return $request->all();
-        return $this->sendResponse();
-        // return redirect()->route('studies.index')->with('success', 'Datos guardados correctamente.');
+        DB::commit();
+        return redirect()->route('studies.index')->with('success', 'Datos guardados correctamente.');
     }
 
     /**

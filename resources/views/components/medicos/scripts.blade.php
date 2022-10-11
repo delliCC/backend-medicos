@@ -29,6 +29,55 @@
         $('#medicos-table').DataTable(configuracionesBasicasDatatable);
       });
 
+      const estadoDB = "{{!empty($medico) ? $medico->estado : ''}}"
+      $.ajax({
+        method: "GET",
+        url: `{{ asset('js/scripts/estado_municipios.json') }}`,
+        beforeSend: function() {
+          console.log('loanding')
+        },
+        success: response => {
+          response.forEach(function(estado) {
+            let selected = estadoDB == estado.nombre ? 'selected' : undefined;
+            $('#selectEstado').append('<option value="'+estado.nombre+'" '+selected+'>'+estado.nombre+'</option>');
+          });  
+        }
+      });
+
+      if(estadoDB) {
+        setTimeout(() => {
+          cargarMunicipio();
+        }, 1000);
+      }
+
+      const municipioDB = "{{!empty($medico) ? $medico->municipio : ''}}"
+      function cargarMunicipio() {
+        var estadoSelected = document.getElementById("selectEstado").value;
+
+        $.ajax({
+          method: "GET",
+          url: `{{ asset('js/scripts/estado_municipios.json') }}`,
+          beforeSend: function() {
+            console.log('loanding')
+          },
+          success: response => {
+            var estadoFind = response.find(item => item.nombre == estadoSelected)
+
+            $('#select2-municipios').empty();
+            $('.select2-municipios').wrap('<div class="position-relative"></div>').select2({
+              dropdownAutoWidth: true,
+              dropdownParent: $('.select2-municipios').parent(),
+              width: '100%',
+            });
+            $('#select2-municipios').append('<option value="">Selecciona una opción</option>');
+            estadoFind.municipios.forEach(function(municipio) {
+              let selected = municipioDB == municipio ? 'selected' : undefined;
+              $('#select2-municipios').append('<option value="'+municipio+'" '+selected+'>'+municipio+'</option>');
+            });  
+          }
+        });
+      }
+
       function verEspecialidad(){
         var selected = document.getElementById('tipo_medico').value
         if(selected == "Especialista"){
@@ -39,31 +88,5 @@
           $("#especialidades").css("display","none");
         }
       }
-
-      var settings = {
-        "url": "https://api.countrystatecity.in/v1/countries/IN/states/MH/cities",
-        "method": "GET",
-        "headers": {
-          "X-CSCAPI-KEY": "WHNBQUFjTzAwY01CRVhpbDNPQnl1OFBLWFZMczJxWWVzZTJGWG5TQQ=="
-        },
-      };
-      
-      $.ajax(settings).done(function (response) {
-        console.log(response);
-      });
-
-      {{--  function geocode(){
-        var location = '17.9697117-92.9208398'
-        axios.get('https://maps.googleapis.com/maps/api/geocode/json',{
-          params:{
-            address:location,
-            key:'AIzaSyCh1gZvUsD9ljetIt-i5jfTPtXhHB8uq7Y'
-          }
-        }).then(function(response){
-          console.log('response', response)
-        }).catch(function(error){
-          console.log('error',error)
-        })
-      }  --}}
     </script>
 @endsection

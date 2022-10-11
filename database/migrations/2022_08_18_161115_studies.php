@@ -19,6 +19,8 @@ class Studies extends Migration
             $table->text('descripcion');
             $table->text('informacion_clinica');
             $table->text('precauciones');
+            $table->string('imagen_destacada');
+            $table->string('imagen_portada');
             $table->boolean('status')->default(true);
             $table->timestamps();
         });

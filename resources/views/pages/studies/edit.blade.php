@@ -1,7 +1,7 @@
 @extends('layouts/contentLayoutMaster')
 
 @section('title', 'Estudios')
-
+@include('components/studies/scripts')
 @section('content')
 <!-- Kick start -->
 <div class="card">

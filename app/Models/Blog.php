@@ -13,7 +13,8 @@ class Blog extends Model
     protected $fillable = [
         'id',
         'titulo',
-        'imagen_destacada_url',
+        'imagen_portada',
+        'imagen_destacada',
         'descripcion',
         'status'
     ];

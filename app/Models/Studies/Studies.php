@@ -18,6 +18,8 @@ class Studies extends Model
         'descripcion',
         'informacion_clinica',
         'precauciones',
+        'imagen_destacada',
+        'imagen_portada',
         'status'
     ];
 

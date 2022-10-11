@@ -16,7 +16,8 @@ class Blog extends Migration
         Schema::create('blog', function (Blueprint $table) {
             $table->id();
             $table->string('titulo');
-            $table->string('imagen_destacada_url');
+            $table->string('imagen_portada');
+            $table->string('imagen_destacada');
             $table->text('descripcion');
             $table->boolean('status')->default(true);
             $table->timestamps();

@@ -112,7 +112,7 @@ class PostulanteController extends Controller
             'otro_ingreso'=> 'required',
             // 'importe_mensual'=> 'required',
             // 'cual_ingreso'=> 'required',
-            'conyuge_trabaja'=> 'required',
+           // 'conyuge_trabaja'=> 'required',
             // 'importe_conyuge'=> 'required',
             // 'conyuge_donde'=> 'required',
             'paga_renta'=> 'required',
@@ -127,57 +127,57 @@ class PostulanteController extends Controller
             // 'gasto_mensual',
         ]);
 
-        if($request->titulo == 'si'){
-            $validator = Validator::make( [
-            'cedula' => 'required',
-            ]);
-        }else{
-            $validator = Validator::make( [
-                'trunco' => 'required',
-            ]);
-        }
+        // if($request->titulo == 'si'){
+        //     $validator = Validator::make( [
+        //     'cedula' => 'required',
+        //     ]);
+        // }else{
+        //     $validator = Validator::make( [
+        //         'trunco' => 'required',
+        //     ]);
+        // }
 
-        if($request->estudia_actualmente == 'si'){
-            $validator = Validator::make( [
-                'institucion_actual' => 'required',
-                'carrera_actual'=> 'required',
-                'semestre_actual'=> 'required',
-                'horario_actual'=> 'required',
-            ]);
-        }
+        // if($request->estudia_actualmente == 'si'){
+        //     $validator = Validator::make( [
+        //         'institucion_actual' => 'required',
+        //         'carrera_actual'=> 'required',
+        //         'semestre_actual'=> 'required',
+        //         'horario_actual'=> 'required',
+        //     ]);
+        // }
 
-        if($request->paga_renta == 'si'){
-            $validator = Validator::make( [
-                'importe_renta'=> 'required',
-            ]);
-        }
+        // if($request->paga_renta == 'si'){
+        //     $validator = Validator::make( [
+        //         'importe_renta'=> 'required',
+        //     ]);
+        // }
 
-        if($request->deudas == 'si'){
-            $validator = Validator::make( [
-                'importe_deuda'=> 'required',
-                'abono_mensual'=> 'required',
-            ]);
-        }
+        // if($request->deudas == 'si'){
+        //     $validator = Validator::make( [
+        //         'importe_deuda'=> 'required',
+        //         'abono_mensual'=> 'required',
+        //     ]);
+        // }
 
-        if($request->auto_propio == 'si'){
-            $validator = Validator::make( [
-                'marca'=> 'required',
-                'modelo'=> 'required',
-            ]);
-        }
+        // if($request->auto_propio == 'si'){
+        //     $validator = Validator::make( [
+        //         'marca'=> 'required',
+        //         'modelo'=> 'required',
+        //     ]);
+        // }
 
-        if($request->estado_civil == 'soltero'){
-            $validator = Validator::make( [
-                'conyuge_trabaja'=> 'required',
-                'importe_conyuge'=> 'required',
-                'conyuge_donde'=> 'required',
-            ]);
-        }
+        // if($request->estado_civil == 'casado'){
+        //     $validator = Validator::make( [
+        //         'conyuge_trabaja'=> 'required',
+        //         'importe_conyuge'=> 'required',
+        //         'conyuge_donde'=> 'required',
+        //     ]);
+        // }
 
-        if ($validator->fails()) {
-            return response()->withErrors($validator)->withInput();
-            // return response()->json($validator->messages(), 400);
-        }
+        // if ($validator->fails()) {
+        //     return response()->withErrors($validator)->withInput();
+        //     // return response()->json($validator->messages(), 400);
+        // }
         DB::beginTransaction();
         $postulante = Postulant::create([
             'vacante_id'=> $request->vacante_id,

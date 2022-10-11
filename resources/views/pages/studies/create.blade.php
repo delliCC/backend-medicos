@@ -12,11 +12,10 @@
   </div>
   <div class="card-body">
     <div class="card-text">
-        <form class="mt-2" method="POST" id="form-studie" files="true">
-          {{--  action="{{ route('studies.store') }}"  --}}
-            @csrf
-            @include('components/studies/form')
-        </form>
+      <form method="POST" action="{{ route('studies.store') }}" class="mt-2" id="formStudie" name="formStudie" enctype="multipart/form-data">
+        @csrf
+        @include('components/studies/form')
+      </form>
     </div>
   </div>
 </div>

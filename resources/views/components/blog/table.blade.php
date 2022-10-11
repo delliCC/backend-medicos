@@ -1,5 +1,5 @@
 
-<table class="datatables-basic table" id="blog-table">
+<table class="datatables-basic table" id="blogTable">
   <thead>
     <tr>
       <th>Blog</th>

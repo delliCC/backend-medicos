@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use DataTables;
 use Vimeo\Vimeo;
 use App\Models\Blog;
@@ -44,7 +45,36 @@ class BlogController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'titulo' => 'required',
+            'descripcion' => 'required',
+        ]);
+
+        $imagenDestacada = null;
+        if(true === $request->hasFile('imagen_destacada')){
+            $fileBase64 = base64_encode(file_get_contents($request->file('imagen_destacada')));
+            $fileName = time();
+
+            $imagenDestacada = $this->uploadS3Base64("{$fileName}.jpg", $fileBase64, 'blog');
+        }
+
+        $imagenPortada = null;
+        if(true === $request->hasFile('imagen')){
+            $fileBase64 = base64_encode(file_get_contents($request->file('imagen')));
+            $fileName = time();
+
+            $imagenPortada = $this->uploadS3Base64("{$fileName}.jpg", $fileBase64, 'blog');
+        }
+        // DB::beginTransaction();
+
+        Blog::create([
+            'titulo'=> $request->titulo,
+            'descripcion'=> $request->descripcion,
+            'imagen_destacada'=>$imagenDestacada['url'],
+            'imagen_portada'=>$imagenPortada['url'],
+        ]);
+        // DB::commit();
+        return redirect()->route('vacant.index')->with('success', 'Datos guardados correctamente.');
     }
 
     /**
@@ -66,7 +96,12 @@ class BlogController extends Controller
      */
     public function edit($id)
     {
-        //
+        $breadcrumbs = [
+            ['link'=>"blog", 'name'=>"blog"], ['name'=>"Editar"]
+        ];
+
+        $datos = Blog::find($id);
+        return view('/pages/blog/edit', ['breadcrumbs' => $breadcrumbs, 'datos' => $datos]);
     }
 
     /**
@@ -97,32 +132,17 @@ class BlogController extends Controller
         $ficha = Blog::select(
             'id',
             'titulo',
-            'imagen_destacada_url',
+            'imagen_destacada',
+            'imagen_portada',
             'descripcion',
             'status',
         )->get();
         return DataTables::of($ficha)->addColumn('accion', function($row){
             $btn = '<div class="demo-inline-spacing">';
-            $btn .= '<a href="'.route("blog.edit", $row->id).'" class="btn btn-outline-info btn-sm" data-toggle="modal" data-target="#default"><i data-feather="edit"></i></a>';
+            $btn .= '<a href="'.route("blog.edit", $row->id).'" class="btn btn-outline-info btn-sm"><i data-feather="edit"></i></a>';
             return $btn;
         })->addColumn('status', function($row) {
             return view('components.blog.switch', ['data' => $row]);
         })->rawColumns(['accion'])->make();
-    }
-
-    public function uploadS3Base64($fileName, $fileBase64, $path = '')
-    {
-        $file = $path ."". $fileName;
-
-        Storage::disk('s3')->put($file, base64_decode($fileBase64), 'public');
-
-        // $url = Storage::temporaryUrl(
-        //     $fileName, now()->addMinutes(1)
-        // );
-
-        return [
-            'url' => Storage::disk('s3')->getAdapter()->getClient()->getObjectUrl('facturas', $file),
-            'path' => $file,
-        ];
     }
 }
