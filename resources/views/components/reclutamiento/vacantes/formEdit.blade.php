@@ -27,7 +27,7 @@
   <div class="col-4 mb-1">
     <fieldset class="form-group">
         <label for="sucursal_id">Sucursal</label>
-        <select class="form-control" class="form-control" id="sucursal_id" name="sucursal_id[]" multiple>
+        <select class="form-control" class="form-control" id="sucursal_id" name="sucursal_id">
             @foreach ($sucursales as $sucursal)
                 <option value="{{$sucursal->id}}" {{isset($datos) ? $sucursal->id == $datos->sucursal_id ? 'selected' : '' : ''}}>
                     {{ $sucursal->sucursal }}

@@ -28,7 +28,7 @@ class SucursalesController extends Controller
         )->where('status', 1)->get();
 
         $array = json_decode($datos, true);
-        return $this->sendResponse($array, 'Lista de Vacantes', 200);
+        return $this->sendResponse($array, 'Lista de Sucursales', 200);
     }
 
     /**

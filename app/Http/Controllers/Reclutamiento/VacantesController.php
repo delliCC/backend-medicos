@@ -67,11 +67,10 @@ class VacantesController extends Controller
         $fileName = time();
 
         $imagen = $this->uploadS3Base64("{$fileName}.jpg", $fileBase64, 'vacantes');
-        // DB::beginTransaction();
+        //DB::beginTransaction();
 
         foreach($request->sucursal_id as $sucursal_id){
-            $verificar = Vacant::select("*")->where('sucursal_id',$sucursal_id)
-            ->where('puesto_id',$request->puesto_id)->where("status",1)->get();
+            $verificar = Vacant::select("*")->where('sucursal_id',$sucursal_id)->where('puesto_id',$request->puesto_id)->where("status",1)->get();
     
             if (count($verificar) > 0){
                 return redirect()->route('vacant.index')->with('success', 'Este registro capturado ya existe.',[],400);
@@ -94,7 +93,7 @@ class VacantesController extends Controller
             ]);
         }
 
-        // DB::commit();
+        //DB::commit();
         return redirect()->route('vacant.index')->with('success', 'Datos guardados correctamente.');
     }
 
@@ -164,36 +163,34 @@ class VacantesController extends Controller
 
             $imagen = $this->uploadS3Base64("{$fileName}.jpg", $fileBase64, 'vacantes');
         }
-        // DB::beginTransaction();
+        DB::beginTransaction();
         
-        foreach ($request->sucursal_id as $sucursal_id){
-            // $vacanteExiste = Vacant::where('sucursal_id',$sucursal_id)->where('puesto_id',$request->puesto_id)->where("status",1)->first();
-    
-            // if (null !== $vacanteExiste) {
-            //     return redirect()->route('vacant.index')->with('success', 'Este registro capturado ya existe.',[],400);
-            // }
+        // $vacanteExiste = Vacant::where('sucursal_id',$request->sucursal_id)->where('puesto_id',$request->puesto_id)->where("status",1)->first();
 
-            $datos = Vacant::find($id);
+        // return $vacanteExiste;
+        // if (count($vacanteExiste) > 1) {
+        //     return redirect()->route('vacant.index')->with('success', 'Este registro capturado ya existe.',[],400);
+        // }
+       // return $request->all();
+        $datos = Vacant::find($id);
 
-            $data = [
-                'puesto_id' => $request->puesto_id,
-                'sucursal_id' => $sucursal_id,
-                'cantidad' => $request->cantidad,
-                'requisitos' => $request->requisitos,
-                'funcion' => $request->funcion,
-                'salario' => $request->salario,
-                'prestaciones' => $request->prestaciones, 
-                'horario' => $request->horario,
-                'reclutador_id' => $request->reclutador_id,
-            ];
+        $data = [
+            'puesto_id' => $request->puesto_id,
+            'sucursal_id' => $request->sucursal_id,
+            'cantidad' => $request->cantidad,
+            'requisitos' => $request->requisitos,
+            'funcion' => $request->funcion,
+            'salario' => $request->salario,
+            'prestaciones' => $request->prestaciones, 
+            'horario' => $request->horario,
+            'reclutador_id' => $request->reclutador_id,
+        ];
 
-            if (null !== $imagen) {
-                $data['imagen_url'] = $imagen['url'];
-            }
-            $datos->update($data);
+        if (null !== $imagen) {
+            $data['imagen_url'] = $imagen['url'];
         }
-
-        // DB::commit();
+        $datos->update($data);
+        DB::commit();
         return redirect()->route('vacant.index')->with('success', 'Datos guardados correctamente.');
     }
 
