@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-12 mb-1">
     <fieldset class="form-group">
-        <input type="hidden" id="id-ficha">
+        <input type="hidden" id="blog_id">
         <label for="especialidad">Titutlo</label>
         <input type="text" id="titulo" value="{{ old('titulo', isset($datos) ? $datos->titulo : '') }}" class="form-control @error('titulo') is-invalid @enderror" name="titulo"  placeholder="titulo">
         @error('titulo')

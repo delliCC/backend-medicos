@@ -96,7 +96,7 @@ Route::group(['middlaware' => 'auth'], function() {
         Route::get('/crear', [BlogController::class, 'create'])->name('blog.create');
         Route::post('/guardar', [BlogController::class, 'store'])->name('blog.store');
         Route::get('/{id}', [BlogController::class, 'edit'])->name('blog.edit');
-        Route::put('/actualizar/{id}', [BlogController::class, 'update'])->name('blog.update');
+        Route::post('/actualizar/{id}', [BlogController::class, 'update'])->name('blog.update');
         Route::get('/estatus/{id}/{estado}', [BlogController::class, 'status'])->name('blog.status');
     });
 

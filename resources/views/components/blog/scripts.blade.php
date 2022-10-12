@@ -20,7 +20,7 @@
         configuracionesBasicasDatatable['ajax'] = "blog/listar"
         configuracionesBasicasDatatable['columns'] = [
           { "data": "titulo" },
-          { "data": "descripcion" },
+          { "data": "imagen_portada" },
           { "data": "status" },
           { "data": "accion" }
         ]
@@ -38,23 +38,26 @@
 
         for(var a=0; a<inputFileDestacada.files.length; a++){
           var imagenDestacada = inputFileDestacada.files[a]
-          console.log(imagenDestacada)
-          formData.append('imagenes_destacada[]', imagenDestacada);
+          formData.append('imagen_destacada[]', imagenDestacada);
         }
 
         for(var a=0; a<inputFileImagen.files.length; a++){
           var imagen = inputFileImagen.files[a]
-          console.log(imagen)
           formData.append('imagen[]', imagen);
         }
 		
-        {{--  const idFicha = event.target['id-blog'].value
-        const url = idFicha ? `/blog/actualizar/${idFicha}` : '/blog/guardar'
-        const method = idFicha ? 'PUT' : 'POST'
-        --}}
+        const idBlog = event.target['blog_id'].value
+
+        console.log('idBlog',idBlog)
+        const urlPost = `${$('#formBlog').attr('action')}?${$('#formBlog').serialize()}`
+        const url = idBlog ? `/blog/actualizar/${idBlog}` : urlPost
+        const method = idBlog ? 'PUT' : 'POST'
+
         $.ajax({
             url: `${$('#formBlog').attr('action')}?${$('#formBlog').serialize()}`,
             method: 'POST',
+            {{--  url:url,
+            method: method,  --}}
             data: formData,
             processData: false,
             beforeSend: xhr => {
@@ -71,17 +74,10 @@
                 },
                 buttonsStyling: false
               });
-              location.reload()
         }).fail(function (data) {
             alert(data.responseJSON.errors.especialidad[0])
         });
-
       });
-
-      function editarEspecilidad(id, nombre) {
-        $('#id-blog').val(id);
-        $('#nombre').val(nombre);
-      }
 
       function changeStatus(event, id){
         event.preventDefault();

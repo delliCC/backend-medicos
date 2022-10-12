@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use DB;
 use DataTables;
-use Vimeo\Vimeo;
 use App\Models\Blog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -65,7 +64,8 @@ class BlogController extends Controller
 
             $imagenPortada = $this->uploadS3Base64("{$fileName}.jpg", $fileBase64, 'blog');
         }
-        // DB::beginTransaction();
+       // return  $imagenPortada;
+        DB::beginTransaction();
 
         Blog::create([
             'titulo'=> $request->titulo,
@@ -73,8 +73,8 @@ class BlogController extends Controller
             'imagen_destacada'=>$imagenDestacada['url'],
             'imagen_portada'=>$imagenPortada['url'],
         ]);
-        // DB::commit();
-        return redirect()->route('vacant.index')->with('success', 'Datos guardados correctamente.');
+        DB::commit();
+        return redirect()->route('blog.index')->with('success', 'Datos guardados correctamente.');
     }
 
     /**
@@ -113,7 +113,46 @@ class BlogController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'titulo' => 'required',
+            'descripcion' => 'required',
+        ]);
+
+        $imagenDestacada = null;
+        if(true === $request->hasFile('imagen_destacada')){
+            $fileBase64 = base64_encode(file_get_contents($request->file('imagen_destacada')));
+            $fileName = time();
+
+            $imagenDestacada = $this->uploadS3Base64("{$fileName}.jpg", $fileBase64, 'blog');
+        }
+
+        $imagenPortada = null;
+        if(true === $request->hasFile('imagen')){
+            $fileBase64 = base64_encode(file_get_contents($request->file('imagen')));
+            $fileName = time();
+
+            $imagenPortada = $this->uploadS3Base64("{$fileName}.jpg", $fileBase64, 'blog');
+        }
+
+        DB::beginTransaction();
+
+        $datos = Blog::find($id);
+
+        $data = [
+            'titulo'=> $request->titulo,
+            'descripcion'=> $request->descripcion,
+        ];
+
+        if (null !== $imagenDestacada) {
+            $data['imagen_destacada'] = $imagenDestacada['url'];
+        }
+
+        if (null !== $imagenPortada) {
+            $data['imagen_portada'] = $imagenPortada['url'];
+        }
+        $datos->update($data);
+        DB::commit();
+        return redirect()->route('blog.index')->with('success', 'Datos guardados correctamente.');
     }
 
     /**
@@ -141,6 +180,8 @@ class BlogController extends Controller
             $btn = '<div class="demo-inline-spacing">';
             $btn .= '<a href="'.route("blog.edit", $row->id).'" class="btn btn-outline-info btn-sm"><i data-feather="edit"></i></a>';
             return $btn;
+        })->addColumn('imagen_portada', function($row) {
+            return view('components.blog.imagen', ['data' => $row]);
         })->addColumn('status', function($row) {
             return view('components.blog.switch', ['data' => $row]);
         })->rawColumns(['accion'])->make();
