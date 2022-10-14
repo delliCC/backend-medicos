@@ -25,67 +25,58 @@
           { "data": "status" },
           { "data": "accion" }
         ]
-        $('#webinar-table').DataTable(configuracionesBasicasDatatable);
+        $('#tableWebinar').DataTable(configuracionesBasicasDatatable);
       });
  
       $('#formWebinar').submit(event => {
-        return ;
-        event.preventDefault();
-        console.log('test')
-       
-        let headers = {
-          Authorization: "token",
-         // 'Content-Type':'multipart/form-data'
-        };
-       
-        var inputVideo = document.getElementById("input-videoWebinar");
-        var inputFilePortada = document.getElementById("input-portada");
-        var inputFileTrailer = document.getElementById("input-trailer");
-        var inputFileFoto = document.getElementById("input-foto");
-        var inputFichaIndica = document.getElementById("input-ficha-indica");
+      
+        var inputWebinar = document.getElementById("webinar_url");
+        var inputFilePortada = document.getElementById("imagen_portada");
+        var inputFileTrailer = document.getElementById("trailer_url");
+        var inputFileFoto = document.getElementById("imagen_medico_url");
+        var inputFichaIndica = document.getElementById("ficha_url");
         var formData = new FormData();
 
-        formData.append('nombre', $('#input-nombre').val());
-        formData.append('fecha_inicio', $('#input-fecha-inicio').val());
-        formData.append('descripcion', $('#input-descripcion').val());
-        formData.append('nombre_medico', $('#input-nombre-medico').val());
-        formData.append('especialidad', $('#input-especialidad').val());
+        formData.append('nombre', $('#nombre').val());
+        formData.append('fecha_inicio', $('#fecha_inicio').val());
+        formData.append('descripcion', $('#descripcion').val());
+        formData.append('nombre_medico', $('#nombre_medico').val());
+        formData.append('especialidad', $('#especialidad').val());
         formData.append('ficha_nombre', $('#ficha_nombre').val());
         formData.append('ficha_descripcion', $('#ficha_descripcion').val());
 
-        for(var a=0; a<inputVideo.files.length; a++){
-          var video = inputVideo.files[a]
-          console.log(video)
-          formData.append('video[]', video);
+        for(var a=0; a<inputWebinar.files.length; a++){
+          var webinar = inputWebinar.files[a]
+          formData.append('webinar_url[]', webinar);
         }
 
         for(var a=0; a<inputFileTrailer.files.length; a++){
           var videoTrailer = inputFileTrailer.files[a]
           console.log(videoTrailer)
-          formData.append('trailer[]', videoTrailer);
+          formData.append('trailer_url[]', videoTrailer);
         }
 
         for(var a=0; a<inputFilePortada.files.length; a++){
           var imagenPortada = inputFilePortada.files[a]
           console.log(imagenPortada)
-          formData.append('portada[]', imagenPortada);
+          formData.append('imagen_portada[]', imagenPortada);
         }
 
         for(var a=0; a<inputFileFoto.files.length; a++){
           var foto = inputFileFoto.files[a]
           console.log(foto)
-          formData.append('foto_medico[]', foto);
+          formData.append('imagen_medico_url[]', foto);
         }
 
         for(var a=0; a<inputFichaIndica.files.length; a++){
           var fichaIndica = inputFichaIndica.files[a]
           console.log(fichaIndica)
-          formData.append('ficha_indica[]', fichaIndica);
+          formData.append('ficha_url[]', fichaIndica);
         }
        
         $.ajax({
-            url:'/webinar/guardar',
-            method:'POST',
+            url: `${$('#formWebinar').attr('action')}?${$('#formWebinar').serialize()}`,
+            method: 'POST',
             enctype: 'multipart/form-data',
             data: formData,
             headers: headers,
@@ -104,7 +95,7 @@
                 },
                 buttonsStyling: false
               });
-              location.reload()
+              {{--  location.reload()  --}}
          }).fail(function (data) {
           console.log(data)
            alert(data.responseJSON.errors)
@@ -114,8 +105,8 @@
 
 
       function editarEspecilidad(id, nombre) {
-        $('#id-ficha').val(id);
-        $('#input-nombre').val(nombre);
+        $('#webinar_id').val(id);
+        $('#nombre').val(nombre);
       }
 
       function changeStatus(event, id){

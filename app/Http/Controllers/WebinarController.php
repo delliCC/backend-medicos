@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use DataTables;
 use App\Models\Webinar;
 use Illuminate\Http\Request;
 use Vimeo\Laravel\VimeoManager;
+use Vinkla\Vimeo\Facades\Vimeo;
+use Illuminate\Support\Facades\Validator;
 
 class WebinarController extends Controller
 {
@@ -14,6 +17,7 @@ class WebinarController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
         $pageConfigs = ['blankPage' => false];
@@ -21,6 +25,11 @@ class WebinarController extends Controller
         return view('/pages/webinar/index', ['pageConfigs' => $pageConfigs, 'breadcrumbs' => $breadcrumbs]);
     }
 
+    // public function vimeo(Request $request)
+    // {
+    //     return view('vimeo')->with([]);
+    // }
+ 
     /**
      * Show the form for creating a new resource.
      *
@@ -43,7 +52,7 @@ class WebinarController extends Controller
      */
     public function store(Request $request, VimeoManager $vimeo)
     {
-        return $request->all();
+      
         $this->validate($request, [
             'nombre'=> 'required|string|unique:webinar,nombre',
             'descripcion'=> 'required|string|unique:webinar,descripcion',
@@ -61,27 +70,54 @@ class WebinarController extends Controller
         // 'nombre_medico',
         // 'imagen_medico_url',
         // 'especialidad',
-        // 'status'
-        // Webinar::create($request->all());
+
         $uri = $vimeo->upload($request->webinar_url,[
             'nombre'=> $request->nombre,
             'descripcion'=> $request->descripcion
         ]);
 
-        dd($uri);
+        $imagenFichaIndica = null;
+        if(true === $request->hasFile('ficha_url')){
+            $fileBase64 = base64_encode(file_get_contents($request->file('ficha_url')));
+            $fileName = time();
 
-        // $imagenes = $request->imagenes;
-        // foreach ($imagenes as $imagen) {
-        //     $fileS3 = uploadS3($imagen, 'ficha-indica', randomString() . '-' . time());
+            $imagenFichaIndica = $this->uploadS3Base64("{$fileName}.jpg", $fileBase64, 'webinar');
+        }
 
-        //     $datos = [
-        //         'nombre' => $fileS3['filename'],
-        //         'url' => $fileS3['route'],
-        //         'descripcion' => $request->descripcion,
-        //     ];
-        //     // $evidencia = TabIndicates::create($datos);
-        // }
-        return $this->sendResponse();
+        $imagenPortada = null;
+        if(true === $request->hasFile('imagen_portada')){
+            $fileBase64 = base64_encode(file_get_contents($request->file('imagen_portada')));
+            $fileName = time();
+
+            $imagenPortada = $this->uploadS3Base64("{$fileName}.jpg", $fileBase64, 'webinar');
+        }
+
+        $fotoMedico = null;
+        if(true === $request->hasFile('imagen_medico_url')){
+            $fileBase64 = base64_encode(file_get_contents($request->file('imagen_medico_url')));
+            $fileName = time();
+
+            $fotoMedico = $this->uploadS3Base64("{$fileName}.jpg", $fileBase64, 'webinar');
+        }
+       // return  $imagenPortada;
+        DB::beginTransaction();
+
+        Webinar::create([
+            'nombre'=>$request->nombre,
+            'webinar_url'=> 'ii',
+            'descripcion'=> $request->descripcion,
+            'ficha_nombre'=> $request->ficha_nombre,
+            'ficha_url'=>$imagenFichaIndica['url'],
+            'ficha_descripcion'=> $request->ficha_descripcion,
+            'fecha_inicio'=> $request->fecha_inicio,
+            'preview_imagen'=> $imagenPortada['url'],
+            'trailer_url'=> 'ii',
+            'nombre_medico'=> $request->nombre_medico,
+            'imagen_medico_url'=> $fotoMedico['url'],
+            'especialidad'=> $request->especialidad,
+        ]);
+        DB::commit();
+        return redirect()->route('webinar.index')->with('success', 'Datos guardados correctamente.');
     }
 
     /**

@@ -1,5 +1,5 @@
 
-<table class="datatables-basic table" id="webinar-table">
+<table class="datatables-basic table" id="tableWebinar">
   <thead>
     <tr>
       <th>Webinar</th>
