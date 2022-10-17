@@ -2,6 +2,7 @@
 
 @section('title', 'Webinar')
 @include('components/webinar/scripts')
+
 @section('content')
 <!-- Kick start -->
 <div class="card">

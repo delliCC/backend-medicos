@@ -133,7 +133,6 @@
   </div>
   <div class="col-6 mb-1">
     <fieldset class="form-group">
-        <input type="hidden" id="id-ficha">
         <label for="nombre_medico">Nombre</label>
         <input type="text" id="nombre_medico" value="{{ old('nombre_medico', isset($datos) ? $datos->nombre_medico : '') }}" class="form-control @error('nombre_medico') is-invalid @enderror" name="nombre_medico"  placeholder="Nombre">
         @error('nombre_medico')

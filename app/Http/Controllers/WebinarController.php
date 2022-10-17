@@ -52,12 +52,12 @@ class WebinarController extends Controller
      */
     public function store(Request $request, VimeoManager $vimeo)
     {
-      
-        $this->validate($request, [
-            'nombre'=> 'required|string|unique:webinar,nombre',
-            'descripcion'=> 'required|string|unique:webinar,descripcion',
-            'webinar_url'=> 'required|mimetypes:video/mp4,video/mpeg,video/quicktime|max:60000',
-        ]);
+      //  return $request->all();
+        // $this->validate($request, [
+        //     'nombre'=> 'required|string|unique:webinar,nombre',
+        //     'descripcion'=> 'required|string|unique:webinar,descripcion',
+        //     'webinar_url'=> 'required|mimetypes:video/mp4,video/mpeg,video/quicktime|max:60000',
+        // ]);
         // 'nombre',
         // 'webinar_url',
         // 'descripcion',
@@ -71,11 +71,58 @@ class WebinarController extends Controller
         // 'imagen_medico_url',
         // 'especialidad',
 
-        $uri = $vimeo->upload($request->webinar_url,[
-            'nombre'=> $request->nombre,
-            'descripcion'=> $request->descripcion
-        ]);
+        // $uri = $vimeo->upload($request->webinar_url,[
+        //     'nombre'=> $request->nombre,
+        //     'descripcion'=> $request->descripcion
+        // ]);
+        ini_set('max_execution_time', 600);
+        ini_set('memory_limit', '2048M');
+ 
+        $limite = 500000; // Límite en kilobytes
+ 
+        // $validator = Validator::make($request->all(), [
+        //     'video' => "required|max:{$limite}"
+        // ]);
+        
+        // return $validator;
+        // if ($validator->fails()) {
+        //     return redirect()->route('webinar.index')->with('mensajeError', 'Error, excede el limite de tamaño');
+        // }
+        // return $request->all();
+        // if ($validator->passes()) {
 
+            $file = $request->file('webinar_url')->move(
+                base_path() . '/storage/video/',
+                $request->file('webinar_url')->getClientOriginalName()
+            );
+            // $file = $request->file('webinar_url');
+            // $destinationPath = base_path('/storage/video/');
+            // $file->move($destinationPath . $file->getClientOriginalName());
+        
+            #orginal
+            $url = Vimeo::upload($file);
+            // \Log::debug($file .'video enviado');
+            // With parameters.
+            // $url =  Vimeo::connection()->upload($file);
+            // $url =  Vimeo::upload($file, [
+            //     'name' => 'Ada',
+            //     'privacy' => [
+            //         'view' => 'anybody',
+            //         "link"=> $url
+            //     ]
+            // ]);
+            unlink($file);
+
+            return $url;
+            $datosVimeo = Vimeo::request($url);
+    
+            $test = $datosVimeo['body'];
+                $vimeo_id = str_replace("/videos/", "", $datosVimeo['body']['uri']);
+            $this->edit($vimeo_id);
+        // }
+            
+        return $datosVimeo;
+        return $request->all();
         $imagenFichaIndica = null;
         if(true === $request->hasFile('ficha_url')){
             $fileBase64 = base64_encode(file_get_contents($request->file('ficha_url')));
@@ -139,8 +186,38 @@ class WebinarController extends Controller
      */
     public function edit($id)
     {
-        //
+        Vimeo::request("/videos/{$id}", [
+            'privacy' => [
+                'view' => 'unlisted',
+                'embed' => 'whitelist'
+            ],
+            'embed' => [
+                'buttons' => [
+                    'embed' => false,
+                    'fullscreen' => true,
+                    'share' => false,
+                    'watchlater' => false
+                ],
+                'logos' => [
+                    'vimeo' => false
+                ],
+                'title' => [
+                    'name' => 'rh',
+                    'owner' => 'hide',
+                    'portrait' => 'hide'
+                ]
+            ]
+        ], 'PATCH');
+        $domains = [
+             'laboratorioschontalpa.com.mx',
+             'localhost'
+        ];
+
+        foreach ($domains as $domain) {
+            return Vimeo::request("/videos/{$id}/privacy/domains/{$domain}", [], 'PUT');
+        }
     }
+ 
 
     /**
      * Update the specified resource in storage.

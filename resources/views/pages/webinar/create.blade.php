@@ -2,8 +2,8 @@
 
 @section('title', 'Webinar')
 @include('components/webinar/scripts')
-@section('content')
 
+@section('content')
 <div class="card">
   <div class="card-header">
     <h4 class="card-title">Crear Webinar</h4>

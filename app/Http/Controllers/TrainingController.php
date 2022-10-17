@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use DataTables;
 use App\Models\Training;
 use Illuminate\Http\Request;
+use Vimeo\Laravel\VimeoManager;
+use Vinkla\Vimeo\Facades\Vimeo;
+use Illuminate\Support\Facades\Validator;
 
 class TrainingController extends Controller
 {
@@ -96,7 +100,7 @@ class TrainingController extends Controller
         $datos = Training::select(
             'id',
             'nombre',
-            'url',
+            'training_url',
             'descripcion',
             'status'
         )->get();

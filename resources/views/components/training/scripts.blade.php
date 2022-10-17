@@ -20,65 +20,54 @@
         configuracionesBasicasDatatable['ajax'] = "capacitacion/listar"
         configuracionesBasicasDatatable['columns'] = [
           { "data": "nombre" },
-          { "data": "url" },
+          { "data": "training_url" },
           { "data": "descripcion" },
           { "data": "status" },
           { "data": "accion" }
         ]
-        $('#capacitacion-table').DataTable(configuracionesBasicasDatatable);
+        $('#capacitacionTable').DataTable(configuracionesBasicasDatatable);
       });
 
       $('#formTraining').submit(event => {
-        const idTraining = event.target['id-training'].value
-        console.log(idTraining)
-        const url = idTraining ? `/capacitacion/actualizar/${idTraining}` : '/capacitacion/guardar'
-        const method = idTraining ? 'PUT' : 'POST'
-        console.log('url',url)
-        console.log('method',method)
-        $.ajax({
-          url,
-          method,
-          data: {
-            '_token': "{{ csrf_token() }}",
-            'nombre': event.target['input-nombre'].value,
-            'descripcion': event.target['input-descripcion'].value
-          },
-          beforeSend: xhr => {
-            formSection.block({
-              message: '<div class="spinner-border text-white" role="status"></div>',
-              timeout: 1000,
-              css: {
-                backgroundColor: 'transparent',
-                color: '#fff',
-                border: '0'
-              },
-              overlayCSS: {
-                opacity: 0.5
-              }
-            });
-          }
-        }).done(response => {
+  
+        let formData = new FormData();
+        formData.append('nombre', $('#nombre').val());
+        formData.append('training_url', $('#training_url')[0].files[0]);
+        formData.append('descripcion', $('#descripcion').val());
+        formData.append('fecha_inicio', $('#fecha_inicio').val());
+        formData.append('imagen_portada', $('#imagen_portada')[0].files[0]);
+        formData.append('trailer_url', $('#trailer_url')[0].files[0]);
+        formData.append('nombre_medico', $('#nombre_medico').val());
+        formData.append('imagen_medico_url', $('#imagen_medico_url')[0].files[0]);
+        formData.append('especialidad', $('#especialidad').val());
         
-          $('#default').modal('hide')
-            Swal.fire({
-              title: response.message,
-              text: 'Los datos se guardaron correctamente',
-              icon: 'success',
-              customClass: {
-                confirmButton: 'btn btn-primary'
-              },
-              buttonsStyling: false
-            });
-          location.reload()
+        $.ajax({
+            url: `${$('#formTraining').attr('action')}?${$('#formTraining').serialize()}`,
+            method: 'POST',
+            data: formData,
+            processData: false,
+            beforeSend: xhr => {
+            
+          }
+          }).done(response => {
+              Swal.fire({
+                title: response.message,
+                text: 'Los datos se guardaron correctamente',
+                icon: 'success',
+                customClass: {
+                  confirmButton: 'btn btn-primary'
+                },
+                buttonsStyling: false
+              });
+              {{--  location.reload()  --}}
         }).fail(function (data) {
-          alert(data.responseJSON.errors.especialidad[0])
+          console.log(data)
+          alert(data.responseJSON.errors)
         });
-
-        event.preventDefault();
-      });
+      });  
 
       function editarTraining(id, nombre) {
-        $('#id-ficha').val(id);
+        $('#training_id').val(id);
         $('#input-nombre').val(nombre);
       }
 
