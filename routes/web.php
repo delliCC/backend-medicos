@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\RolesController;
 use App\Http\Controllers\CouponsController;
 use App\Http\Controllers\MedicosController;
 use App\Http\Controllers\StudiesController;
@@ -52,7 +53,16 @@ Route::get('/', [LoginController::class, 'showLoginForm']);
 Route::post('/login', [LoginController::class, 'login']);
 Route::group(['middlaware' => 'auth'], function() {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
-   
+
+    Route::group(['prefix' => 'roles'], function () {
+        Route::get('/', [RolesController::class, 'index'])->name('roles.index');
+        Route::get('/listar', [RolesController::class, 'listar']);
+        Route::post('/guardar', [RolesController::class, 'store'])->name('roles.store');
+        Route::get('/{id}', [RolesController::class, 'edit'])->name('roles.edit');
+        Route::put('/actualizar/{id}', [RolesController::class, 'update'])->name('roles.update');
+        Route::get('/status/{id}/{status}', [RolesController::class, 'changeStatus'])->name('roles.status');
+    });
+
     Route::group(['prefix' => 'usuario'], function () {
         Route::get('/', [UserController::class, 'index'])->name('user.index');
         Route::get('/listar', [UserController::class, 'listar']);

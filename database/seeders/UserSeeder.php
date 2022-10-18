@@ -20,6 +20,6 @@ class UserSeeder extends Seeder
             'username' => 'delli.patricio',
             'email' => 'npatricio@laboratorioschontalpa.com.mx',
             'password' => bcrypt('secret')
-        ]);
+        ])->assignRole('Admin');
     }
 }
