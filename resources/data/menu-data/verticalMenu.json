@@ -10,7 +10,7 @@
       "name": "Permisos",
       "icon": "lock",
       "slug": "",
-      "badge": "2",
+      "badge": "3",
       "badgeClass": "badge badge-pill badge-light-danger ml-auto mr-1",
       "submenu": [
         {
@@ -18,6 +18,12 @@
           "name": "Roles",
           "icon": "circle",
           "slug": "roles"
+        },
+        {
+          "url": "permisos",
+          "name": "Rutas",
+          "icon": "circle",
+          "slug": "permisos"
         },
         {
           "url": "usuario",

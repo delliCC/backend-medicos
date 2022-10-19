@@ -9,6 +9,7 @@ return [
   "Catálogos"=>"Catálogos",
   "Permisos"=>"Permisos",
   "Roles"=>"Roles",
+  "Rutas"=>"Rutas",
   "Especialidades"=>"Especialidades",
   "Estudios"=>"Estudios",
   "Tipo de muestra"=>"Tipo de muestra",

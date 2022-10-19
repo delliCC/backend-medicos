@@ -35,6 +35,7 @@
 
         formData.append('titulo', $('#titulo').val());
         formData.append('descripcion', $('#descripcion').val());
+        formData.append('descripcion_portada', $('#descripcion_portada').val());
 
         for(var a=0; a<inputFileDestacada.files.length; a++){
           var imagenDestacada = inputFileDestacada.files[a]
@@ -48,7 +49,6 @@
 		
         const idBlog = event.target['blog_id'].value
 
-        console.log('idBlog',idBlog)
         const urlPost = `${$('#formBlog').attr('action')}?${$('#formBlog').serialize()}`
         const url = idBlog ? `/blog/actualizar/${idBlog}` : urlPost
         const method = idBlog ? 'PUT' : 'POST'
@@ -56,8 +56,6 @@
         $.ajax({
             url: `${$('#formBlog').attr('action')}?${$('#formBlog').serialize()}`,
             method: 'POST',
-            {{--  url:url,
-            method: method,  --}}
             data: formData,
             processData: false,
             beforeSend: xhr => {

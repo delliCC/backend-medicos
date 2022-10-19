@@ -11,16 +11,17 @@
         @enderror
     </fieldset>
   </div>
+
   <div class="col-xl-12 col-md-12 col-12">
-      <fieldset class="form-group">
-          <label for="descripcion">Descripción <i style="color: red">*</i></label>
-          <textarea class="form-control @error('descripcion') is-invalid @enderror" id="descripcion" name="descripcion"  placeholder="Descripción">{{ isset($datos) ? $datos->descripcion : '' }}</textarea>
-          @error('descripcion')
-          <span class="invalid-feedback" role="alert">
-              <strong>{{ $message }}</strong>
-          </span>
-          @enderror
-      </fieldset>
+    <fieldset class="form-group">
+        <label for="descripcion_portada">Descripción Portada <i style="color: red">*</i></label>
+        <textarea class="form-control @error('descripcion_portada') is-invalid @enderror" id="descripcion_portada" name="descripcion_portada"  placeholder="Descripción">{{ isset($datos) ? $datos->descripcion_portada : '' }}</textarea>
+        @error('descripcion_portada')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
+    </fieldset>
   </div>
 
   <div class="col-12 mb-2">
@@ -52,6 +53,18 @@
         </div>
       </div>
     </div>
+  </div>
+
+  <div class="col-xl-12 col-md-12 col-12">
+    <fieldset class="form-group">
+        <label for="descripcion">Descripción <i style="color: red">*</i></label>
+        <textarea class="form-control @error('descripcion') is-invalid @enderror" id="descripcion" name="descripcion"  placeholder="Descripción">{{ isset($datos) ? $datos->descripcion : '' }}</textarea>
+        @error('descripcion')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
+    </fieldset>
   </div>
 
   <div class="col-12 mb-2">

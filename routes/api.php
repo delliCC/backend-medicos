@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\API\BlogController;
 use App\Http\Controllers\API\LoginController;
 use App\Http\Controllers\API\EstadosController;
 use App\Http\Controllers\API\StudiesController;
@@ -45,8 +46,13 @@ Route::group(['prefix' => 'postulante'], function () {
 Route::group(['prefix' => 'estados'], function () {
     Route::get('/', [EstadosController::class, 'index']);
 });
-// ********************************************************************************
+// ***********************************Medicos****************************************
 
+Route::group(['prefix' => 'blog'], function () {
+    Route::post('/', [BlogController::class, 'index']);
+    Route::get('/datos/{id}', [BlogController::class, 'show']);
+});
+// ***********************************************************************************
 Route::group(['prefix' => 'estudios'], function () {
     Route::get('/', [StudiesController::class, 'index']);
 });

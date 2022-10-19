@@ -10,6 +10,7 @@ use App\Http\Controllers\CouponsController;
 use App\Http\Controllers\MedicosController;
 use App\Http\Controllers\StudiesController;
 use App\Http\Controllers\WebinarController;
+use App\Http\Controllers\PermisosController;
 use App\Http\Controllers\TrainingController;
 use App\Http\Controllers\SpecialtyController;
 use App\Http\Controllers\Auth\LoginController;
@@ -61,6 +62,15 @@ Route::group(['middlaware' => 'auth'], function() {
         Route::get('/{id}', [RolesController::class, 'edit'])->name('roles.edit');
         Route::put('/actualizar/{id}', [RolesController::class, 'update'])->name('roles.update');
         Route::get('/status/{id}/{status}', [RolesController::class, 'changeStatus'])->name('roles.status');
+    });
+
+    Route::group(['prefix' => 'permisos'], function () {
+        Route::get('/', [PermisosController::class, 'index'])->name('permissions.index');
+        Route::get('/listar', [PermisosController::class, 'listar']);
+        Route::post('/guardar', [PermisosController::class, 'store'])->name('permissions.store');
+        Route::get('/{id}', [PermisosController::class, 'edit'])->name('permissions.edit');
+        Route::put('/actualizar/{id}', [PermisosController::class, 'update'])->name('permissions.update');
+        Route::get('/status/{id}/{status}', [PermisosController::class, 'changeStatus'])->name('permissions.status');
     });
 
     Route::group(['prefix' => 'usuario'], function () {

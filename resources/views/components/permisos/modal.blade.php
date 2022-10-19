@@ -2,14 +2,14 @@
   <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
-            <h4 class="modal-title" id="myModalLabel1">Crear Rol</h4>
+            <h4 class="modal-title" id="myModalLabel1">Crear Ruta</h4>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>
         </div>
-        <form class="mt-2" method="POST" id="formRol">
+        <form class="mt-2" method="POST" id="formPermiso">
           @csrf
-          @include('components/roles/form')
+          @include('components/permisos/form')
         </form>
       </div>
   </div>

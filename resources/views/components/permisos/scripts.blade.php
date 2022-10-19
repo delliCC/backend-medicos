@@ -17,18 +17,18 @@
 
         configuracionesBasicasDatatable['processing'] = true
         configuracionesBasicasDatatable['serverSide'] = true
-        configuracionesBasicasDatatable['ajax'] = "roles/listar"
+        configuracionesBasicasDatatable['ajax'] = "permisos/listar"
         configuracionesBasicasDatatable['columns'] = [
           { "data": "name" },
           { "data": "accion" }
         ]
-        $('#rolesTable').DataTable(configuracionesBasicasDatatable);
+        $('#permisosTable').DataTable(configuracionesBasicasDatatable);
       });
 
-      $('#formRol').submit(event => {
-        const idMetodo = event.target['rol_id'].value
-        const url = idMetodo ? `/roles/actualizar/${idMetodo}` : '/roles/guardar'
-        const method = idMetodo ? 'PUT' : 'POST'
+      $('#formPermiso').submit(event => {
+        const idPermiso = event.target['permiso_id'].value
+        const url = idPermiso ? `/permisos/actualizar/${idPermiso}` : '/permisos/guardar'
+        const method = idPermiso ? 'PUT' : 'POST'
 
         $.ajax({
           url,
@@ -54,14 +54,15 @@
             });
           location.reload()
         }).fail(function (data) {
-          alert(data.responseJSON.errors)
+          console.log(data)
+          alert(data.responseJSON.errors.metodo[0])
         });
 
         event.preventDefault();
       });
 
       function editarRol(id, name) {
-        $('#rol_id').val(id);
+        $('#permiso_id').val(id);
         $('#name').val(name);
       }
 

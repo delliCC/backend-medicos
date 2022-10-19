@@ -46,6 +46,7 @@ class BlogController extends Controller
     {
         $this->validate($request, [
             'titulo' => 'required',
+            'descripcion_portada'=> 'required',
             'descripcion' => 'required',
         ]);
 
@@ -72,6 +73,7 @@ class BlogController extends Controller
             'descripcion'=> $request->descripcion,
             'imagen_destacada'=>$imagenDestacada['url'],
             'imagen_portada'=>$imagenPortada['url'],
+            'descripcion_portada'=> $request->descripcion_portada,
         ]);
         DB::commit();
         return redirect()->route('blog.index')->with('success', 'Datos guardados correctamente.');
@@ -116,6 +118,7 @@ class BlogController extends Controller
         $this->validate($request, [
             'titulo' => 'required',
             'descripcion' => 'required',
+            'descripcion_portada'=> 'required',
         ]);
 
         $imagenDestacada = null;
@@ -141,6 +144,7 @@ class BlogController extends Controller
         $data = [
             'titulo'=> $request->titulo,
             'descripcion'=> $request->descripcion,
+            'descripcion_portada'=> $request->descripcion_portada,
         ];
 
         if (null !== $imagenDestacada) {

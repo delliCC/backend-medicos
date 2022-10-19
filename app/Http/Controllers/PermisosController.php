@@ -4,11 +4,9 @@ namespace App\Http\Controllers;
 
 use DataTables;
 use Illuminate\Http\Request;
-use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
-use Illuminate\Support\Facades\Validator;
 
-class RolesController extends Controller
+class PermisosController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,11 +15,9 @@ class RolesController extends Controller
      */
     public function index()
     {
-        // $permissions = Permission::all()->pluck('name','id');
-        // , compact('permissions')
         $pageConfigs = ['blankPage' => false];
         $breadcrumbs = [ ['link' => "javascript:void(0)", 'name' => "index"]];
-        return view('/pages/roles/index', ['pageConfigs' => $pageConfigs, 'breadcrumbs' => $breadcrumbs]);
+        return view('/pages/permisos/index', ['pageConfigs' => $pageConfigs, 'breadcrumbs' => $breadcrumbs]);
     }
 
     /**
@@ -42,20 +38,9 @@ class RolesController extends Controller
      */
     public function store(Request $request)
     {
-        $validation = Validator::make($request->all(), [
-            'name' => 'required|unique:roles'
-        ]);
+        Permission::create($request->only('name'));
 
-        if (count($validation->errors()) > 0) {
-            return response()->json(["error" => $validation->errors()], 422);
-        }
-
-        $role = Role::create($request->only('name'));
-
-        // $role->permissions()->sync($request->input('permissions', []));
-        $role->syncPermissions($request->input('permissions', []));
-
-        return redirect()->route('roles.index');
+        return redirect()->route('permissions.index');
     }
 
     /**
@@ -89,9 +74,9 @@ class RolesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $rol = Role::find($id);
+        $permiso = Permission::find($id);
 
-        $rol->update($request->all());
+        $permiso->update($request->all());
 
         return $this->sendResponse();
     }
@@ -109,7 +94,7 @@ class RolesController extends Controller
 
     function listar()
     {
-        $datos = Role::select(
+        $datos = Permission::select(
             'id',
             'name'
         )->get();

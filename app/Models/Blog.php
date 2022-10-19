@@ -14,6 +14,7 @@ class Blog extends Model
         'id',
         'titulo',
         'imagen_portada',
+        'descripcion_portada',
         'imagen_destacada',
         'descripcion',
         'status'
