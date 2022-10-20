@@ -55,6 +55,7 @@ Route::group(['prefix' => 'blog'], function () {
 // ***********************************************************************************
 Route::group(['prefix' => 'estudios'], function () {
     Route::get('/', [StudiesController::class, 'index']);
+    Route::get('/datos/{id}', [StudiesController::class, 'show']);
 });
 
 Route::group(['prefix' => 'webinar'], function () {
