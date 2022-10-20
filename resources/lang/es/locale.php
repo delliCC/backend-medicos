@@ -7,6 +7,7 @@ return [
   "Blog"=>"Blog",
   "Cupones"=>"Cupones",
   "Catálogos"=>"Catálogos",
+  "Slider"=>"Slider",
   "Permisos"=>"Permisos",
   "Roles"=>"Roles",
   "Rutas"=>"Rutas",

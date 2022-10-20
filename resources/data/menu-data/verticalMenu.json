@@ -76,9 +76,15 @@
       "name": "Catálogos",
       "icon": "layers",
       "slug": "",
-      "badge": "3",
+      "badge": "4",
       "badgeClass": "badge badge-pill badge-light-danger ml-auto mr-1",
       "submenu": [
+        {
+          "url": "slider",
+          "name": "Slider",
+          "icon": "circle",
+          "slug": "slider"
+        },
         {
           "url": "especialidad",
           "name": "Especialidades",
