@@ -15,6 +15,10 @@ class SliderPrincipal extends Migration
     {
         Schema::create('slider_principal', function (Blueprint $table) {
             $table->id();
+            $table->string('nombre');
+            $table->string('imagen');
+            $table->text('descripcion');
+            $table->boolean('status')->default(true);
             $table->timestamps();
         });
     }

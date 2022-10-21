@@ -14,6 +14,7 @@ use App\Http\Controllers\PermisosController;
 use App\Http\Controllers\TrainingController;
 use App\Http\Controllers\SpecialtyController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\SliderMainController;
 use App\Http\Controllers\TypeMethodController;
 use App\Http\Controllers\TypeSampleController;
 use App\Http\Controllers\Reclutamiento\PuestosController;
@@ -82,6 +83,17 @@ Route::group(['middlaware' => 'auth'], function() {
         Route::get('/status/{id}/{status}', [UserController::class, 'changeStatus'])->name('user.status');
     });
     //catalogue
+
+    Route::group(['prefix' => 'slider'], function () {
+        Route::get('/', [SliderMainController::class, 'index'])->name('slider.index');
+        Route::get('/listar', [SliderMainController::class, 'listar']);
+        Route::get('/crear', [SliderMainController::class, 'create'])->name('slider.create');
+        Route::post('/guardar', [SliderMainController::class, 'store'])->name('slider.store');
+        Route::get('/{id}', [SliderMainController::class, 'edit'])->name('slider.edit');
+        Route::put('/actualizar/{id}', [SliderMainController::class, 'update'])->name('slider.update');
+        Route::get('/status/{id}/{estado}', [SliderMainController::class, 'changeStatus'])->name('slider.status');
+    });
+
     Route::group(['prefix' => 'especialidad'], function () {
         Route::get('/', [SpecialtyController::class, 'index'])->name('specialty.index');
         Route::get('/listar', [SpecialtyController::class, 'listar']);
@@ -108,7 +120,6 @@ Route::group(['middlaware' => 'auth'], function() {
         Route::put('/actualizar/{id}', [TypeMethodController::class, 'update'])->name('method.update');
         Route::get('/status/{id}/{status}', [TypeMethodController::class, 'changeStatus'])->name('method.status');
     });
-
     
     Route::group(['prefix' => 'blog'], function () {
         Route::get('/', [BlogController::class, 'index'])->name('blog.index');
@@ -217,6 +228,5 @@ Route::group(['middlaware' => 'auth'], function() {
         Route::put('/actualizar/{id}', [PostulantController::class, 'update'])->name('postulant.update');
         Route::get('/estado/{id}/{estado}', [PostulantController::class, 'changeEstado'])->name('postulant.estado');
         Route::get('/eliminar/{id}', [PostulantController::class, 'destroy'])->name('postulant.destroy');
-
     });
 });
