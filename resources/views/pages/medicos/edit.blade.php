@@ -1,6 +1,6 @@
 @extends('layouts/contentLayoutMaster')
 
-@section('title', 'Medicos')
+@section('title', 'Médicos')
 @include('components/medicos/scripts')
 @section('content')
 <!-- Kick start -->

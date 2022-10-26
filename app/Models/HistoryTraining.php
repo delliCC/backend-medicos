@@ -2,28 +2,26 @@
 
 namespace App\Models;
 
-use App\Models\Webinar;
+use App\Models\Training;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class HistoryWebinar extends Model
+class HistoryTraining extends Model
 {
     use HasFactory;
-
-    protected $table = 'medico_webinar';
+    protected $table = 'medico_training';
  
     protected $fillable = [
         'id',
         'medico_id',
-        'webinar_id',
+        'training_id',
         'fecha_inicio',
         'fecha_fin',
         'status'
     ];
 
-    public function webinar()
+    public function training()
     {
-        return $this->belongsTo(Webinar::class, 'webinar_id');
+        return $this->belongsTo(Training::class, 'training_id');
     }
-
 }

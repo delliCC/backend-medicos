@@ -17,6 +17,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\SliderMainController;
 use App\Http\Controllers\TypeMethodController;
 use App\Http\Controllers\TypeSampleController;
+use App\Http\Controllers\HistoryMedicosController;
 use App\Http\Controllers\Reclutamiento\PuestosController;
 use App\Http\Controllers\Reclutamiento\VacantesController;
 use App\Http\Controllers\Reclutamiento\EmployeesController;
@@ -166,10 +167,20 @@ Route::group(['middlaware' => 'auth'], function() {
         Route::get('/crear', [MedicosController::class, 'create'])->name('medicos.create');
         Route::post('/guardar', [MedicosController::class, 'store'])->name('medicos.store');
         Route::get('/{id}', [MedicosController::class, 'edit'])->name('medicos.edit');
-        Route::get('/history-webinar/{id}', [MedicosController::class, 'historyWebinar'])->name('medicos.historyWebinar');
+        // Route::get('/history-webinar/{id}', [MedicosController::class, 'historyWebinar'])->name('medicos.historyWebinar');
         Route::put('/actualizar/{id}', [MedicosController::class, 'update'])->name('medicos.update');
         Route::get('/status/{id}/{status}', [MedicosController::class, 'changeStatus'])->name('medicos.status');
     });
+
+    Route::group(['prefix' => 'history-webinar'], function () {
+        Route::get('/{id}', [HistoryMedicosController::class, 'index'])->name('history.index');
+        Route::get('/listar/{id}', [HistoryMedicosController::class, 'listar'])->name('history.listar');
+        Route::get('/constancia/{id}', [HistoryMedicosController::class, 'constancia'])->name('history.constancia');
+
+        Route::get('/listar/training/{id}', [HistoryMedicosController::class, 'listarTraining'])->name('history.listar.training');
+        Route::get('/constancia/training/{id}', [HistoryMedicosController::class, 'constanciaTraining'])->name('history.constancia.training');
+    });
+
 
     Route::group(['prefix' => 'estudios'], function () {
         Route::get('/', [StudiesController::class, 'index'])->name('studies.index');

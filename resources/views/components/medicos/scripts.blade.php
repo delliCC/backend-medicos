@@ -26,7 +26,7 @@
           { "data": "especialidad_id" },
           { "data": "accion" }
         ]
-        $('#medicos-table').DataTable(configuracionesBasicasDatatable);
+        $('#medicosTable').DataTable(configuracionesBasicasDatatable);
       });
 
       const estadoDB = "{{!empty($medico) ? $medico->estado : ''}}"

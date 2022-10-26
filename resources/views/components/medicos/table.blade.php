@@ -1,4 +1,4 @@
-<table class="datatables-basic table" id="medicos-table">
+<table class="datatables-basic table" id="medicosTable">
   <thead>
     <tr>
       <th>Nombre</th>
