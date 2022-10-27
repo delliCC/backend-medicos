@@ -64,6 +64,9 @@ Route::group(['middlaware' => 'auth'], function() {
         Route::get('/{id}', [RolesController::class, 'edit'])->name('roles.edit');
         Route::put('/actualizar/{id}', [RolesController::class, 'update'])->name('roles.update');
         Route::get('/status/{id}/{status}', [RolesController::class, 'changeStatus'])->name('roles.status');
+
+        Route::get('/asignacion/{id}', [RolesController::class, 'asignacion'])->name('roles.asignacion');
+        Route::post('/asignacion/guardar', [RolesController::class, 'asignacionGuardar'])->name('asignacion.store');
     });
 
     Route::group(['prefix' => 'permisos'], function () {

@@ -97,7 +97,7 @@ class HistoryMedicosController extends Controller
             $btn .= '<a href="'.route("history.constancia.training", $row->training_id).'" class="btn btn btn-gradient-info btn-sm" target="_blank"><i data-feather="file"></i></a>';
             return $btn;
         })->addColumn('nombre', function($row) {
-           return $row->training->nombre;
+            return $row->training->nombre;
         })->addColumn('medico', function($row) {
             return $row->training->nombre_medico;
         })->rawColumns(['accion'])->make();

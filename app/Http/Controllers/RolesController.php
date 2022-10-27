@@ -70,17 +70,6 @@ class RolesController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -117,7 +106,44 @@ class RolesController extends Controller
         return DataTables::of($datos)->addColumn('accion', function($row){
             $btn = '<div class="demo-inline-spacing">';
             $btn .= '<a onclick="editarRol('.$row->id.',`'.$row->name.'`)" class="btn btn-outline-info btn-sm" data-toggle="modal" data-target="#default"><i data-feather="edit"></i></a>';
+            $btn .= '<a href="'.route("roles.asignacion", $row->id).'" class="btn btn-outline-success btn-sm"><i data-feather="list"></i></a>';
             return $btn;
         })->rawColumns(['accion'])->make();
     }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function asignacion($id)
+    {
+        $breadcrumbs = [
+            ['link'=>"roles", 'name'=>"Lista de rutas"], ['name'=>"Rutas"]
+        ];
+        $datos = Role::find($id);
+        $rutas = Permission::all()->pluck('name','id');
+        return view('/pages/roles/asignacion', ['breadcrumbs' => $breadcrumbs, 'datos' => $datos], compact('rutas'));
+
+    }
+    
+    public function asignacionGuardar(Request $request)
+    {
+        return $request;
+        $validation = Validator::make($request->all(), [
+            'name' => 'required|unique:roles'
+        ]);
+
+        if (count($validation->errors()) > 0) {
+            return response()->json(["error" => $validation->errors()], 422);
+        }
+
+        $role = Role::create($request->only('name'));
+
+        // $role->permissions()->sync($request->input('permissions', []));
+        $role->syncPermissions($request->input('permissions', []));
+
+        return redirect()->route('roles.index');
+    } 
 }

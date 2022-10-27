@@ -65,5 +65,40 @@
         $('#name').val(name);
       }
 
+//      const idRolDB = "{{!empty($datos) ? $datos->id : ''}}"
+
+      $('#formAsignacion').submit(event => {
+
+        $.ajax({
+          url:`/roles/asignacion/guardar`,
+          method: 'POST',
+          data: {
+            '_token': "{{ csrf_token() }}",
+            'name': event.target['name'].value
+          },
+          beforeSend: xhr => {
+            
+          }
+        }).done(response => {
+        
+          $('#default').modal('hide')
+            Swal.fire({
+              title: response.message,
+              text: 'Los datos se guardaron correctamente',
+              icon: 'success',
+              customClass: {
+                confirmButton: 'btn btn-primary'
+              },
+              buttonsStyling: false
+            });
+          location.reload()
+        }).fail(function (data) {
+          alert(data.responseJSON.errors)
+        });
+
+        event.preventDefault();
+      });
+
+
     </script>
 @endsection
