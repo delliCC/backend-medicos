@@ -69,7 +69,13 @@ class TrainingController extends Controller
      */
     public function edit($id)
     {
-        //
+        $breadcrumbs = [
+            ['link'=>"javascript:void(0)", 'name'=>"Capacitación"], ['name'=>"Editar"]
+        ];
+    
+        $datos = Training::find($id);
+        // return $datos->puesto->puesto;
+        return view('/pages/training/edit', ['breadcrumbs' => $breadcrumbs, 'datos' => $datos]);
     }
 
     /**
@@ -106,7 +112,7 @@ class TrainingController extends Controller
         )->get();
         return DataTables::of($datos)->addColumn('accion', function($row){
             $btn = '<div class="demo-inline-spacing">';
-            $btn .= '<a onclick="editarTraining('.$row->id.', `'.$row->nombre.'`)" class="btn btn-outline-info btn-sm" data-toggle="modal" data-target="#default"><i data-feather="edit"></i></a>';
+            $btn .= '<a href="'.route("training.edit", $row->id).'" class="btn btn-outline-info btn-sm"><i data-feather="edit"></i></a>';
             return $btn;
         })->addColumn('status', function($row) {
             return view('components.training.switch', ['data' => $row]);

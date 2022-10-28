@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Medico;
 use App\Models\Webinar;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -26,4 +27,8 @@ class HistoryWebinar extends Model
         return $this->belongsTo(Webinar::class, 'webinar_id');
     }
 
+    public function medico()
+    {
+        return $this->belongsTo(Medico::class, 'medico_id');
+    }
 }

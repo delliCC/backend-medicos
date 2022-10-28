@@ -118,7 +118,7 @@ class WebinarController extends Controller
     
             $test = $datosVimeo['body'];
                 $vimeo_id = str_replace("/videos/", "", $datosVimeo['body']['uri']);
-            $this->edit($vimeo_id);
+            $this->editVimeo($vimeo_id);
         // }
             
         return $datosVimeo;
@@ -185,6 +185,17 @@ class WebinarController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
+    {
+        $breadcrumbs = [
+            ['link'=>"javascript:void(0)", 'name'=>"Webinar"], ['name'=>"Editar"]
+        ];
+    
+        $datos = Webinar::find($id);
+        // return $datos->puesto->puesto;
+        return view('/pages/webinar/edit', ['breadcrumbs' => $breadcrumbs, 'datos' => $datos]);
+    }
+
+    public function editVimeo($id)
     {
         Vimeo::request("/videos/{$id}", [
             'privacy' => [
@@ -253,7 +264,7 @@ class WebinarController extends Controller
         )->get();
         return DataTables::of($datos)->addColumn('accion', function($row){
             $btn = '<div class="demo-inline-spacing">';
-            $btn .= '<a href="'.route("sample.edit", $row->id).'" class="btn btn-outline-info btn-sm" data-toggle="modal" data-target="#default"><i data-feather="edit"></i></a>';
+            $btn .= '<a href="'.route("sample.edit", $row->id).'" class="btn btn-outline-info btn-sm"><i data-feather="edit"></i></a>';
             return $btn;
         })->addColumn('status', function($row) {
             return view('components.webinar.switch', ['data' => $row]);

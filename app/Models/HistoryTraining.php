@@ -24,4 +24,9 @@ class HistoryTraining extends Model
     {
         return $this->belongsTo(Training::class, 'training_id');
     }
+
+    public function medico()
+    {
+        return $this->belongsTo(Medico::class, 'medico_id');
+    }
 }

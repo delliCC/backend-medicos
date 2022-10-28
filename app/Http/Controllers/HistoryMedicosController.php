@@ -68,10 +68,12 @@ class HistoryMedicosController extends Controller
             'fecha_inicio',
             'fecha_fin',
             'status'
-        )->with(['webinar'=> function ($query){
+        )->with(['medico'=> function ($query){
+            $query->select('id','nombre','apellido_paterno','apellido_materno');
+        }])->with(['webinar'=> function ($query){
             $query->select('id','nombre','nombre_medico');
         }])->where('webinar_id',$id)->first();
-
+        
         // return $id;
         $pdf = PDF::loadView('components.medicos.history.constancia', compact('datos'));
         return $pdf->stream('vvv');
@@ -112,12 +114,14 @@ class HistoryMedicosController extends Controller
             'fecha_inicio',
             'fecha_fin',
             'status'
-        )->with(['training'=> function ($query){
+        )->with(['medico'=> function ($query){
+            $query->select('id','nombre','apellido_paterno','apellido_materno');
+        }])->with(['training'=> function ($query){
             $query->select('id','nombre','nombre_medico');
         }])->where('medico_id',$id)->first();
 
         // return $id;
-        $pdf = PDF::loadView('components.medicos.history.training.constancia', compact('datos'));
+        $pdf = PDF::loadView('components.medicos.history.training.constancia', compact('datos'))->setPaper('a4', 'landscape');;
         return $pdf->stream('vvv');
             // return $pdf->download('solicitud_empleo.pdf');
     }
