@@ -7,7 +7,8 @@ use DataTables;
 use App\Models\Webinar;
 use Illuminate\Http\Request;
 use Vimeo\Laravel\VimeoManager;
-use Vinkla\Vimeo\Facades\Vimeo;
+// use Vinkla\Vimeo\Facades\Vimeo;
+use Vimeo\Laravel\Facades\Vimeo;
 use Illuminate\Support\Facades\Validator;
 
 class WebinarController extends Controller
@@ -84,11 +85,10 @@ class WebinarController extends Controller
         //     'video' => "required|max:{$limite}"
         // ]);
         
-        // return $validator;
         // if ($validator->fails()) {
         //     return redirect()->route('webinar.index')->with('mensajeError', 'Error, excede el limite de tamaño');
         // }
-        // return $request->all();
+
         // if ($validator->passes()) {
 
             $file = $request->file('webinar_url')->move(
@@ -113,7 +113,6 @@ class WebinarController extends Controller
             // ]);
             unlink($file);
 
-            return $url;
             $datosVimeo = Vimeo::request($url);
     
             $test = $datosVimeo['body'];
@@ -220,15 +219,14 @@ class WebinarController extends Controller
             ]
         ], 'PATCH');
         $domains = [
-             'laboratorioschontalpa.com.mx',
-             'localhost'
+            'laboratorioschontalpa.com.mx',
+            'localhost'
         ];
 
         foreach ($domains as $domain) {
             return Vimeo::request("/videos/{$id}/privacy/domains/{$domain}", [], 'PUT');
         }
     }
- 
 
     /**
      * Update the specified resource in storage.

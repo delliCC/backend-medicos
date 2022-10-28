@@ -177,6 +177,7 @@ return [
         App\Providers\MenuServiceProvider::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
+        Vimeo\Laravel\VimeoServiceProvider::class
     ],
 
     /*
@@ -231,6 +232,7 @@ return [
         'Helper' => App\Helpers\Helper::class,
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
+        'Vimeo' => Vimeo\Laravel\Facades\Vimeo::class
     ],
 
 ];

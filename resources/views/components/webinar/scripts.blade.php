@@ -43,6 +43,7 @@
         formData.append('imagen_portada', $('#imagen_portada')[0].files[0]);
         formData.append('imagen_medico_url', $('#imagen_medico_url')[0].files[0]);
         formData.append('ficha_url', $('#ficha_url')[0].files[0]);
+        console.log($('#webinar_url')[0].files[0] )
 
         $.ajax({
             url: `${$('#formWebinar').attr('action')}?${$('#formWebinar').serialize()}`,

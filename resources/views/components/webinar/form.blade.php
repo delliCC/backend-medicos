@@ -46,7 +46,7 @@
       <h4 class="mb-1">Webinar</h4>
       <small class="text-muted"> El tamaño máximo de archivo es de 250 GB.</small>
       <div class="custom-file b-form-file" data-v-3bcd05f2="" id="__BVID__1505__BV_file_outer_">
-        <input type="file" class="custom-file-input" id="webinar_url" style="z-index: -5;" accept="video/*">
+        <input type="file" class="custom-file-input" id="webinar_url" name="webinar_url" style="z-index: -5;" accept="video/*">
         <label data-browse="Browse" class="custom-file-label" for="webinar_url">
           <span class="d-block form-file-text" style="pointer-events: none;"></span></label>
       </div>
@@ -77,7 +77,7 @@
       {{--  <h4 class="mb-1">Ficha indica</h4>  --}}
       <small class="text-muted"> El tamaño máximo de archivo es de 250 GB.</small>
       <div class="custom-file b-form-file" data-v-3bcd05f2="" id="__BVID__1505__BV_file_outer_">
-        <input type="file" class="custom-file-input" id="ficha_url" style="z-index: -5;" accept="application/pdf">
+        <input type="file" class="custom-file-input" id="ficha_url" name="ficha_url" style="z-index: -5;" accept="application/pdf">
         <label data-browse="Browse" class="custom-file-label" for="ficha_url">
           <span class="d-block form-file-text" style="pointer-events: none;"></span></label>
       </div>
@@ -107,7 +107,7 @@
       <h4 class="mb-1">Portada</h4>
       <small class="text-muted"> El tamaño máximo de archivo es de 250 GB.</small>
       <div class="custom-file b-form-file" data-v-3bcd05f2="" id="__BVID__1505__BV_file_outer_">
-        <input type="file" class="custom-file-input" id="imagen_portada" style="z-index: -5;" accept="image/*">
+        <input type="file" class="custom-file-input" id="imagen_portada" name="imagen_portada" style="z-index: -5;" accept="image/*">
         <label data-browse="Browse" class="custom-file-label" for="imagen_portada">
           <span class="d-block form-file-text" style="pointer-events: none;"></span></label>
       </div>
@@ -119,7 +119,7 @@
       <h4 class="mb-1">Trailer</h4>
       <small class="text-muted"> El tamaño máximo de archivo es de 250 GB.</small>
       <div class="custom-file b-form-file" data-v-3bcd05f2="" id="__BVID__1505__BV_file_outer_">
-        <input type="file" class="custom-file-input" id="trailer_url" style="z-index: -5;" accept="video/*">
+        <input type="file" class="custom-file-input" id="trailer_url" name="trailer_url" style="z-index: -5;" accept="video/*">
         <label data-browse="Browse" class="custom-file-label" for="trailer_url">
           <span class="d-block form-file-text" style="pointer-events: none;"></span></label>
       </div>
@@ -161,7 +161,7 @@
       <h4 class="mb-1">Foto</h4>
       <small class="text-muted"> El tamaño máximo de archivo es de 250 GB.</small>
       <div class="custom-file b-form-file" data-v-3bcd05f2="" id="__BVID__1505__BV_file_outer_">
-        <input type="file" class="custom-file-input" id="imagen_medico_url" style="z-index: -5;" accept="image/*">
+        <input type="file" class="custom-file-input" id="imagen_medico_url" name="imagen_medico_url" style="z-index: -5;" accept="image/*">
         <label data-browse="Browse" class="custom-file-label" for="imagen_medico_url">
           <span class="d-block form-file-text" style="pointer-events: none;"></span></label>
       </div>
