@@ -20,10 +20,8 @@
         configuracionesBasicasDatatable['ajax'] = "estudios/listar"
         configuracionesBasicasDatatable['columns'] = [
           { "data": "titulo" },
-          {{--  { "data": "descripcion" },  --}}
           { "data": "metodo" },
           { "data": "muestra" },
-          {{--  { "data": "informacion_clinica" },  --}}
           { "data": "status" },
           { "data": "accion" }
         ]
@@ -56,6 +54,7 @@
         formData.append('descripcion', $('#descripcion').val());
         formData.append('informacion_clinica', $('#informacion').val());
         formData.append('precauciones', $('#precauciones').val());
+        formData.append('indicaciones', $('#indicaciones').val());
 
         for(var a=0; a<selectMetodo.length; a++){
           var metodos = selectMetodo[a]
@@ -84,8 +83,8 @@
             data: formData,
             processData: false,
             beforeSend: xhr => {
-             
-           }
+            
+            }
           }).done(response => {
               Swal.fire({
                 title: response.message,

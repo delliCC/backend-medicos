@@ -20,6 +20,7 @@ class Studies extends Model
         'precauciones',
         'imagen_destacada',
         'imagen_portada',
+        'indicaciones',
         'status'
     ];
 

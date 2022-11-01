@@ -21,6 +21,7 @@ class Studies extends Migration
             $table->text('precauciones');
             $table->string('imagen_destacada');
             $table->string('imagen_portada');
+            $table->text('indicaciones');
             $table->boolean('status')->default(true);
             $table->timestamps();
         });

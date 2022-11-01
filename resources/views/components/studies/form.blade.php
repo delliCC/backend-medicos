@@ -86,6 +86,18 @@
         </fieldset>
     </div>
 
+    <div class="col-xl-6 col-md-6 col-12">
+        <fieldset class="form-group">
+            <label for="indicaciones">Indicaciones <i style="color: red">*</i></label>
+            <textarea class="form-control @error('indicaciones') is-invalid @enderror" name="indicaciones" placeholder="indicaciones" id="indicaciones">{{ isset($datos) ? $datos->indicaciones : '' }}</textarea>
+            @error('indicaciones')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+            @enderror
+        </fieldset>
+    </div>
+
     <div class="col-6 mb-2">
       <fieldset class="form-group">
         <h4 class="mb-1">Imagen</h4>

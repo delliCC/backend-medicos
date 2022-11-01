@@ -18,6 +18,7 @@ class StudiesController extends Controller
             'descripcion',
             'informacion_clinica',
             'precauciones',
+            'indicaciones',
             'status'
         )->with(['metodos'=> function ($query){
             $query->select('id','estudio_id','metodo_id','status')->where('status',1)->with(['metodo'=> function ($query){
@@ -46,6 +47,7 @@ class StudiesController extends Controller
             'precauciones',
             'imagen_destacada',
             'imagen_portada',
+            'indicaciones',
             'status'
         )->with(['metodos'=> function ($query){
             $query->select('id','estudio_id','metodo_id','status')->where('status',1)->with(['metodo'=> function ($query){

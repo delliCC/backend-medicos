@@ -57,6 +57,7 @@ class StudiesController extends Controller
             'metodo_id' => 'required',
             'muestra_id' => 'required',
             'informacion_clinica' => 'required',
+            'indicaciones' => 'required',
         ]);
 
         $imagenDestacada = null;
@@ -83,6 +84,7 @@ class StudiesController extends Controller
             'precauciones'=>$request->precauciones,
             'imagen_destacada'=>$imagenDestacada['url'],
             'imagen_portada'=>$imagenPortada['url'],
+            'indicaciones' => $request->indicaciones,
         ]);
 
         foreach ($request->metodo_id as $metodo) {
@@ -150,6 +152,7 @@ class StudiesController extends Controller
             'muestra_id' => 'required',
             'informacion_clinica' => 'required',
             'precauciones'=> 'required',
+            'indicaciones' => 'required',
         ]);
 
         $estudios = Studies::find($id);
@@ -178,6 +181,7 @@ class StudiesController extends Controller
             'descripcion',
             'informacion_clinica',
             'precauciones',
+            'indicaciones',
             'status'
         )->with(['metodos'=> function ($query){
             $query->select('*')->where('status',1)->with(['metodo'=> function ($query){

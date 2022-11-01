@@ -28,7 +28,7 @@
         $('#tableWebinar').DataTable(configuracionesBasicasDatatable);
       });
  
-      $('#formWebinar').submit(event => {
+      {{--  $('#formWebinar').submit(event => {
   
         let formData = new FormData();
         formData.append('nombre', $('#nombre').val());
@@ -63,12 +63,12 @@
                 },
                 buttonsStyling: false
               });
-              {{--  location.reload()  --}}
+
         }).fail(function (data) {
           console.log(data)
           alert(data.responseJSON.errors)
         });
-      });  
+      });     --}}
 
       function editarEspecilidad(id, nombre) {
         $('#webinar_id').val(id);
