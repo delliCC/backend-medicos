@@ -52,9 +52,9 @@ use App\Http\Controllers\Reclutamiento\SucursalesController;
 
 Auth::routes(["register" => false]);
 
-Route::get('/portal-medicos/login', [LoginController::class, 'showLoginForm']);
+Route::get('/', [LoginController::class, 'showLoginForm']);
 
-Route::post('/portal-medicos/login', [LoginController::class, 'login'])->name('login');
+Route::post('/login', [LoginController::class, 'login'])->name('login');
 
 Route::group(['middlaware' => '/portal-medicos/auth'], function() {
     Route::get('/portal-medicos/home', [HomeController::class, 'index'])->name('home');
