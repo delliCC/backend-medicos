@@ -28,7 +28,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = "/";
+    protected $redirectTo = "/portal-medicos";
 
     /**
      * Create a new controller instance.
@@ -68,7 +68,7 @@ class LoginController extends Controller
             $usuario = Auth::user();
 
             if($usuario->status == 1){
-                return redirect('/home')->with('message', 'Sesion iniciada correctamente');
+                return redirect('/portal-medicos/home')->with('message', 'Sesion iniciada correctamente');
             }else {
                 Auth::logout();
                 return back()->with('error', 'El usuario no esta activo')->withInput();
@@ -90,7 +90,7 @@ class LoginController extends Controller
 
         $request->session()->invalidate();
 
-        return $this->loggedOut($request) ?: redirect('/login');
+        return $this->loggedOut($request) ?: redirect('/portal-medicos/login');
     }
 
     public function username(){

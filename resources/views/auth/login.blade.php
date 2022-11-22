@@ -1,6 +1,6 @@
 @extends('layouts/fullLayoutMaster')
 
-@section('title', 'Login Page')
+@section('title', 'Login')
 
 @section('page-style')
 {{-- Page Css files --}}
@@ -39,7 +39,7 @@
             </g>
           </svg>  --}}
           {{--  <h2 class="brand-text text-primary ml-1">Vuexy</h2>  --}}
-          <img src="https://laboratorios-chontalpa-file.s3.amazonaws.com/laboratorios-chontalpa-logotipo1.png" alt="">
+          <img src="https://laboratorios-chontalpa-file.s3.amazonaws.com/assets/laboratorios-chontalpa-logotipo1.png" alt="">
         </a>
 
         <h4 class="card-title mb-1">PORTAL</h4>

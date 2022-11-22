@@ -14,24 +14,22 @@ class StudiesController extends Controller
         $datos = Studies::select(
             'id',
             'titulo',
-            'imagen_portada',
             'descripcion',
             'informacion_clinica',
             'precauciones',
+            'imagen_destacada',
+            'imagen_portada',
             'indicaciones',
             'status'
         )->with(['metodos'=> function ($query){
-            $query->select('id','estudio_id','metodo_id','status')->where('status',1)->with(['metodo'=> function ($query){
+            $query->select('id','estudio_id','metodo_id','status')->with(['metodo'=> function ($query){
                 $query->select('id', 'metodo');
             }]);
         }])->with(['muestras'=> function ($query){
-            $query->select('id',
-            'estudio_id',
-            'muestra_id',
-            'status')->where('status',1)->with(['muestra'=> function ($query){
+            $query->select('id','estudio_id','muestra_id','status')->with(['muestra'=> function ($query){
                 $query->select('id', 'muestra');
             }]);
-        }])->get();
+        }])->where('status',1)->get();
 
         $array = json_decode($datos, true);
         return $this->sendResponse($array, 'Lista de estudios', 200);

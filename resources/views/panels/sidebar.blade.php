@@ -5,7 +5,7 @@ $configData = Helper::applClasses();
   <div class="navbar-header">
     <ul class="nav navbar-nav flex-row">
       <li class="nav-item mr-auto">
-        <a class="navbar-brand" href="{{url('/')}}">
+        <a class="navbar-brand" href="{{url('/portal-medicos/home')}}">
           <span class="brand-logo">
             {{--  <img src="https://laboratorios-chontalpa-file.s3.amazonaws.com/favicon.png" alt="">   --}}
             <img src="https://laboratorios-chontalpa-file.s3.amazonaws.com/assets/laboratorios-chontalpa-logotipo1.png" alt="">
