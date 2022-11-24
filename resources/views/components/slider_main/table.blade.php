@@ -5,6 +5,7 @@
       <th>nombre</th>
       <th>imagen</th>
       <th>descripción</th>
+      <th>direccionar</th>
       <th>estatus</th>
       <th>acción</th>
     </tr>

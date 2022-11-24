@@ -10,7 +10,7 @@
           {
             extend: 'pdf',
             exportOptions: {
-              columns: [ 0, 1, 2, 3 ]
+              columns: [ 0, 1, 2, 3,4 ]
             }
           }
         ]
@@ -22,6 +22,7 @@
           { "data": "nombre" },
           { "data": "imagen" },
           { "data": "descripcion" },
+          { "data": "direccionar" },
           { "data": "status" },
           { "data": "accion" }
         ]
@@ -33,6 +34,7 @@
 
         formData.append('nombre', $('#nombre').val());
         formData.append('descripcion', $('#descripcion').val());
+        formData.append('direccionar', $('#direccionar').val());
         formData.append('imagen', $('#imagen')[0].files[0]);
 		
         const idSlider = event.target['slider_id'].value

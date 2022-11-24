@@ -162,6 +162,7 @@ class SliderMainController extends Controller
             'nombre',
             'imagen',
             'descripcion',
+            'direccionar',
             'status'
         )->get();
         return DataTables::of($ficha)->addColumn('accion', function($row){

@@ -51,15 +51,16 @@ use App\Http\Controllers\Reclutamiento\SucursalesController;
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Auth::routes(["register" => false]);
+Auth::routes(['login' => false]);
 
 Route::get('/', [LoginController::class, 'showLoginForm']);
 
 Route::post('/login', [LoginController::class, 'login'])->name('login');
 
-Route::group(['middlaware' => '/portal-medicos/auth'], function() {
-    Route::get('/portal-medicos/home', [HomeController::class, 'index'])->name('home');
+Route::group(['middlaware' => '/auth'], function() {
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-    Route::group(['prefix' => '/portal-medicos/roles'], function () {
+    Route::group(['prefix' => '/roles'], function () {
         Route::get('/', [RolesController::class, 'index'])->name('roles.index');
         Route::get('/listar', [RolesController::class, 'listar']);
         Route::post('/guardar', [RolesController::class, 'store'])->name('roles.store');
