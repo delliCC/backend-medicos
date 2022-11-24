@@ -15,6 +15,7 @@ class Slider extends Model
         'nombre',
         'imagen',
         'descripcion',
+        'direccionar',
         'status'
     ];
 }

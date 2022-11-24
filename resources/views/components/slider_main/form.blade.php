@@ -23,6 +23,18 @@
         @enderror
     </fieldset>
   </div>
+  <div class="col-12 mb-1">
+    <fieldset class="form-group">
+        <input type="hidden" id="slider_id">
+        <label for="direccionar">Direccionar</label>
+        <input type="text" id="direccionar" value="{{ old('direccionar', isset($datos) ? $datos->direccionar : '') }}" class="form-control @error('direccionar') is-invalid @enderror" name="direccionar"  placeholder="url">
+        @error('direccionar')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
+    </fieldset>
+  </div>
 
   <div class="col-12 mb-2">
     <div class="border rounded p-2">

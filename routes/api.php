@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\API\BlogController;
 use App\Http\Controllers\API\LoginController;
+use App\Http\Controllers\API\SliderController;
 use App\Http\Controllers\API\EstadosController;
 use App\Http\Controllers\API\StudiesController;
 use App\Http\Controllers\API\TrainigController;
@@ -29,6 +30,10 @@ use App\Http\Controllers\API\SucursalesController;
 // });
 
 // ********************************* Vacantes *************************************
+Route::group(['prefix' => 'slider'], function () {
+    Route::get('/', [SliderController::class, 'index']);
+});
+
 Route::group(['prefix' => 'sucursales'], function () {
     Route::get('/', [SucursalesController::class, 'index']);
 });

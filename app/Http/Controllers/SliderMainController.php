@@ -46,6 +46,7 @@ class SliderMainController extends Controller
         $this->validate($request, [
             'nombre' => 'required',
             'descripcion' => 'required',
+            'direccionar' => 'required',
         ]);
 
         $imagen = null;
@@ -61,6 +62,7 @@ class SliderMainController extends Controller
         Slider::create([
             'nombre'=> $request->nombre,
             'descripcion'=> $request->descripcion,
+            'direccionar'=> $request->direccionar,
             'imagen'=>$imagen['url'],
         ]);
         DB::commit();
@@ -107,6 +109,7 @@ class SliderMainController extends Controller
         $this->validate($request, [
             'nombre' => 'required',
             'descripcion' => 'required',
+            'direccionar' => 'required',
         ]);
 
         $imagen = null;
@@ -130,6 +133,7 @@ class SliderMainController extends Controller
         $data = [
             'nombre' => $request->nombre,
             'descripcion' => $request->descripcion,
+            'direccionar'=> $request->direccionar,
         ];
 
         if (null !== $imagen) {

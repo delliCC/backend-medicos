@@ -18,6 +18,7 @@ class SliderPrincipal extends Migration
             $table->string('nombre');
             $table->string('imagen');
             $table->text('descripcion');
+            $table->string('direccionar');
             $table->boolean('status')->default(true);
             $table->timestamps();
         });
